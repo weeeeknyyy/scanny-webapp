@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Scanny</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root {
+    --tg-bg: #0E1117;
+    --tg-surface: #161B22;
+    --tg-text: #E6EDF3;
+    --tg-hint: #8B96A5;
+    --tg-border: #262C36;
+    --accent: #39FF88;
+    --accent-dim: #1E8A52;
+    --long: #39FF88;
+    --short: #FF5C6C;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    margin: 0;
+    background: var(--tg-bg);
+    color: var(--tg-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+    padding-bottom: 28px;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SF Mono", "Roboto Mono", Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- Header: scanning status --- */
+  .header {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--tg-border);
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .brand h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+  .brand span.tag { color: var(--tg-hint); font-size: 13px; }
+
+  .scan-status {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--tg-hint);
+    font-size: 13px;
+  }
+  .pulse-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(57,255,136,0.6);
+    animation: pulse 1.8s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(57,255,136,0.55); }
+    70%  { box-shadow: 0 0 0 7px rgba(57,255,136,0); }
+    100% { box-shadow: 0 0 0 0 rgba(57,255,136,0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pulse-dot { animation: none; }
+  }
+
+  /* --- Tabs --- */
+  .tabs {
+    display: flex;
+    margin: 16px 18px 4px;
+    background: var(--tg-surface);
+    border-radius: 10px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 9px 6px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: var(--tg-hint);
+    cursor: pointer;
+    user-select: none;
+  }
+  .tab.active {
+    background: var(--tg-bg);
+    color: var(--tg-text);
+    font-weight: 600;
+  }
+
+  .panel { display: none; padding: 18px; }
+  .panel.active { display: block; }
+
+  /* --- Tariff rows (no card-kit shadows, accent bar instead) --- */
+  .tariff {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 14px 14px 16px;
+    margin-bottom: 10px;
+    background: var(--tg-surface);
+    border-radius: 10px;
+    border-left: 3px solid var(--accent-dim);
+  }
+  .tariff.combo { border-left-color: var(--accent); }
+
+  .tariff-main { flex: 1; min-width: 0; }
+  .tariff-name { font-weight: 600; font-size: 15px; }
+  .tariff-desc { color: var(--tg-hint); font-size: 12.5px; margin-top: 2px; }
+  .tariff-price {
+    font-size: 14px;
+    margin-top: 6px;
+  }
+  .tariff-price .amount { color: var(--accent); font-weight: 700; }
+
+  .btn-select {
+    flex-shrink: 0;
+    background: transparent;
+    border: 1px solid var(--accent-dim);
+    color: var(--accent);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-select:active { background: rgba(57,255,136,0.08); }
+
+  .section-label {
+    color: var(--tg-hint);
+    font-size: 12.5px;
+    margin: 18px 0 8px 2px;
+  }
+
+  /* --- Subscription panel --- */
+  .sub-empty {
+    text-align: center;
+    padding: 36px 20px;
+    color: var(--tg-hint);
+  }
+  .sub-empty .big-num { font-size: 34px; font-weight: 700; color: var(--tg-text); font-family: ui-monospace, monospace; }
+  .sub-empty p { font-size: 13.5px; margin-top: 6px; }
+
+  .demo-signal {
+    background: var(--tg-surface);
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 16px;
+    border-left: 3px solid var(--long);
+  }
+  .demo-signal .row { display: flex; justify-content: space-between; font-size: 13px; padding: 3px 0; }
+  .demo-signal .row .k { color: var(--tg-hint); }
+  .demo-signal .row .v { font-family: ui-monospace, monospace; }
+  .demo-signal .tag-long { color: var(--long); font-weight: 700; }
+
+  /* --- Settings panel --- */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 2px;
+    border-bottom: 1px solid var(--tg-border);
+  }
+  .toggle-row:last-child { border-bottom: none; }
+  .toggle-label { font-size: 14.5px; }
+  .toggle-sub { color: var(--tg-hint); font-size: 12px; margin-top: 2px; }
+
+  .switch {
+    position: relative;
+    width: 42px; height: 24px;
+    background: var(--tg-border);
+    border-radius: 999px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .switch::after {
+    content: "";
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 20px; height: 20px;
+    background: var(--tg-hint);
+    border-radius: 50%;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .switch.on { background: var(--accent-dim); }
+  .switch.on::after { background: var(--accent); transform: translateX(18px); }
+
+  .notice {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--tg-hint);
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%; bottom: 22px;
+    transform: translateX(-50%) translateY(12px);
+    background: var(--tg-surface);
+    border: 1px solid var(--tg-border);
+    color: var(--tg-text);
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="brand">
+      <h1>Scanny</h1>
+      <span class="tag">сканер уровней и объёма</span>
+    </div>
+    <div class="scan-status">
+      <span class="pulse-dot"></span>
+      <span>сканирую рынок · 24 пары · 2Ч / 30М</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="tariffs">Тарифы</div>
+    <div class="tab" data-tab="subscription">Подписка</div>
+    <div class="tab" data-tab="settings">Настройки</div>
+  </div>
+
+  <!-- ТАРИФЫ -->
+  <div class="panel active" id="panel-tariffs">
+    <div class="section-label">Отдельные тарифы</div>
+
+    <div class="tariff">
+      <div class="tariff-main">
+        <div class="tariff-name">Ретест уровней</div>
+        <div class="tariff-desc">Алерты, когда цена возвращается к пробитому уровню и отбивается</div>
+        <div class="tariff-price">от <span class="amount">9 USDT</span>/мес</div>
+      </div>
+      <button class="btn-select" data-tariff="retest">Выбрать</button>
+    </div>
+
+    <div class="tariff">
+      <div class="tariff-main">
+        <div class="tariff-name">Уровни П/С</div>
+        <div class="tariff-desc">Новые значимые уровни поддержки и сопротивления по мере формирования</div>
+        <div class="tariff-price">от <span class="amount">9 USDT</span>/мес</div>
+      </div>
+      <button class="btn-select" data-tariff="levels">Выбрать</button>
+    </div>
+
+    <div class="tariff">
+      <div class="tariff-main">
+        <div class="tariff-name">Аномальный объём</div>
+        <div class="tariff-desc">Всплески объёма с адаптивным порогом по каждой паре</div>
+        <div class="tariff-price">от <span class="amount">9 USDT</span>/мес</div>
+      </div>
+      <button class="btn-select" data-tariff="volume">Выбрать</button>
+    </div>
+
+    <div class="section-label">Комбо</div>
+
+    <div class="tariff combo">
+      <div class="tariff-main">
+        <div class="tariff-name">Scanny Full</div>
+        <div class="tariff-desc">Все три тарифа вместе, дешевле по отдельности на 30%</div>
+        <div class="tariff-price">от <span class="amount">19 USDT</span>/мес</div>
+      </div>
+      <button class="btn-select" data-tariff="combo">Выбрать</button>
+    </div>
+
+    <div class="notice">Цены — заглушка для демонстрации интерфейса. Оплата пока не подключена.</div>
+  </div>
+
+  <!-- ПОДПИСКА -->
+  <div class="panel" id="panel-subscription">
+    <div class="sub-empty">
+      <div class="big-num">0</div>
+      <p>Активных тарифов нет.<br>Выбери тариф на вкладке «Тарифы».</p>
+    </div>
+
+    <div class="section-label">Так будет выглядеть сигнал</div>
+    <div class="demo-signal">
+      <div class="row"><span class="k">Тип</span><span class="v tag-long">RETEST · LONG</span></div>
+      <div class="row"><span class="k">Пара</span><span class="v">BTC/USDT</span></div>
+      <div class="row"><span class="k">Таймфрейм</span><span class="v">2Ч</span></div>
+      <div class="row"><span class="k">Уровень</span><span class="v">61 200</span></div>
+      <div class="row"><span class="k">Цена</span><span class="v">61 450</span></div>
+    </div>
+    <div class="notice">Пример оформления уведомления. Реальные алерты пока не отправляются.</div>
+  </div>
+
+  <!-- НАСТРОЙКИ -->
+  <div class="panel" id="panel-settings">
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">Ретест уровней</div>
+        <div class="toggle-sub">Уведомлять об отбоях от уровней</div>
+      </div>
+      <div class="switch" data-setting="retest"></div>
+    </div>
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">Уровни П/С</div>
+        <div class="toggle-sub">Уведомлять о новых уровнях</div>
+      </div>
+      <div class="switch" data-setting="levels"></div>
+    </div>
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">Аномальный объём</div>
+        <div class="toggle-sub">Уведомлять о всплесках объёма</div>
+      </div>
+      <div class="switch" data-setting="volume"></div>
+    </div>
+    <div class="notice">Переключатели кликабельны, но ничего не сохраняют — это макет.</div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+  const tg = window.Telegram?.WebApp;
+  if (tg) {
+    tg.ready();
+    tg.expand();
+  }
+
+  // --- вкладки ---
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById("panel-" + tab.dataset.tab).classList.add("active");
+      tg?.HapticFeedback?.selectionChanged();
+    });
+  });
+
+  // --- тост-уведомление (общая заглушка для нерабочих кнопок) ---
+  function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 1700);
+  }
+
+  // --- выбор тарифа (пока не работает) ---
+  document.querySelectorAll(".btn-select").forEach(btn => {
+    btn.addEventListener("click", () => {
+      tg?.HapticFeedback?.impactOccurred("light");
+      if (tg?.showPopup) {
+        tg.showPopup({ title: "Scanny", message: "Оплата пока не подключена — это макет интерфейса.", buttons: [{ type: "ok" }] });
+      } else {
+        showToast("Оплата пока не подключена");
+      }
+    });
+  });
+
+  // --- переключатели настроек (визуальные, без сохранения) ---
+  document.querySelectorAll(".switch").forEach(sw => {
+    sw.addEventListener("click", () => {
+      sw.classList.toggle("on");
+      tg?.HapticFeedback?.selectionChanged();
+      showToast("Настройки пока не сохраняются");
+    });
+  });
+</script>
+</body>
+</html>
