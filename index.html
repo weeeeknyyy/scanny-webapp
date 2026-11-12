@@ -830,9 +830,9 @@
     });
   }
 
-  function orderPlan(planId) {
+ function orderPlan(planId) {
     const initData = window.Telegram?.WebApp?.initData || "";
-    fetch("/api/payments/create-invoice", {
+    fetch("https://157.228.127.251.nip.io/api/payments/create-invoice", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -867,27 +867,3 @@
         alert((currentLang === 'ru' ? "Ошибка: " : "Error: ") + err.message);
     });
   }
-
-  // Загрузка начальных данных пользователя при открытии
-  window.addEventListener('DOMContentLoaded', () => {
-    fetch('/api/me', {
-      headers: { 'X-Telegram-Init-Data': tg?.initData || '' }
-    }).then(r => r.json()).then(user => {
-      if (user.first_name) {
-        document.getElementById('profile-name').textContent = user.first_name;
-        document.getElementById('user-avatar-initials').textContent = user.first_name.slice(0, 2).toUpperCase();
-      }
-      if (user.ref_link) {
-        document.getElementById('ref-link-input').value = user.ref_link;
-      }
-      if (user.bonus_pro_days !== undefined) {
-        document.getElementById('bonus-days-val').textContent = user.bonus_pro_days;
-      }
-      if (user.days_left !== undefined) {
-        document.getElementById('top-plan-badge').textContent = `Триал: осталось ${user.days_left} дн.`;
-      }
-    }).catch(() => {});
-  });
-</script>
-</body>
-</html>
