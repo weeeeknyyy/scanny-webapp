@@ -832,7 +832,34 @@
   }
 
   function orderPlan(planId) {
-    alert(currentLang === 'ru' ? `Оплата ${planId.toUpperCase()} через CryptoBot будет доступна на Этапе 8.` : `CryptoBot payment for ${planId} will be connected in Stage 8.`);
+    const initData = window.Telegram?.WebApp?.initData || "";
+    fetch("/api/payments/create-invoice", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-Telegram-Init-Data": initData
+        },
+        body: JSON.stringify({ plan: planId, months: 1 })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.pay_url) {
+            if (window.Telegram?.WebApp?.openInvoice) {
+                window.Telegram.WebApp.openInvoice(data.pay_url, (status) => {
+                    if (status === "paid") {
+                        alert(currentLang === 'ru' ? "Оплата успешно завершена!" : "Payment successful!");
+                    }
+                });
+            } else {
+                window.open(data.pay_url, "_blank");
+            }
+        } else {
+            alert((currentLang === 'ru' ? "Ошибка создания счета: " : "Invoice error: ") + (data.detail || "Unknown"));
+        }
+    })
+    .catch(err => {
+        alert((currentLang === 'ru' ? "Ошибка сети: " : "Network error: ") + err);
+    });
   }
 
   // Загрузка начальных данных пользователя при открытии
