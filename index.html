@@ -840,20 +840,19 @@
         },
         body: JSON.stringify({ plan: planId, months: 1 })
     })
-    .then(res => res.json())
-    .then(data => {
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
         if (data.pay_url) {
-            // Открываем ссылку на оплату CryptoBot через безопасный метод Telegram
-            if (window.Telegram?.WebApp?.openTelegramLink) {
+            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openTelegramLink) {
                 window.Telegram.WebApp.openTelegramLink(data.pay_url);
             } else {
                 window.open(data.pay_url, "_blank");
             }
         } else {
-            alert((currentLang === 'ru' ? "Ошибка создания счета: " : "Invoice error: ") + (data.detail || "Unknown"));
+            alert("Ошибка создания счета: " + (data.detail || "Unknown"));
         }
     })
-    .catch(err => {
-        alert((currentLang === 'ru' ? "Ошибка сети: " : "Network error: ") + err);
+    .catch(function(err) {
+        alert("Ошибка сети: " + err);
     });
   }
