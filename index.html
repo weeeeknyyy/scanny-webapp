@@ -840,54 +840,20 @@
         },
         body: JSON.stringify({ plan: planId, months: 1 })
     })
-    .then(async res => {
-        const text = await res.text();
-        try {
-            return JSON.parse(text);
-        } catch (e) {
-            throw new Error("Сервер вернул не JSON: " + text.slice(0, 100));
-        }
-    })
+    .then(res => res.json())
     .then(data => {
         if (data.pay_url) {
-            if (window.Telegram?.WebApp?.openInvoice) {
-                window.Telegram.WebApp.openInvoice(data.pay_url, (status) => {
-                    if (status === "paid") {
-                        alert(currentLang === 'ru' ? "Оплата успешно завершена!" : "Payment successful!");
-                    }
-                });
+            // Открываем ссылку на оплату CryptoBot через безопасный метод Telegram
+            if (window.Telegram?.WebApp?.openTelegramLink) {
+                window.Telegram.WebApp.openTelegramLink(data.pay_url);
             } else {
                 window.open(data.pay_url, "_blank");
             }
         } else {
-            alert((currentLang === 'ru' ? "Ошибка создания счета: " : "Invoice error: ") + (data.detail || JSON.stringify(data)));
+            alert((currentLang === 'ru' ? "Ошибка создания счета: " : "Invoice error: ") + (data.detail || "Unknown"));
         }
     })
     .catch(err => {
-        alert((currentLang === 'ru' ? "Ошибка: " : "Error: ") + err.message);
+        alert((currentLang === 'ru' ? "Ошибка сети: " : "Network error: ") + err);
     });
   }
-
-  // Загрузка начальных данных пользователя при открытии
-  window.addEventListener('DOMContentLoaded', () => {
-    fetch('/api/me', {
-      headers: { 'X-Telegram-Init-Data': tg?.initData || '' }
-    }).then(r => r.json()).then(user => {
-      if (user.first_name) {
-        document.getElementById('profile-name').textContent = user.first_name;
-        document.getElementById('user-avatar-initials').textContent = user.first_name.slice(0, 2).toUpperCase();
-      }
-      if (user.ref_link) {
-        document.getElementById('ref-link-input').value = user.ref_link;
-      }
-      if (user.bonus_pro_days !== undefined) {
-        document.getElementById('bonus-days-val').textContent = user.bonus_pro_days;
-      }
-      if (user.days_left !== undefined) {
-        document.getElementById('top-plan-badge').textContent = `Триал: осталось ${user.days_left} дн.`;
-      }
-    }).catch(() => {});
-  });
-</script>
-</body>
-</html>
