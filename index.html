@@ -111,12 +111,12 @@
 <div id="tab-overview" class="tab-content space-y-4">
   <div class="glass-card p-4 flex justify-between items-center">
     <div>
-      <h2 class="font-semibold text-white text-base" data-i18n="screener_status">Скринер фьючерсов</h2>
-      <p class="text-xs text-purple-300" data-i18n="scanning_status">Активен 24/7 · 6 бирж</p>
+      <h2 class="font-semibold text-white text-base">Скринер фьючерсов</h2>
+      <p class="text-xs text-purple-300">Активен 24/7 · 6 бирж</p>
     </div>
     <span class="px-3 py-1 text-xs rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-medium flex items-center gap-1">
       <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span data-i18n="running">В работе</span>
+      <span>В работе</span>
     </span>
   </div>
 
@@ -204,14 +204,14 @@
   </div>
 </div>
 
-<!-- ================= 3. TAB: СКРИНЕРЫ (ТФ ДЛЯ КАЖДОГО МОДУЛЯ) ================= -->
+<!-- ================= 3. TAB: СКРИНЕРЫ (4 МОДУЛЯ С ТФ) ================= -->
 <div id="tab-screeners" class="tab-content hidden space-y-4">
   <div class="flex justify-between items-center mb-1 px-1">
     <h2 class="font-semibold text-white text-base">Настройка модулей</h2>
     <button onclick="resetDefaults()" class="text-xs text-purple-400 hover:text-purple-300 underline">Сбросить всё</button>
   </div>
 
-  <!-- БЛОК 1: Уровни и Ретест -->
+  <!-- БЛОК 1: Уровни -->
   <div id="module-card-levels" class="glass-card p-4 space-y-3 border-l-4 border-l-purple-500">
     <h3 class="font-bold text-white text-sm flex items-center gap-2">🟣 Уровни и Ретест</h3>
     <div>
@@ -256,7 +256,7 @@
     </div>
   </div>
 
-  <!-- БЛОК 2: Объём и Свипы -->
+  <!-- БЛОК 2: Объём -->
   <div id="module-card-volume" class="glass-card p-4 space-y-3 border-l-4 border-l-blue-500">
     <h3 class="font-bold text-white text-sm flex items-center gap-2">🔵 Объём и Свипы (Liquidity Grab)</h3>
     <div>
@@ -357,7 +357,7 @@
   </div>
 </div>
 
-<!-- ================= 5. TAB: ПРОФИЛЬ ================= -->
+<!-- ================= 5. TAB: ПРОФИЛЬ (С ТАРИФАМИ И РЕФЕРАЛКОЙ) ================= -->
 <div id="tab-profile" class="tab-content hidden space-y-4">
   <div class="glass-card p-4 flex items-center gap-3">
     <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-bold text-lg text-white" id="user-avatar-initials">TR</div>
@@ -388,6 +388,7 @@
 
   <div class="space-y-3">
     <h3 class="font-semibold text-white text-sm">Тарифные планы</h3>
+
     <div class="glass-card p-3.5">
       <div class="flex justify-between items-start">
         <div>
@@ -504,7 +505,6 @@
     document.getElementById('mode-sel-btn').className = mode === 'selected' ? "flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white" : "flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400";
   }
 
-  // Раздельные таймфреймы для каждого модуля
   let moduleTfs = {
     levels: new Set(['5m', '15m', '30m', '1h', '2h', '4h']),
     volume: new Set(['5m', '15m', '30m', '1h', '2h', '4h']),
@@ -524,11 +524,9 @@
   function updateModuleTfPills(mod) {
     document.querySelectorAll(`.tf-btn-${mod}`).forEach(b => {
       const t = b.dataset.tf;
-      if (moduleTfs[mod].has(t)) {
-        b.className = `tf-btn-${mod} px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200`;
-      } else {
-        b.className = `tf-btn-${mod} px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-950/40 border-purple-900/30 text-gray-400`;
-      }
+      b.className = moduleTfs[mod].has(t) 
+        ? `tf-btn-${mod} px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200`
+        : `tf-btn-${mod} px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-950/40 border-purple-900/30 text-gray-400`;
     });
   }
 
@@ -688,7 +686,7 @@
     });
   }
 
-  // Загрузка настроек и профиля при старте
+  // Загрузка настроек и профиля при старте с безопасным парсингом таймфреймов
   window.addEventListener('DOMContentLoaded', () => {
     const apiUrl = window.location.hostname.includes('github.io') ? 'https://157.228.127.251.nip.io/api/me' : '/api/me';
 
@@ -710,19 +708,22 @@
         if (s.exchange) selectExchange(s.exchange.toLowerCase());
         if (s.coins_mode) setCoinsMode(s.coins_mode);
         
-        // Корректное восстановление таймфреймов по модулям (проверяем s.timeframes, а не s.timeframes_list)
-        const tfSource = s.timeframes || s.timeframes_list;
-        if (tfSource) {
-          if (typeof tfSource === 'object' && !Array.isArray(tfSource)) {
+        let tfData = s.timeframes || s.timeframes_list;
+        if (typeof tfData === 'string') {
+          try { tfData = JSON.parse(tfData); } catch(e) {}
+        }
+        
+        if (tfData) {
+          if (typeof tfData === 'object' && !Array.isArray(tfData)) {
             ['levels', 'volume', 'derivatives', 'indicators'].forEach(mod => {
-              if (tfSource[mod]) {
-                moduleTfs[mod] = new Set(tfSource[mod]);
+              if (tfData[mod]) {
+                moduleTfs[mod] = new Set(tfData[mod]);
                 updateModuleTfPills(mod);
               }
             });
-          } else if (Array.isArray(tfSource)) {
+          } else if (Array.isArray(tfData)) {
             ['levels', 'volume', 'derivatives', 'indicators'].forEach(mod => {
-              moduleTfs[mod] = new Set(tfSource);
+              moduleTfs[mod] = new Set(tfData);
               updateModuleTfPills(mod);
             });
           }
