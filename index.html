@@ -940,10 +940,27 @@
         document.getElementById('top-plan-badge').textContent = `Триал: осталось ${user.days_left} дн.`;
       }
 
-      // 2. ВОССТАНАВЛИВАЕМ НАСТРОЙКИ ПОЛЬЗОВАТЕЛЯ НА ИНТЕРФЕЙС
+     // 2. ВОССТАНАВЛИВАЕМ НАСТРОЙКИ ПОЛЬЗОВАТЕЛЯ НА ИНТЕРФЕЙС
       if (user.settings && user.settings.length > 0) {
-        // Берем самую свежую сохраненную настройку
         const s = user.settings[user.settings.length - 1];
+        if (s.exchange) selectExchange(s.exchange.toLowerCase() === 'all' ? 'bingx' : s.exchange.toLowerCase());
+        if (s.coins_mode) setCoinsMode(s.coins_mode);
+        if (s.timeframes_list) {
+            selectedTfs = new Set(s.timeframes_list);
+            updateTfPills();
+        }
+        if (s.signals_list) {
+            document.getElementById('ev-retest').checked = s.signals_list.includes('retest');
+            document.getElementById('ev-breakout').checked = s.signals_list.includes('breakout');
+            document.getElementById('ev-approach').checked = s.signals_list.includes('approach');
+        }
+        if (s.min_level_weight !== undefined) {
+            document.getElementById('weight-slider').value = s.min_level_weight;
+            updateWeight(s.min_level_weight);
+        }
+        if (s.level_side) setSide(s.level_side);
+        updateRuleSummary();
+      };
 
         // Восстанавливаем выбранную биржу
         if (s.exchange) {
