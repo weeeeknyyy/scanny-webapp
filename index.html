@@ -710,19 +710,19 @@
         if (s.exchange) selectExchange(s.exchange.toLowerCase());
         if (s.coins_mode) setCoinsMode(s.coins_mode);
         
-        // Восстановление таймфреймов по модулям
-        if (s.timeframes_list) {
-          if (typeof s.timeframes_list === 'object' && !Array.isArray(s.timeframes_list)) {
+        // Корректное восстановление таймфреймов по модулям (проверяем s.timeframes, а не s.timeframes_list)
+        const tfSource = s.timeframes || s.timeframes_list;
+        if (tfSource) {
+          if (typeof tfSource === 'object' && !Array.isArray(tfSource)) {
             ['levels', 'volume', 'derivatives', 'indicators'].forEach(mod => {
-              if (s.timeframes_list[mod]) {
-                moduleTfs[mod] = new Set(s.timeframes_list[mod]);
+              if (tfSource[mod]) {
+                moduleTfs[mod] = new Set(tfSource[mod]);
                 updateModuleTfPills(mod);
               }
             });
-          } else if (Array.isArray(s.timeframes_list)) {
-            // Обратная совместимость, если старый формат был массивом
+          } else if (Array.isArray(tfSource)) {
             ['levels', 'volume', 'derivatives', 'indicators'].forEach(mod => {
-              moduleTfs[mod] = new Set(s.timeframes_list);
+              moduleTfs[mod] = new Set(tfSource);
               updateModuleTfPills(mod);
             });
           }
