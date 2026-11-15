@@ -528,7 +528,7 @@
       derivatives_sub: "Набор позиций и риск сквизов",
       module_technical: "Индикаторы",
       technical_desc: "RSI-дивергенции и Squeeze",
-      technical_sub: "Сжатие Боллинджера перед выстрелом",
+      technical_sub: "Сжатие Боллинджера перед мощным выстрелом",
       configure: "Настроить",
       quotes_title: "Выбор биржи и монет",
       quotes_sub: "Выберите биржу и режим сканирования",
@@ -916,7 +916,7 @@
     });
   }
 
-  // --- ПОЛНОСТЬЮ ОБНОВЛЕННЫЙ БЛОК ЗАГРУЗКИ ПРОФИЛЯ И НАСТРОЕК ---
+  // --- ЧИСТЫЙ И КОРРЕКТНЫЙ БЛОК ВОССТАНАВЛИВАНИЯ НАСТРОЕК И ПРОФИЛЯ ---
   window.addEventListener('DOMContentLoaded', () => {
     const apiUrl = window.location.hostname.includes('github.io') 
       ? 'https://157.228.127.251.nip.io/api/me' 
@@ -940,45 +940,23 @@
         document.getElementById('top-plan-badge').textContent = `Триал: осталось ${user.days_left} дн.`;
       }
 
-     // 2. ВОССТАНАВЛИВАЕМ НАСТРОЙКИ ПОЛЬЗОВАТЕЛЯ НА ИНТЕРФЕЙС
+      // 2. ВОССТАНАВЛИВАЕМ НАСТРОЙКИ ПОЛЬЗОВАТЕЛЯ НА ИНТЕРФЕЙС
       if (user.settings && user.settings.length > 0) {
         const s = user.settings[user.settings.length - 1];
-        if (s.exchange) selectExchange(s.exchange.toLowerCase() === 'all' ? 'bingx' : s.exchange.toLowerCase());
-        if (s.coins_mode) setCoinsMode(s.coins_mode);
-        if (s.timeframes_list) {
-            selectedTfs = new Set(s.timeframes_list);
-            updateTfPills();
-        }
-        if (s.signals_list) {
-            document.getElementById('ev-retest').checked = s.signals_list.includes('retest');
-            document.getElementById('ev-breakout').checked = s.signals_list.includes('breakout');
-            document.getElementById('ev-approach').checked = s.signals_list.includes('approach');
-        }
-        if (s.min_level_weight !== undefined) {
-            document.getElementById('weight-slider').value = s.min_level_weight;
-            updateWeight(s.min_level_weight);
-        }
-        if (s.level_side) setSide(s.level_side);
-        updateRuleSummary();
-      };
 
-        // Восстанавливаем выбранную биржу
         if (s.exchange) {
             selectExchange(s.exchange.toLowerCase() === 'all' ? 'bingx' : s.exchange.toLowerCase());
         }
         
-        // Восстанавливаем режим выбора монет
         if (s.coins_mode) {
             setCoinsMode(s.coins_mode);
         }
 
-        // Восстанавливаем выбранные таймфреймы
         if (s.timeframes_list) {
             selectedTfs = new Set(s.timeframes_list);
             updateTfPills();
         }
 
-        // Восстанавливаем галочки событий (пробой, ретест, подход)
         if (s.signals_list) {
             const retestEl = document.getElementById('ev-retest');
             const breakoutEl = document.getElementById('ev-breakout');
@@ -989,7 +967,6 @@
             if(approachEl) approachEl.checked = s.signals_list.includes('approach');
         }
 
-        // Восстанавливаем ползунок веса уровня
         if (s.min_level_weight !== undefined && s.min_level_weight !== null) {
             const weightSlider = document.getElementById('weight-slider');
             if(weightSlider) {
@@ -998,12 +975,10 @@
             }
         }
 
-        // Восстанавливаем выбранную сторону (Лонг/Шорт/Любая)
         if (s.level_side) {
             setSide(s.level_side);
         }
 
-        // Обновляем текст итогового правила в интерфейсе
         updateRuleSummary();
       }
     }).catch(err => console.error("Ошибка загрузки профиля:", err));
