@@ -469,6 +469,39 @@
   }
 
   function saveSettingsToServer() {
+    if (!document.getElementById('toast-style')) {
+        const style = document.createElement('style');
+        style.id = 'toast-style';
+        style.innerHTML = `
+          #toast-container {
+            position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+            background: rgba(16, 185, 129, 0.95); backdrop-filter: blur(10px);
+            border: 1px solid rgba(52, 211, 153, 0.5); color: white;
+            padding: 10px 20px; border-radius: 9999px; font-size: 14px; font-weight: 600;
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4); z-index: 9999;
+            transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; gap: 8px;
+          }
+          .toast-visible { top: 20px !important; }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    let toast = document.getElementById('toast-container');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-container';
+        toast.innerHTML = `<svg style="width:20px;height:20px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span id="toast-text">Настройки применены</span>`;
+        document.body.appendChild(toast);
+    }
+
+    const btn = document.getElementById('save-btn');
+    if (btn) {
+      btn.innerHTML = '⚙️ Сохраняем...';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+    }
+
     const signals = [];
     if (document.getElementById('ev-retest').checked) signals.push('retest');
     if (document.getElementById('ev-breakout').checked) signals.push('breakout');
@@ -501,11 +534,29 @@
       body: JSON.stringify(payload)
     }).then(r => r.json()).then(data => {
       if (window.Telegram?.WebApp?.HapticFeedback) window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
-      alert('Настройки успешно сохранены!');
-    }).catch(err => alert('Ошибка сохранения: ' + err));
+      
+      toast.classList.add('toast-visible');
+      setTimeout(() => toast.classList.remove('toast-visible'), 3000);
+      
+      if (btn) {
+          btn.innerHTML = '✅ Сохранено';
+          setTimeout(() => {
+            btn.textContent = 'Сохранить настройки';
+            btn.style.opacity = '1';
+            btn.disabled = false;
+          }, 2000);
+      }
+    }).catch(err => {
+      if (btn) {
+          btn.textContent = 'Ошибка';
+          btn.style.opacity = '1';
+          btn.disabled = false;
+      }
+      alert('Ошибка сохранения: ' + err);
+    });
   }
 
-  // Загрузка настроек при старте
+  // Загрузка настроек при старте с полным восстановлением всех модулей
   window.addEventListener('DOMContentLoaded', () => {
     const apiUrl = window.location.hostname.includes('github.io') ? 'https://157.228.127.251.nip.io/api/me' : '/api/me';
 
@@ -531,15 +582,16 @@
           });
         }
         if (s.signals_list) {
-          document.getElementById('ev-retest').checked = s.signals_list.includes('retest');
-          document.getElementById('ev-breakout').checked = s.signals_list.includes('breakout');
-          document.getElementById('ev-approach').checked = s.signals_list.includes('approach');
-          document.getElementById('ev-vol-anomaly').checked = s.signals_list.includes('volume_anomaly');
-          document.getElementById('ev-liq-grab').checked = s.signals_list.includes('liquidity_grab');
-          document.getElementById('ev-oi-anomaly').checked = s.signals_list.includes('open_interest');
-          document.getElementById('ev-funding-anomaly').checked = s.signals_list.includes('funding_anomaly');
-          document.getElementById('ev-rsi-div').checked = s.signals_list.includes('rsi_divergence');
-          document.getElementById('ev-squeeze').checked = s.signals_list.includes('squeeze');
+          const setCheck = (id, val) => { const el = document.getElementById(id); if(el) el.checked = val; };
+          setCheck('ev-retest', s.signals_list.includes('retest'));
+          setCheck('ev-breakout', s.signals_list.includes('breakout'));
+          setCheck('ev-approach', s.signals_list.includes('approach'));
+          setCheck('ev-vol-anomaly', s.signals_list.includes('volume_anomaly'));
+          setCheck('ev-liq-grab', s.signals_list.includes('liquidity_grab'));
+          setCheck('ev-oi-anomaly', s.signals_list.includes('open_interest'));
+          setCheck('ev-funding-anomaly', s.signals_list.includes('funding_anomaly'));
+          setCheck('ev-rsi-div', s.signals_list.includes('rsi_divergence'));
+          setCheck('ev-squeeze', s.signals_list.includes('squeeze'));
         }
         if (s.min_level_weight !== undefined) {
           document.getElementById('weight-slider').value = s.min_level_weight;
