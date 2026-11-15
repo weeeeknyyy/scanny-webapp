@@ -336,13 +336,85 @@
   </div>
 </div>
 
-<!-- ================= 5. TAB: ПРОФИЛЬ ================= -->
+<!-- ================= 5. TAB: ПРОФИЛЬ (ПОЛНОЦЕННЫЙ С ТАРИФАМИ И РЕФЕРАЛКОЙ) ================= -->
 <div id="tab-profile" class="tab-content hidden space-y-4">
+  <!-- Карточка пользователя -->
   <div class="glass-card p-4 flex items-center gap-3">
     <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-bold text-lg text-white" id="user-avatar-initials">TR</div>
     <div>
       <h3 class="font-bold text-white text-base" id="profile-name">Trader</h3>
       <p class="text-xs text-purple-300" id="profile-plan-text">Тариф: Бесплатный триал</p>
+    </div>
+  </div>
+
+  <!-- Реферальная карточка -->
+  <div class="glass-card p-4 space-y-2.5">
+    <div class="flex justify-between items-center">
+      <h3 class="font-semibold text-white text-sm">Пригласить друга</h3>
+      <span class="text-xs px-2 py-0.5 rounded bg-purple-900/60 text-purple-200 border border-purple-700/40">
+        Бонусы: <b id="bonus-days-val">0</b> дн. PRO
+      </span>
+    </div>
+    <p class="text-xs text-gray-300 leading-relaxed">
+      Друг получает <b>10 дней триала</b> вместо 7. Когда друг впервые покупает PRO — вам начисляется <b>7 дней PRO</b>!
+    </p>
+    <div class="flex gap-2">
+      <input type="text" readonly id="ref-link-input" value="https://t.me/ScannyBot?start=ref_..." class="flex-1 bg-purple-950/60 border border-purple-900/40 rounded-lg px-2.5 py-1.5 text-xs text-gray-300 font-mono outline-none">
+      <button onclick="copyRefLink()" class="px-3 py-1.5 bg-purple-700 hover:bg-purple-600 text-xs font-semibold rounded-lg text-white">Копировать</button>
+    </div>
+    <button onclick="activateBonusPro()" class="w-full py-2 bg-purple-950/80 border border-purple-500/40 hover:border-purple-500 text-xs font-semibold rounded-lg text-purple-200 transition">
+      Активировать неделю PRO с баланса
+    </button>
+  </div>
+
+  <!-- Тарифы -->
+  <div class="space-y-3">
+    <h3 class="font-semibold text-white text-sm">Тарифные планы</h3>
+
+    <!-- Starter -->
+    <div class="glass-card p-3.5">
+      <div class="flex justify-between items-start">
+        <div>
+          <span class="text-xs font-bold text-white">Starter</span>
+          <p class="text-xs text-gray-400">1h, 2h, 4h · 1 биржа · топ-50 пар</p>
+        </div>
+        <div class="text-right">
+          <span class="text-base font-bold text-purple-300">$6.0</span>
+          <span class="text-[10px] text-gray-400">/мес</span>
+        </div>
+      </div>
+      <button onclick="orderPlan('starter')" class="mt-3 w-full py-2 bg-purple-900/60 hover:bg-purple-800 border border-purple-500/30 text-xs font-semibold rounded-lg text-white">Выбрать Starter</button>
+    </div>
+
+    <!-- Trader -->
+    <div class="glass-card p-3.5 glass-card-active relative">
+      <span class="absolute -top-2.5 right-4 px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-[10px] font-bold text-white uppercase tracking-wider">Хит продаж</span>
+      <div class="flex justify-between items-start">
+        <div>
+          <span class="text-xs font-bold text-white">Trader</span>
+          <p class="text-xs text-gray-400">Все ТФ 5m–4h · Все сигналы · 1 биржа</p>
+        </div>
+        <div class="text-right">
+          <span class="text-base font-bold text-purple-300">$9.5</span>
+          <span class="text-[10px] text-gray-400">/мес</span>
+        </div>
+      </div>
+      <button onclick="orderPlan('trader')" class="mt-3 w-full py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 text-xs font-semibold rounded-lg text-white shadow-lg shadow-purple-900/50">Выбрать Trader</button>
+    </div>
+
+    <!-- Pro -->
+    <div class="glass-card p-3.5">
+      <div class="flex justify-between items-start">
+        <div>
+          <span class="text-xs font-bold text-white">PRO Multi-Exchange</span>
+          <p class="text-xs text-gray-400">Все ТФ · Все сигналы · Все 6 бирж сразу</p>
+        </div>
+        <div class="text-right">
+          <span class="text-base font-bold text-purple-300">$12.5</span>
+          <span class="text-[10px] text-gray-400">/мес</span>
+        </div>
+      </div>
+      <button onclick="orderPlan('pro')" class="mt-3 w-full py-2 bg-purple-900/60 hover:bg-purple-800 border border-purple-500/30 text-xs font-semibold rounded-lg text-white">Выбрать PRO</button>
     </div>
   </div>
 </div>
@@ -390,7 +462,6 @@
     if (navBtn) navBtn.classList.add('nav-active');
   }
 
-  // Открытие конкретного модуля со вкладки Обзор
   function openModule(moduleName) {
     switchTab('screeners');
     const card = document.getElementById('module-card-' + moduleName);
@@ -468,6 +539,33 @@
     setSide('any');
   }
 
+  function copyRefLink() {
+    const el = document.getElementById('ref-link-input');
+    navigator.clipboard.writeText(el.value);
+    if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+    alert('Ссылка скопирована!');
+  }
+
+  function activateBonusPro() {
+    fetch('https://157.228.127.251.nip.io/api/activate-bonus', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Telegram-Init-Data': tg?.initData || '' }
+    }).then(res => res.json()).then(data => alert(data.message || data.detail));
+  }
+
+  function orderPlan(planId) {
+    fetch("https://157.228.127.251.nip.io/api/payments/create-invoice", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Telegram-Init-Data": tg?.initData || "" },
+      body: JSON.stringify({ plan: planId, months: 1 })
+    }).then(r => r.json()).then(data => {
+      if (data.pay_url) {
+        if (tg?.openTelegramLink) tg.openTelegramLink(data.pay_url);
+        else window.open(data.pay_url, "_blank");
+      } else alert("Ошибка: " + (data.detail || "Unknown"));
+    }).catch(err => alert("Ошибка сети: " + err));
+  }
+
   function saveSettingsToServer() {
     if (!document.getElementById('toast-style')) {
         const style = document.createElement('style');
@@ -491,7 +589,7 @@
     if (!toast) {
         toast = document.createElement('div');
         toast.id = 'toast-container';
-        toast.innerHTML = `<svg style="width:20px;height:20px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span id="toast-text">Настройки применены</span>`;
+        toast.innerHTML = `<svg style="width:20px;height:20px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Настройки применены</span>`;
         document.body.appendChild(toast);
     }
 
@@ -556,7 +654,7 @@
     });
   }
 
-  // Загрузка настроек при старте с полным восстановлением всех модулей
+  // Загрузка настроек и профиля при старте
   window.addEventListener('DOMContentLoaded', () => {
     const apiUrl = window.location.hostname.includes('github.io') ? 'https://157.228.127.251.nip.io/api/me' : '/api/me';
 
@@ -567,6 +665,8 @@
         document.getElementById('profile-name').textContent = user.first_name;
         document.getElementById('user-avatar-initials').textContent = user.first_name.slice(0, 2).toUpperCase();
       }
+      if (user.ref_link) document.getElementById('ref-link-input').value = user.ref_link;
+      if (user.bonus_pro_days !== undefined) document.getElementById('bonus-days-val').textContent = user.bonus_pro_days;
       if (user.days_left !== undefined) {
         document.getElementById('top-plan-badge').textContent = `Триал: осталось ${user.days_left} дн.`;
       }
