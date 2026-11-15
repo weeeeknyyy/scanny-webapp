@@ -22,7 +22,7 @@
     color: var(--text-primary);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     min-height: 100vh;
-    padding-bottom: 85px;
+    padding-bottom: 130px !important; /* Увеличенный отступ для нижней панели iOS */
     position: relative;
     overflow-x: hidden;
   }
@@ -328,8 +328,8 @@
       </p>
     </div>
 
-    <!-- Кнопка сохранения -->
-    <button onclick="saveSettingsToServer()" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 font-semibold text-white text-sm shadow-lg shadow-purple-900/40 transition" data-i18n="save_settings_btn">
+    <!-- Кнопка сохранения (С НОВЫМ ID) -->
+    <button id="save-btn" onclick="saveSettingsToServer()" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 font-semibold text-white text-sm shadow-lg shadow-purple-900/40 transition" data-i18n="save_settings_btn">
       Сохранить настройки
     </button>
   </div>
@@ -795,7 +795,12 @@
   }
 
   function activateBonusPro() {
-    fetch('/api/activate-bonus', {
+    // Умное перенаправление для GitHub
+    const apiUrl = window.location.hostname.includes('github.io') 
+      ? 'https://157.228.127.251.nip.io/api/activate-bonus' 
+      : '/api/activate-bonus';
+
+    fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -806,7 +811,43 @@
     });
   }
 
+  // --- ПОЛНОСТЬЮ НОВАЯ ФУНКЦИЯ СОХРАНЕНИЯ С ТОСТОМ ---
   function saveSettingsToServer() {
+    // 1. Создаем стили и тост при первом нажатии
+    if (!document.getElementById('toast-style')) {
+        const style = document.createElement('style');
+        style.id = 'toast-style';
+        style.innerHTML = `
+          #toast-container {
+            position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+            background: rgba(16, 185, 129, 0.95); backdrop-filter: blur(10px);
+            border: 1px solid rgba(52, 211, 153, 0.5); color: white;
+            padding: 10px 20px; border-radius: 9999px; font-size: 14px; font-weight: 600;
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4); z-index: 9999;
+            transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; gap: 8px;
+          }
+          .toast-visible { top: 20px !important; }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    let toast = document.getElementById('toast-container');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-container';
+        toast.innerHTML = `<svg style="width:20px;height:20px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span id="toast-text"></span>`;
+        document.body.appendChild(toast);
+    }
+
+    // 2. Блокируем кнопку визуально
+    const btn = document.getElementById('save-btn');
+    if (btn) {
+      btn.innerHTML = '⚙️ Сохраняем...';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+    }
+    
     const payload = {
       exchange: activeExchange,
       coins_mode: activeCoinsMode,
@@ -817,16 +858,41 @@
       level_side: activeSide
     };
 
-    fetch('/api/settings', {
+    // Умное формирование ссылки (если на GitHub, отправляем на сервер по IP)
+    const apiUrl = window.location.hostname.includes('github.io') 
+      ? 'https://157.228.127.251.nip.io/api/settings' 
+      : '/api/settings';
+
+    fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Telegram-Init-Data': tg?.initData || ''
+        'X-Telegram-Init-Data': window.Telegram?.WebApp?.initData || ''
       },
       body: JSON.stringify(payload)
     }).then(res => res.json()).then(data => {
-      if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-      alert(currentLang === 'ru' ? 'Настройки успешно сохранены!' : 'Settings successfully saved!');
+      if (window.Telegram?.WebApp?.HapticFeedback) window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
+      
+      // Показываем тост
+      document.getElementById('toast-text').textContent = currentLang === 'ru' ? 'Настройки применены' : 'Settings applied';
+      toast.classList.add('toast-visible');
+      setTimeout(() => toast.classList.remove('toast-visible'), 3000);
+      
+      // Возвращаем кнопку в нормальное состояние
+      if (btn) {
+          btn.innerHTML = '✅ Сохранено';
+          setTimeout(() => {
+            btn.textContent = currentLang === 'ru' ? 'Сохранить настройки' : 'Save Settings';
+            btn.style.opacity = '1';
+            btn.disabled = false;
+          }, 2000);
+      }
+    }).catch(err => {
+      if (btn) {
+          btn.textContent = currentLang === 'ru' ? 'Ошибка' : 'Error';
+          btn.style.opacity = '1';
+          btn.disabled = false;
+      }
     });
   }
 
@@ -856,9 +922,15 @@
         alert("Ошибка сети: " + err);
     });
   }
-// Загрузка начальных данных пользователя при открытии
+
+  // Загрузка начальных данных пользователя при открытии
   window.addEventListener('DOMContentLoaded', () => {
-    fetch('/api/me', {
+    // Умное перенаправление
+    const apiUrl = window.location.hostname.includes('github.io') 
+      ? 'https://157.228.127.251.nip.io/api/me' 
+      : '/api/me';
+
+    fetch(apiUrl, {
       headers: { 'X-Telegram-Init-Data': tg?.initData || '' }
     }).then(r => r.json()).then(user => {
       if (user.first_name) {
