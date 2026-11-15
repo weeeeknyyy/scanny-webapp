@@ -107,7 +107,7 @@
   </div>
 </header>
 
-<!-- ================= 1. TAB: ОБЗОР (OVERVIEW) ================= -->
+<!-- ================= 1. TAB: ОБЗОР ================= -->
 <div id="tab-overview" class="tab-content space-y-4">
   <div class="glass-card p-4 flex justify-between items-center">
     <div>
@@ -120,65 +120,58 @@
     </span>
   </div>
 
-  <!-- 4 модуля с индивидуальными кнопками настройки -->
   <div class="space-y-3">
-    <!-- Уровни и ретесты -->
     <div class="glass-card p-4 hover:border-purple-500/50 transition">
       <div class="flex justify-between items-start">
         <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-purple-900/50 text-purple-300 border border-purple-700/40" data-i18n="module_levels">Уровни и Ретест</span>
-          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="levels_desc">Ретест зеркальных уровней (1.2–6.5 ATR)</h3>
-          <p class="text-xs text-gray-400 mt-0.5" data-i18n="levels_sub">Отслеживание подхода, пробоя и отскока</p>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-purple-900/50 text-purple-300 border border-purple-700/40">Уровни и Ретест</span>
+          <h3 class="font-medium text-white text-sm mt-1.5">Ретест зеркальных уровней (1.2–6.5 ATR)</h3>
+          <p class="text-xs text-gray-400 mt-0.5">Отслеживание подхода, пробоя и отскока</p>
         </div>
-        <button onclick="openModule('levels')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="configure">Настроить</button>
+        <button onclick="openModule('levels')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30">Настроить</button>
       </div>
     </div>
 
-    <!-- Объемы и ликвидность -->
     <div class="glass-card p-4 hover:border-purple-500/50 transition">
       <div class="flex justify-between items-start">
         <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-900/50 text-blue-300 border border-blue-700/40" data-i18n="module_volume">Объём и Свипы</span>
-          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="volume_desc">Всплеск объёма и Liquidity Grab</h3>
-          <p class="text-xs text-gray-400 mt-0.5" data-i18n="volume_sub">Снятие стопов за локальными свингами</p>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-900/50 text-blue-300 border border-blue-700/40">Объём и Свипы</span>
+          <h3 class="font-medium text-white text-sm mt-1.5">Всплеск объёма и Liquidity Grab</h3>
+          <p class="text-xs text-gray-400 mt-0.5">Снятие стопов за локальными свингами</p>
         </div>
-        <button onclick="openModule('volume')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="configure">Настроить</button>
+        <button onclick="openModule('volume')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30">Настроить</button>
       </div>
     </div>
 
-    <!-- Деривативы -->
     <div class="glass-card p-4 hover:border-purple-500/50 transition">
       <div class="flex justify-between items-start">
         <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-900/50 text-amber-300 border border-amber-700/40" data-i18n="module_derivatives">Деривативы</span>
-          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="derivatives_desc">Открытый интерес (OI) и Фандинг</h3>
-          <p class="text-xs text-gray-400 mt-0.5" data-i18n="derivatives_sub">Набор позиций и риск шорт/лонг-сквизов</p>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-900/50 text-amber-300 border border-amber-700/40">Деривативы</span>
+          <h3 class="font-medium text-white text-sm mt-1.5">Открытый интерес (OI) и Фандинг</h3>
+          <p class="text-xs text-gray-400 mt-0.5">Набор позиций и риск шорт/лонг-сквизов</p>
         </div>
-        <button onclick="openModule('derivatives')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="configure">Настроить</button>
+        <button onclick="openModule('derivatives')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30">Настроить</button>
       </div>
     </div>
 
-    <!-- Индикаторы -->
     <div class="glass-card p-4 hover:border-purple-500/50 transition">
       <div class="flex justify-between items-start">
         <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-900/50 text-pink-300 border border-pink-700/40" data-i18n="module_technical">Индикаторы</span>
-          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="technical_desc">RSI-дивергенции и Squeeze</h3>
-          <p class="text-xs text-gray-400 mt-0.5" data-i18n="technical_sub">Сжатие Боллинджера перед мощным выстрелом</p>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-900/50 text-pink-300 border border-pink-700/40">Индикаторы</span>
+          <h3 class="font-medium text-white text-sm mt-1.5">RSI-дивергенции и Squeeze</h3>
+          <p class="text-xs text-gray-400 mt-0.5">Сжатие Боллинджера перед мощным выстрелом</p>
         </div>
-        <button onclick="openModule('indicators')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="configure">Настроить</button>
+        <button onclick="openModule('indicators')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30">Настроить</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ================= 2. TAB: КОТИРОВКИ (WATCHLIST) ================= -->
+<!-- ================= 2. TAB: КОТИРОВКИ ================= -->
 <div id="tab-quotes" class="tab-content hidden space-y-4">
   <div class="glass-card p-4">
-    <h2 class="font-semibold text-white text-base mb-2" data-i18n="quotes_title">Выбор биржи и монет</h2>
-    <p class="text-xs text-gray-400 mb-3" data-i18n="quotes_sub">Выберите биржу и режим сканирования</p>
-
-    <!-- Выбор биржи -->
+    <h2 class="font-semibold text-white text-base mb-2">Выбор биржи и монет</h2>
+    <p class="text-xs text-gray-400 mb-3">Выберите биржу и режим сканирования</p>
     <div class="grid grid-cols-3 gap-2 mb-4" id="exchange-grid">
       <button onclick="selectExchange('bingx')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-900/40 border-purple-500 text-purple-200" data-ex="bingx">BingX</button>
       <button onclick="selectExchange('binance')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="binance">Binance</button>
@@ -187,15 +180,12 @@
       <button onclick="selectExchange('kraken')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="kraken">Kraken</button>
       <button onclick="selectExchange('coinbase')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="coinbase">Coinbase</button>
     </div>
-
-    <!-- Режим монет -->
     <div class="flex gap-2 p-1 bg-purple-950/60 rounded-xl mb-4 border border-purple-900/40">
-      <button onclick="setCoinsMode('all')" id="mode-all-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white" data-i18n="all_coins">Все монеты</button>
-      <button onclick="setCoinsMode('selected')" id="mode-sel-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400" data-i18n="selected_coins">Только избранные</button>
+      <button onclick="setCoinsMode('all')" id="mode-all-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white">Все монеты</button>
+      <button onclick="setCoinsMode('selected')" id="mode-sel-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400">Только избранные</button>
     </div>
-
     <div id="coins-selector-box" class="hidden space-y-2">
-      <p class="text-xs text-purple-300 font-medium" data-i18n="pick_favorites">Отметьте нужные пары:</p>
+      <p class="text-xs text-purple-300 font-medium">Отметьте нужные пары:</p>
       <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1">
         <label class="flex items-center gap-2 p-2 rounded-lg bg-purple-950/40 border border-purple-900/30 text-xs">
           <input type="checkbox" checked value="BTC/USDT:USDT" class="coin-checkbox rounded text-purple-600 focus:ring-0"> BTC/USDT
@@ -214,30 +204,28 @@
   </div>
 </div>
 
-<!-- ================= 3. TAB: СКРИНЕРЫ (4 ИНДИВИДУАЛЬНЫХ БЛОКА) ================= -->
+<!-- ================= 3. TAB: СКРИНЕРЫ (ТФ ДЛЯ КАЖДОГО МОДУЛЯ) ================= -->
 <div id="tab-screeners" class="tab-content hidden space-y-4">
   <div class="flex justify-between items-center mb-1 px-1">
-    <h2 class="font-semibold text-white text-base" data-i18n="params_title">Настройка модулей</h2>
-    <button onclick="resetDefaults()" class="text-xs text-purple-400 hover:text-purple-300 underline" data-i18n="reset_btn">Сбросить всё</button>
-  </div>
-
-  <!-- Общие таймфреймы -->
-  <div class="glass-card p-4">
-    <label class="text-xs text-gray-300 font-medium block mb-2" data-i18n="tfs_label">Общие таймфреймы</label>
-    <div class="flex flex-wrap gap-2" id="tf-pills">
-      <button onclick="toggleTf('5m')" class="tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="5m">5m</button>
-      <button onclick="toggleTf('15m')" class="tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="15m">15m</button>
-      <button onclick="toggleTf('30m')" class="tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="30m">30m</button>
-      <button onclick="toggleTf('1h')" class="tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="1h">1h</button>
-      <button onclick="toggleTf('2h')" class="tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="2h">2h</button>
-      <button onclick="toggleTf('4h')" class="tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="4h">4h</button>
-    </div>
+    <h2 class="font-semibold text-white text-base">Настройка модулей</h2>
+    <button onclick="resetDefaults()" class="text-xs text-purple-400 hover:text-purple-300 underline">Сбросить всё</button>
   </div>
 
   <!-- БЛОК 1: Уровни и Ретест -->
   <div id="module-card-levels" class="glass-card p-4 space-y-3 border-l-4 border-l-purple-500">
     <h3 class="font-bold text-white text-sm flex items-center gap-2">🟣 Уровни и Ретест</h3>
-    <div class="space-y-2">
+    <div>
+      <label class="text-[11px] text-gray-300 font-medium block mb-1.5">Таймфреймы для уровней</label>
+      <div class="flex flex-wrap gap-1.5" id="tf-pills-levels">
+        <button onclick="toggleModuleTf('levels', '5m')" class="tf-btn-levels px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="5m">5m</button>
+        <button onclick="toggleModuleTf('levels', '15m')" class="tf-btn-levels px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="15m">15m</button>
+        <button onclick="toggleModuleTf('levels', '30m')" class="tf-btn-levels px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="30m">30m</button>
+        <button onclick="toggleModuleTf('levels', '1h')" class="tf-btn-levels px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="1h">1h</button>
+        <button onclick="toggleModuleTf('levels', '2h')" class="tf-btn-levels px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="2h">2h</button>
+        <button onclick="toggleModuleTf('levels', '4h')" class="tf-btn-levels px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="4h">4h</button>
+      </div>
+    </div>
+    <div class="space-y-2 pt-1 border-t border-purple-900/30">
       <label class="flex items-center justify-between p-2 rounded-xl bg-purple-950/40 border border-purple-900/30 text-xs">
         <span>Ретест пробитого уровня</span>
         <input type="checkbox" id="ev-retest" checked class="w-4 h-4 rounded text-purple-600">
@@ -271,7 +259,18 @@
   <!-- БЛОК 2: Объём и Свипы -->
   <div id="module-card-volume" class="glass-card p-4 space-y-3 border-l-4 border-l-blue-500">
     <h3 class="font-bold text-white text-sm flex items-center gap-2">🔵 Объём и Свипы (Liquidity Grab)</h3>
-    <div class="space-y-2">
+    <div>
+      <label class="text-[11px] text-gray-300 font-medium block mb-1.5">Таймфреймы для объёмов</label>
+      <div class="flex flex-wrap gap-1.5" id="tf-pills-volume">
+        <button onclick="toggleModuleTf('volume', '5m')" class="tf-btn-volume px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="5m">5m</button>
+        <button onclick="toggleModuleTf('volume', '15m')" class="tf-btn-volume px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="15m">15m</button>
+        <button onclick="toggleModuleTf('volume', '30m')" class="tf-btn-volume px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="30m">30m</button>
+        <button onclick="toggleModuleTf('volume', '1h')" class="tf-btn-volume px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="1h">1h</button>
+        <button onclick="toggleModuleTf('volume', '2h')" class="tf-btn-volume px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="2h">2h</button>
+        <button onclick="toggleModuleTf('volume', '4h')" class="tf-btn-volume px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="4h">4h</button>
+      </div>
+    </div>
+    <div class="space-y-2 pt-1 border-t border-purple-900/30">
       <label class="flex items-center justify-between p-2 rounded-xl bg-blue-950/40 border border-blue-900/30 text-xs">
         <span>Аномальный всплеск объема (Volume Spike)</span>
         <input type="checkbox" id="ev-vol-anomaly" checked class="w-4 h-4 rounded text-blue-600">
@@ -286,7 +285,18 @@
   <!-- БЛОК 3: Деривативы -->
   <div id="module-card-derivatives" class="glass-card p-4 space-y-3 border-l-4 border-l-amber-500">
     <h3 class="font-bold text-white text-sm flex items-center gap-2">🟠 Деривативы (OI & Фандинг)</h3>
-    <div class="space-y-2">
+    <div>
+      <label class="text-[11px] text-gray-300 font-medium block mb-1.5">Таймфреймы для деривативов</label>
+      <div class="flex flex-wrap gap-1.5" id="tf-pills-derivatives">
+        <button onclick="toggleModuleTf('derivatives', '5m')" class="tf-btn-derivatives px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="5m">5m</button>
+        <button onclick="toggleModuleTf('derivatives', '15m')" class="tf-btn-derivatives px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="15m">15m</button>
+        <button onclick="toggleModuleTf('derivatives', '30m')" class="tf-btn-derivatives px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="30m">30m</button>
+        <button onclick="toggleModuleTf('derivatives', '1h')" class="tf-btn-derivatives px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="1h">1h</button>
+        <button onclick="toggleModuleTf('derivatives', '2h')" class="tf-btn-derivatives px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="2h">2h</button>
+        <button onclick="toggleModuleTf('derivatives', '4h')" class="tf-btn-derivatives px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="4h">4h</button>
+      </div>
+    </div>
+    <div class="space-y-2 pt-1 border-t border-purple-900/30">
       <label class="flex items-center justify-between p-2 rounded-xl bg-amber-950/40 border border-amber-900/30 text-xs">
         <span>Аномалии Открытого интереса (OI Spike)</span>
         <input type="checkbox" id="ev-oi-anomaly" checked class="w-4 h-4 rounded text-amber-600">
@@ -301,7 +311,18 @@
   <!-- БЛОК 4: Индикаторы -->
   <div id="module-card-indicators" class="glass-card p-4 space-y-3 border-l-4 border-l-pink-500">
     <h3 class="font-bold text-white text-sm flex items-center gap-2">🔴 Индикаторы (RSI & Squeeze)</h3>
-    <div class="space-y-2">
+    <div>
+      <label class="text-[11px] text-gray-300 font-medium block mb-1.5">Таймфреймы для индикаторов</label>
+      <div class="flex flex-wrap gap-1.5" id="tf-pills-indicators">
+        <button onclick="toggleModuleTf('indicators', '5m')" class="tf-btn-indicators px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="5m">5m</button>
+        <button onclick="toggleModuleTf('indicators', '15m')" class="tf-btn-indicators px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="15m">15m</button>
+        <button onclick="toggleModuleTf('indicators', '30m')" class="tf-btn-indicators px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="30m">30m</button>
+        <button onclick="toggleModuleTf('indicators', '1h')" class="tf-btn-indicators px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="1h">1h</button>
+        <button onclick="toggleModuleTf('indicators', '2h')" class="tf-btn-indicators px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="2h">2h</button>
+        <button onclick="toggleModuleTf('indicators', '4h')" class="tf-btn-indicators px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="4h">4h</button>
+      </div>
+    </div>
+    <div class="space-y-2 pt-1 border-t border-purple-900/30">
       <label class="flex items-center justify-between p-2 rounded-xl bg-pink-950/40 border border-pink-900/30 text-xs">
         <span>RSI-дивергенции</span>
         <input type="checkbox" id="ev-rsi-div" checked class="w-4 h-4 rounded text-pink-600">
@@ -336,9 +357,8 @@
   </div>
 </div>
 
-<!-- ================= 5. TAB: ПРОФИЛЬ (ПОЛНОЦЕННЫЙ С ТАРИФАМИ И РЕФЕРАЛКОЙ) ================= -->
+<!-- ================= 5. TAB: ПРОФИЛЬ ================= -->
 <div id="tab-profile" class="tab-content hidden space-y-4">
-  <!-- Карточка пользователя -->
   <div class="glass-card p-4 flex items-center gap-3">
     <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-bold text-lg text-white" id="user-avatar-initials">TR</div>
     <div>
@@ -347,7 +367,6 @@
     </div>
   </div>
 
-  <!-- Реферальная карточка -->
   <div class="glass-card p-4 space-y-2.5">
     <div class="flex justify-between items-center">
       <h3 class="font-semibold text-white text-sm">Пригласить друга</h3>
@@ -367,11 +386,8 @@
     </button>
   </div>
 
-  <!-- Тарифы -->
   <div class="space-y-3">
     <h3 class="font-semibold text-white text-sm">Тарифные планы</h3>
-
-    <!-- Starter -->
     <div class="glass-card p-3.5">
       <div class="flex justify-between items-start">
         <div>
@@ -386,7 +402,6 @@
       <button onclick="orderPlan('starter')" class="mt-3 w-full py-2 bg-purple-900/60 hover:bg-purple-800 border border-purple-500/30 text-xs font-semibold rounded-lg text-white">Выбрать Starter</button>
     </div>
 
-    <!-- Trader -->
     <div class="glass-card p-3.5 glass-card-active relative">
       <span class="absolute -top-2.5 right-4 px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-[10px] font-bold text-white uppercase tracking-wider">Хит продаж</span>
       <div class="flex justify-between items-start">
@@ -402,7 +417,6 @@
       <button onclick="orderPlan('trader')" class="mt-3 w-full py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 text-xs font-semibold rounded-lg text-white shadow-lg shadow-purple-900/50">Выбрать Trader</button>
     </div>
 
-    <!-- Pro -->
     <div class="glass-card p-3.5">
       <div class="flex justify-between items-start">
         <div>
@@ -490,16 +504,31 @@
     document.getElementById('mode-sel-btn').className = mode === 'selected' ? "flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white" : "flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400";
   }
 
-  let selectedTfs = new Set(['5m', '15m', '30m', '1h', '2h', '4h']);
-  function toggleTf(tf) {
-    if (selectedTfs.has(tf)) {
-      if (selectedTfs.size > 1) selectedTfs.delete(tf);
+  // Раздельные таймфреймы для каждого модуля
+  let moduleTfs = {
+    levels: new Set(['5m', '15m', '30m', '1h', '2h', '4h']),
+    volume: new Set(['5m', '15m', '30m', '1h', '2h', '4h']),
+    derivatives: new Set(['5m', '15m', '30m', '1h', '2h', '4h']),
+    indicators: new Set(['5m', '15m', '30m', '1h', '2h', '4h'])
+  };
+
+  function toggleModuleTf(mod, tf) {
+    if (moduleTfs[mod].has(tf)) {
+      if (moduleTfs[mod].size > 1) moduleTfs[mod].delete(tf);
     } else {
-      selectedTfs.add(tf);
+      moduleTfs[mod].add(tf);
     }
-    document.querySelectorAll('.tf-btn').forEach(b => {
+    updateModuleTfPills(mod);
+  }
+
+  function updateModuleTfPills(mod) {
+    document.querySelectorAll(`.tf-btn-${mod}`).forEach(b => {
       const t = b.dataset.tf;
-      b.className = selectedTfs.has(t) ? "tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" : "tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-950/40 border-purple-900/30 text-gray-400";
+      if (moduleTfs[mod].has(t)) {
+        b.className = `tf-btn-${mod} px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200`;
+      } else {
+        b.className = `tf-btn-${mod} px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-950/40 border-purple-900/30 text-gray-400`;
+      }
     });
   }
 
@@ -521,9 +550,9 @@
   }
 
   function resetDefaults() {
-    selectedTfs = new Set(['5m', '15m', '30m', '1h', '2h', '4h']);
-    document.querySelectorAll('.tf-btn').forEach(b => {
-      b.className = selectedTfs.has(b.dataset.tf) ? "tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" : "tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-950/40 border-purple-900/30 text-gray-400";
+    ['levels', 'volume', 'derivatives', 'indicators'].forEach(mod => {
+      moduleTfs[mod] = new Set(['5m', '15m', '30m', '1h', '2h', '4h']);
+      updateModuleTfPills(mod);
     });
     document.getElementById('weight-slider').value = 70;
     updateWeight(70);
@@ -615,7 +644,12 @@
       exchange: activeExchange,
       coins_mode: activeCoinsMode,
       selected_coins: Array.from(document.querySelectorAll('.coin-checkbox:checked')).map(c => c.value),
-      timeframes: Array.from(selectedTfs),
+      timeframes: {
+        levels: Array.from(moduleTfs.levels),
+        volume: Array.from(moduleTfs.volume),
+        derivatives: Array.from(moduleTfs.derivatives),
+        indicators: Array.from(moduleTfs.indicators)
+      },
       signals_list: signals,
       min_level_weight: activeWeight,
       level_side: activeSide
@@ -675,12 +709,25 @@
         const s = user.settings[user.settings.length - 1];
         if (s.exchange) selectExchange(s.exchange.toLowerCase());
         if (s.coins_mode) setCoinsMode(s.coins_mode);
+        
+        // Восстановление таймфреймов по модулям
         if (s.timeframes_list) {
-          selectedTfs = new Set(s.timeframes_list);
-          document.querySelectorAll('.tf-btn').forEach(b => {
-            b.className = selectedTfs.has(b.dataset.tf) ? "tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" : "tf-btn px-3 py-1.5 rounded-full text-xs font-semibold border bg-purple-950/40 border-purple-900/30 text-gray-400";
-          });
+          if (typeof s.timeframes_list === 'object' && !Array.isArray(s.timeframes_list)) {
+            ['levels', 'volume', 'derivatives', 'indicators'].forEach(mod => {
+              if (s.timeframes_list[mod]) {
+                moduleTfs[mod] = new Set(s.timeframes_list[mod]);
+                updateModuleTfPills(mod);
+              }
+            });
+          } else if (Array.isArray(s.timeframes_list)) {
+            // Обратная совместимость, если старый формат был массивом
+            ['levels', 'volume', 'derivatives', 'indicators'].forEach(mod => {
+              moduleTfs[mod] = new Set(s.timeframes_list);
+              updateModuleTfPills(mod);
+            });
+          }
         }
+
         if (s.signals_list) {
           const setCheck = (id, val) => { const el = document.getElementById(id); if(el) el.checked = val; };
           setCheck('ev-retest', s.signals_list.includes('retest'));
