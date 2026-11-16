@@ -191,39 +191,32 @@
   <div class="glass-card p-4">
     <h2 class="font-semibold text-white text-base mb-2" data-i18n="qt_title">Выбор биржи и монет</h2>
     <p class="text-xs text-gray-400 mb-3" data-i18n="qt_sub">Выберите биржу и режим сканирования</p>
-    <div class="grid grid-cols-3 gap-2 mb-4" id="exchange-grid">
+    <div class="grid grid-cols-2 gap-2 mb-3" id="exchange-grid">
       <button onclick="selectExchange('bingx')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-900/40 border-purple-500 text-purple-200" data-ex="bingx">BingX</button>
       <button onclick="selectExchange('binance')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="binance">Binance</button>
       <button onclick="selectExchange('bybit')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="bybit">Bybit</button>
       <button onclick="selectExchange('bitget')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="bitget">Bitget</button>
     </div>
     
+    <label id="exchange-enabled-wrap" class="hidden flex items-center gap-2 text-xs text-purple-200 mb-3"><input type="checkbox" id="exchange-enabled" onchange="setExchangeEnabled(this.checked)"> <span>Получать сигналы с этой биржи</span></label>
+    <p id="exchange-plan-hint" class="text-xs text-gray-400 mb-3"></p>
     <div class="flex gap-2 p-1 bg-purple-950/60 rounded-xl mb-4 border border-purple-900/40">
       <button onclick="setCoinsMode('all')" id="mode-all-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white" data-i18n="qt_all">Все монеты</button>
       <button onclick="setCoinsMode('selected')" id="mode-sel-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400" data-i18n="qt_sel">Только избранные</button>
     </div>
     
     <div id="coins-selector-box" class="hidden space-y-3">
-      <div class="flex gap-2 overflow-x-auto hide-scroll pb-1">
-        <button class="px-3 py-1 rounded-full bg-purple-700 text-xs text-white font-medium whitespace-nowrap" data-i18n="pool_top">Топ-ликвидность</button>
-        <button class="px-3 py-1 rounded-full bg-purple-900/40 border border-purple-500/30 text-xs text-gray-300 font-medium whitespace-nowrap" data-i18n="pool_meme">Meme-токены</button>
-        <button class="px-3 py-1 rounded-full bg-purple-900/40 border border-purple-500/30 text-xs text-gray-300 font-medium whitespace-nowrap" data-i18n="pool_ai">AI проекты</button>
+      <div class="flex gap-2 overflow-x-auto hide-scroll pb-1" id="market-categories">
+        <button type="button" onclick="setMarketCategory('top')" data-category="top" class="market-category px-3 py-1 rounded-full text-xs whitespace-nowrap">Топ-30</button>
+        <button type="button" onclick="setMarketCategory('meme')" data-category="meme" class="market-category px-3 py-1 rounded-full text-xs whitespace-nowrap">Мемы</button>
+        <button type="button" onclick="setMarketCategory('layer1')" data-category="layer1" class="market-category px-3 py-1 rounded-full text-xs whitespace-nowrap">Основные сети</button>
+        <button type="button" onclick="setMarketCategory('defi')" data-category="defi" class="market-category px-3 py-1 rounded-full text-xs whitespace-nowrap">DeFi</button>
       </div>
-      
-      <div class="p-3 bg-purple-950/30 rounded-xl border border-purple-900/30 space-y-3">
-        <div>
-          <div class="flex justify-between text-[10px] text-gray-400 mb-1"><span data-i18n="vol_24">Объём (24ч) от:</span> <span id="vol-val" class="font-mono text-purple-300">10M$</span></div>
-          <input type="range" min="1" max="100" value="10" oninput="document.getElementById('vol-val').innerText=this.value+'M$'" class="w-full slider-purple">
-        </div>
-        <div>
-          <div class="flex justify-between text-[10px] text-gray-400 mb-1"><span data-i18n="pr_24">Изм. цены (24ч) от:</span> <span id="price-val" class="font-mono text-purple-300">+5%</span></div>
-          <input type="range" min="1" max="50" value="5" oninput="document.getElementById('price-val').innerText='+'+this.value+'%'" class="w-full slider-purple">
-        </div>
-      </div>
-
+      <p id="market-status" class="text-xs text-gray-400"></p>
       <p class="text-xs text-purple-300 font-medium" data-i18n="qt_pairs">Отметьте нужные пары:</p>
       <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1" id="coin-list"></div>
     </div>
+    <button id="market-save-btn" onclick="saveSettingsToServer('market-save-btn')" class="w-full mt-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-semibold text-white text-sm shadow-lg shadow-purple-900/40 transition">Сохранить выбор</button>
   </div>
 </div>
 
@@ -607,29 +600,89 @@
     }
   }
 
+  const supportedExchanges = ['bingx', 'binance', 'bybit', 'bitget'];
   let activeExchange = 'bingx';
-  function selectExchange(ex) {
-    if (!['bingx', 'binance', 'bybit', 'bitget'].includes(ex)) ex = 'bingx';
-    activeExchange = ex;
-    document.querySelectorAll('.ex-btn').forEach(b => {
-      b.className = b.dataset.ex === ex 
-        ? "ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-900/40 border-purple-500 text-purple-200"
-        : "ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300";
-    });
-  }
-
   let activeCoinsMode = 'all';
+  let activeMarketCategory = 'top';
+  let currentPlan = 'starter';
+  let exchangeSettings = Object.fromEntries(supportedExchanges.map(ex => [ex, {enabled: ex === 'bingx', mode: 'all', coins: []}]));
+  const marketCache = {};
+  let marketRequest = 0;
+  const multiExchangeAllowed = () => currentPlan === 'pro' || currentPlan === 'trial';
+  function selectExchange(ex) {
+    if (!supportedExchanges.includes(ex)) ex = 'bingx';
+    activeExchange = ex;
+    if (!multiExchangeAllowed()) {
+      supportedExchanges.forEach(id => exchangeSettings[id].enabled = id === ex);
+    }
+    activeCoinsMode = exchangeSettings[ex].mode;
+    document.querySelectorAll('.ex-btn').forEach(b => {
+      const selected = b.dataset.ex === ex;
+      const enabled = exchangeSettings[b.dataset.ex]?.enabled;
+      b.className = selected
+        ? 'ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-900/40 border-purple-500 text-purple-200'
+        : 'ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300';
+      b.textContent = b.dataset.ex[0].toUpperCase() + b.dataset.ex.slice(1) + (enabled ? ' ✓' : '');
+    });
+    document.getElementById('exchange-enabled-wrap').classList.toggle('hidden', !multiExchangeAllowed());
+    document.getElementById('exchange-enabled').checked = exchangeSettings[ex].enabled;
+    document.getElementById('exchange-plan-hint').textContent = multiExchangeAllowed() ? 'Выберите биржи и настройте монеты для каждой.' : 'На вашем тарифе доступна одна биржа.';
+    setCoinsMode(activeCoinsMode);
+    loadMarket(ex);
+  }
+  function setExchangeEnabled(enabled) {
+    if (!enabled && Object.values(exchangeSettings).filter(x => x.enabled).length === 1 && exchangeSettings[activeExchange].enabled) {
+      document.getElementById('exchange-enabled').checked = true;
+      return;
+    }
+    exchangeSettings[activeExchange].enabled = enabled;
+    selectExchange(activeExchange);
+  }
   function setCoinsMode(mode) {
     activeCoinsMode = mode;
+    exchangeSettings[activeExchange].mode = mode;
     document.getElementById('coins-selector-box').classList.toggle('hidden', mode === 'all');
-    document.getElementById('mode-all-btn').className = mode === 'all' ? "flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white" : "flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400";
-    document.getElementById('mode-sel-btn').className = mode === 'selected' ? "flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white" : "flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400";
+    document.getElementById('mode-all-btn').className = mode === 'all' ? 'flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white' : 'flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400';
+    document.getElementById('mode-sel-btn').className = mode === 'selected' ? 'flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white' : 'flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400';
   }
-
-  const coinsList = ["BTC","ETH","SOL","XRP","ADA","DOGE","AVAX","LINK","MATIC","DOT","LTC","SHIB","TRX","ATOM","UNI","NEAR","APT","OP","ARB","SUI","INJ","RNDR"];
-  document.getElementById('coin-list').innerHTML = coinsList.map(c => 
-    `<label class="flex items-center gap-2 p-2 rounded-lg bg-purple-950/40 border border-purple-900/30 text-xs"><input type="checkbox" checked value="${c}/USDT:USDT" class="coin-checkbox rounded text-purple-600 focus:ring-0"> ${c}/USDT</label>`
-  ).join('');
+  function setMarketCategory(category) { activeMarketCategory = category; renderMarket(); }
+  async function loadMarket(ex) {
+    const request = ++marketRequest;
+    if (marketCache[ex]) { renderMarket(); return; }
+    document.getElementById('market-status').textContent = 'Загружаем рынки биржи...';
+    document.getElementById('coin-list').replaceChildren();
+    try {
+      const base = window.location.hostname.includes('github.io') ? 'https://157.228.127.251.nip.io' : '';
+      const response = await fetch(base + '/api/markets/' + encodeURIComponent(ex), {headers: {'X-Telegram-Init-Data': window.Telegram?.WebApp?.initData || ''}});
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const data = await response.json();
+      marketCache[ex] = data;
+      if (request === marketRequest) renderMarket();
+    } catch (error) {
+      if (request === marketRequest) document.getElementById('market-status').textContent = 'Не удалось загрузить рынки. Выберите биржу ещё раз.';
+    }
+  }
+  function renderMarket() {
+    document.querySelectorAll('.market-category').forEach(b => b.className = 'market-category px-3 py-1 rounded-full text-xs whitespace-nowrap ' + (b.dataset.category === activeMarketCategory ? 'bg-purple-700 text-white' : 'bg-purple-900/40 border border-purple-500/30 text-gray-300'));
+    const data = marketCache[activeExchange];
+    if (!data) return;
+    const items = activeMarketCategory === 'top' ? data.top : data.categories[activeMarketCategory] || [];
+    const list = document.getElementById('coin-list');
+    list.replaceChildren();
+    document.getElementById('market-status').textContent = items.length ? 'Выбрано: ' + exchangeSettings[activeExchange].coins.length : 'В этом разделе нет доступных пар.';
+    items.forEach(item => {
+      const label = document.createElement('label'); label.className = 'flex items-center gap-2 p-2 rounded-lg bg-purple-950/40 border border-purple-900/30 text-xs';
+      const input = document.createElement('input'); input.type = 'checkbox'; input.className = 'coin-checkbox rounded text-purple-600 focus:ring-0'; input.value = item.symbol;
+      input.checked = exchangeSettings[activeExchange].coins.includes(item.symbol);
+      input.addEventListener('change', () => {
+        const coins = new Set(exchangeSettings[activeExchange].coins);
+        input.checked ? coins.add(item.symbol) : coins.delete(item.symbol);
+        exchangeSettings[activeExchange].coins = Array.from(coins);
+        document.getElementById('market-status').textContent = 'Выбрано: ' + coins.size;
+      });
+      label.append(input, document.createTextNode(' ' + item.symbol)); list.appendChild(label);
+    });
+  }
 
   let moduleTfs = {
     levels: new Set(['5m', '15m', '30m', '1h', '2h', '4h']),
@@ -719,7 +772,7 @@
     }).catch(err => alert("Ошибка сети: " + err));
   }
 
-  function saveSettingsToServer() {
+  function saveSettingsToServer(buttonId = 'save-btn') {
     if (!document.getElementById('toast-style')) {
         const style = document.createElement('style');
         style.id = 'toast-style';
@@ -746,7 +799,8 @@
         document.body.appendChild(toast);
     }
 
-    const btn = document.getElementById('save-btn');
+    const btn = document.getElementById(buttonId);
+    const originalButtonText = btn ? btn.textContent : '';
     if (btn) {
       btn.innerHTML = '⚙️ Сохраняем...';
       btn.style.opacity = '0.5';
@@ -767,7 +821,8 @@
     const payload = {
       exchange: activeExchange,
       coins_mode: activeCoinsMode,
-      selected_coins: Array.from(document.querySelectorAll('.coin-checkbox:checked')).map(c => c.value),
+      selected_coins: exchangeSettings[activeExchange].coins,
+      exchange_settings: exchangeSettings,
       timeframes: {
         levels: Array.from(moduleTfs.levels),
         volume: Array.from(moduleTfs.volume),
@@ -794,7 +849,7 @@
         alert("Ошибка сервера: " + (data.detail || data.status));
         if (btn) {
           const lang = document.getElementById('lang-toggle').checked ? 'ru' : 'en';
-          btn.textContent = translations[lang]['btn_save'];
+          btn.textContent = originalButtonText;
           btn.style.opacity = '1';
           btn.disabled = false;
         }
@@ -809,7 +864,7 @@
           btn.innerHTML = 'Сохранено ✓';
           setTimeout(() => {
             const lang = document.getElementById('lang-toggle').checked ? 'ru' : 'en';
-            btn.textContent = translations[lang]['btn_save'];
+            btn.textContent = originalButtonText;
             btn.style.opacity = '1';
             btn.disabled = false;
           }, 2000);
@@ -817,7 +872,7 @@
     }).catch(err => {
       if (btn) {
           const lang = document.getElementById('lang-toggle').checked ? 'ru' : 'en';
-          btn.textContent = translations[lang]['btn_save'];
+          btn.textContent = originalButtonText;
           btn.style.opacity = '1';
           btn.disabled = false;
       }
@@ -920,13 +975,22 @@
         document.getElementById('top-plan-badge').textContent = `Триал: осталось ${user.days_left} дн.`;
       }
       
+      currentPlan = user.plan || 'starter';
       if (user.settings && user.settings.length > 0) {
         const s = user.settings[user.settings.length - 1];
         if (s.notifications_paused !== undefined && document.getElementById('pause-toggle')) {
             document.getElementById('pause-toggle').checked = s.notifications_paused;
         }
-        if (s.exchange) selectExchange(s.exchange.toLowerCase());
-        if (s.coins_mode) setCoinsMode(s.coins_mode);
+        let savedCoins = s.selected_coins_list || [];
+        if (typeof savedCoins === 'string') { try { savedCoins = JSON.parse(savedCoins); } catch (_) { savedCoins = []; } }
+        const savedExchange = supportedExchanges.includes((s.exchange || '').toLowerCase()) ? s.exchange.toLowerCase() : 'bingx';
+        if (savedCoins && savedCoins.exchanges) {
+          supportedExchanges.forEach(ex => { if (savedCoins.exchanges[ex]) exchangeSettings[ex] = savedCoins.exchanges[ex]; });
+        } else {
+          exchangeSettings[savedExchange] = {enabled: true, mode: s.coins_mode || 'all', coins: Array.isArray(savedCoins) ? savedCoins : []};
+          supportedExchanges.forEach(ex => { if (ex !== savedExchange) exchangeSettings[ex].enabled = false; });
+        }
+        selectExchange(savedExchange);
         
         let tfData = s.timeframes || s.timeframes_list;
         if (typeof tfData === 'string') {
@@ -975,9 +1039,11 @@
           updateWeight(s.min_level_weight);
         }
         if (s.level_side) setSide(s.level_side);
-      }
-    }).catch(err => console.error("Ошибка загрузки:", err));
+      } else { selectExchange(activeExchange); }
+    }).catch(err => { console.error("Ошибка загрузки:", err); selectExchange(activeExchange); });
   });
 </script>
 </body>
 </html>
+
+
