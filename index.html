@@ -108,20 +108,21 @@
     <div>
       <h1 class="font-bold text-lg leading-tight tracking-tight text-white flex items-center gap-1.5">
         Scanny
-        <span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-900/60 text-purple-300 border border-purple-500/30 uppercase font-mono">v2.2</span>
+        <span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-900/60 text-purple-300 border border-purple-500/30 uppercase font-mono">v2.3</span>
       </h1>
       <p id="top-plan-badge" class="text-xs text-purple-300/80 font-medium">Бесплатный триал (7 дней)</p>
     </div>
   </div>
   
-  <!-- ИСПРАВЛЕНО: iOS Переключатель языков -->
+  <!-- ИСПРАВЛЕНО: Математически ровный iOS Переключатель языков -->
   <div class="flex items-center gap-1.5 bg-purple-950/80 p-1 rounded-full border border-purple-700/40">
-    <span class="text-[10px] font-bold text-gray-500 pl-1.5 transition-colors" id="lang-en">EN</span>
+    <span class="text-[10px] font-bold text-gray-500 pl-1 transition-colors" id="lang-en">EN</span>
     <label class="relative inline-flex items-center cursor-pointer">
       <input type="checkbox" id="lang-toggle" onchange="toggleLanguage()" class="sr-only peer" checked>
-      <div class="w-8 h-4 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-purple-500"></div>
+      <!-- w-9 и h-5 контейнер, w-4 и h-4 кругляшок = идеальный ход от края до края -->
+      <div class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-purple-500"></div>
     </label>
-    <span class="text-[10px] font-bold text-purple-300 pr-1.5 transition-colors" id="lang-ru">RU</span>
+    <span class="text-[10px] font-bold text-purple-300 pr-1 transition-colors" id="lang-ru">RU</span>
   </div>
 </header>
 
@@ -129,12 +130,12 @@
 <div id="tab-overview" class="tab-content space-y-4">
   <div class="glass-card p-4 flex justify-between items-center">
     <div>
-      <h2 class="font-semibold text-white text-base">Скринер фьючерсов</h2>
-      <p class="text-xs text-purple-300">Активен 24/7 · 6 бирж</p>
+      <h2 class="font-semibold text-white text-base" data-i18n="scr_title">Скринер фьючерсов</h2>
+      <p class="text-xs text-purple-300" data-i18n="scr_sub">Активен 24/7 · 6 бирж</p>
     </div>
     <span class="px-3 py-1 text-xs rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-medium flex items-center gap-1">
       <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span>В работе</span>
+      <span data-i18n="scr_status">В работе</span>
     </span>
   </div>
 
@@ -142,44 +143,44 @@
     <div class="glass-card p-4 hover:border-purple-500/50 transition">
       <div class="flex justify-between items-start">
         <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-purple-900/50 text-purple-300 border border-purple-700/40">Уровни и Ретест</span>
-          <h3 class="font-medium text-white text-sm mt-1.5">Ретест зеркальных уровней (1.2–6.5 ATR)</h3>
-          <p class="text-xs text-gray-400 mt-0.5">Отслеживание подхода, пробоя и отскока</p>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-purple-900/50 text-purple-300 border border-purple-700/40" data-i18n="lvl_title">Уровни и Ретест</span>
+          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="lvl_h">Ретест зеркальных уровней (1.2–6.5 ATR)</h3>
+          <p class="text-xs text-gray-400 mt-0.5" data-i18n="lvl_p">Отслеживание подхода, пробоя и отскока</p>
         </div>
-        <button onclick="openModule('levels')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30">Настроить</button>
+        <button onclick="openModule('levels')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="btn_setup">Настроить</button>
       </div>
     </div>
 
     <div class="glass-card p-4 hover:border-purple-500/50 transition">
       <div class="flex justify-between items-start">
         <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-900/50 text-blue-300 border border-blue-700/40">Объём и Свипы</span>
-          <h3 class="font-medium text-white text-sm mt-1.5">Всплеск объёма и Liquidity Grab</h3>
-          <p class="text-xs text-gray-400 mt-0.5">Снятие стопов за локальными свингами</p>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-900/50 text-blue-300 border border-blue-700/40" data-i18n="vol_title">Объём и Свипы</span>
+          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="vol_h">Всплеск объёма и Liquidity Grab</h3>
+          <p class="text-xs text-gray-400 mt-0.5" data-i18n="vol_p">Снятие стопов за локальными свингами</p>
         </div>
-        <button onclick="openModule('volume')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30">Настроить</button>
+        <button onclick="openModule('volume')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="btn_setup">Настроить</button>
       </div>
     </div>
 
     <div class="glass-card p-4 hover:border-purple-500/50 transition">
       <div class="flex justify-between items-start">
         <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-900/50 text-amber-300 border border-amber-700/40">Деривативы</span>
-          <h3 class="font-medium text-white text-sm mt-1.5">Открытый интерес (OI) и Фандинг</h3>
-          <p class="text-xs text-gray-400 mt-0.5">Набор позиций и риск шорт/лонг-сквизов</p>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-900/50 text-amber-300 border border-amber-700/40" data-i18n="der_title">Деривативы</span>
+          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="der_h">Открытый интерес (OI) и Фандинг</h3>
+          <p class="text-xs text-gray-400 mt-0.5" data-i18n="der_p">Набор позиций и риск шорт/лонг-сквизов</p>
         </div>
-        <button onclick="openModule('derivatives')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30">Настроить</button>
+        <button onclick="openModule('derivatives')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="btn_setup">Настроить</button>
       </div>
     </div>
 
     <div class="glass-card p-4 hover:border-purple-500/50 transition">
       <div class="flex justify-between items-start">
         <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-900/50 text-pink-300 border border-pink-700/40">Индикаторы</span>
-          <h3 class="font-medium text-white text-sm mt-1.5">RSI-дивергенции и Squeeze</h3>
-          <p class="text-xs text-gray-400 mt-0.5">Сжатие Боллинджера перед мощным выстрелом</p>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-900/50 text-pink-300 border border-pink-700/40" data-i18n="ind_title">Индикаторы</span>
+          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="ind_h">RSI-дивергенции и Squeeze</h3>
+          <p class="text-xs text-gray-400 mt-0.5" data-i18n="ind_p">Сжатие Боллинджера перед мощным выстрелом</p>
         </div>
-        <button onclick="openModule('indicators')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30">Настроить</button>
+        <button onclick="openModule('indicators')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="btn_setup">Настроить</button>
       </div>
     </div>
   </div>
@@ -188,8 +189,8 @@
 <!-- ================= 2. TAB: КОТИРОВКИ ================= -->
 <div id="tab-quotes" class="tab-content hidden space-y-4">
   <div class="glass-card p-4">
-    <h2 class="font-semibold text-white text-base mb-2">Выбор биржи и монет</h2>
-    <p class="text-xs text-gray-400 mb-3">Выберите биржу и режим сканирования</p>
+    <h2 class="font-semibold text-white text-base mb-2" data-i18n="qt_title">Выбор биржи и монет</h2>
+    <p class="text-xs text-gray-400 mb-3" data-i18n="qt_sub">Выберите биржу и режим сканирования</p>
     <div class="grid grid-cols-3 gap-2 mb-4" id="exchange-grid">
       <button onclick="selectExchange('bingx')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-900/40 border-purple-500 text-purple-200" data-ex="bingx">BingX</button>
       <button onclick="selectExchange('binance')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="binance">Binance</button>
@@ -200,32 +201,30 @@
     </div>
     
     <div class="flex gap-2 p-1 bg-purple-950/60 rounded-xl mb-4 border border-purple-900/40">
-      <button onclick="setCoinsMode('all')" id="mode-all-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white">Все монеты</button>
-      <button onclick="setCoinsMode('selected')" id="mode-sel-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400">Только избранные</button>
+      <button onclick="setCoinsMode('all')" id="mode-all-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white" data-i18n="qt_all">Все монеты</button>
+      <button onclick="setCoinsMode('selected')" id="mode-sel-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400" data-i18n="qt_sel">Только избранные</button>
     </div>
     
     <div id="coins-selector-box" class="hidden space-y-3">
       <div class="flex gap-2 overflow-x-auto hide-scroll pb-1">
-        <button class="px-3 py-1 rounded-full bg-purple-700 text-xs text-white font-medium whitespace-nowrap">Топ-ликвидность</button>
-        <button class="px-3 py-1 rounded-full bg-purple-900/40 border border-purple-500/30 text-xs text-gray-300 font-medium whitespace-nowrap">Meme-токены</button>
-        <button class="px-3 py-1 rounded-full bg-purple-900/40 border border-purple-500/30 text-xs text-gray-300 font-medium whitespace-nowrap">AI проекты</button>
+        <button class="px-3 py-1 rounded-full bg-purple-700 text-xs text-white font-medium whitespace-nowrap" data-i18n="pool_top">Топ-ликвидность</button>
+        <button class="px-3 py-1 rounded-full bg-purple-900/40 border border-purple-500/30 text-xs text-gray-300 font-medium whitespace-nowrap" data-i18n="pool_meme">Meme-токены</button>
+        <button class="px-3 py-1 rounded-full bg-purple-900/40 border border-purple-500/30 text-xs text-gray-300 font-medium whitespace-nowrap" data-i18n="pool_ai">AI проекты</button>
       </div>
       
       <div class="p-3 bg-purple-950/30 rounded-xl border border-purple-900/30 space-y-3">
         <div>
-          <div class="flex justify-between text-[10px] text-gray-400 mb-1"><span>Объём (24ч) от:</span> <span id="vol-val" class="font-mono text-purple-300">10M$</span></div>
+          <div class="flex justify-between text-[10px] text-gray-400 mb-1"><span data-i18n="vol_24">Объём (24ч) от:</span> <span id="vol-val" class="font-mono text-purple-300">10M$</span></div>
           <input type="range" min="1" max="100" value="10" oninput="document.getElementById('vol-val').innerText=this.value+'M$'" class="w-full slider-purple">
         </div>
         <div>
-          <div class="flex justify-between text-[10px] text-gray-400 mb-1"><span>Изм. цены (24ч) от:</span> <span id="price-val" class="font-mono text-purple-300">+5%</span></div>
+          <div class="flex justify-between text-[10px] text-gray-400 mb-1"><span data-i18n="pr_24">Изм. цены (24ч) от:</span> <span id="price-val" class="font-mono text-purple-300">+5%</span></div>
           <input type="range" min="1" max="50" value="5" oninput="document.getElementById('price-val').innerText='+'+this.value+'%'" class="w-full slider-purple">
         </div>
       </div>
 
-      <p class="text-xs text-purple-300 font-medium">Отметьте нужные пары:</p>
-      <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1" id="coin-list">
-        <!-- Генерируется в JS -->
-      </div>
+      <p class="text-xs text-purple-300 font-medium" data-i18n="qt_pairs">Отметьте нужные пары:</p>
+      <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1" id="coin-list"></div>
     </div>
   </div>
 </div>
@@ -233,15 +232,15 @@
 <!-- ================= 3. TAB: СКРИНЕРЫ (4 МОДУЛЯ С ТФ) ================= -->
 <div id="tab-screeners" class="tab-content hidden space-y-4">
   <div class="flex justify-between items-center mb-1 px-1">
-    <h2 class="font-semibold text-white text-base">Настройка модулей</h2>
-    <button onclick="resetDefaults()" class="text-xs text-purple-400 hover:text-purple-300 underline">Сбросить всё</button>
+    <h2 class="font-semibold text-white text-base" data-i18n="mod_h">Настройка модулей</h2>
+    <button onclick="resetDefaults()" class="text-xs text-purple-400 hover:text-purple-300 underline" data-i18n="mod_rst">Сбросить всё</button>
   </div>
 
   <!-- БЛОК 1: Уровни -->
   <div id="module-card-levels" class="glass-card p-4 space-y-3 border-l-4 border-l-purple-500">
-    <h3 class="font-bold text-white text-sm flex items-center gap-2">🟣 Уровни и Ретест</h3>
+    <h3 class="font-bold text-white text-sm flex items-center gap-2">🟣 <span data-i18n="lvl_title">Уровни и Ретест</span></h3>
     <div>
-      <label class="text-[11px] text-gray-300 font-medium block mb-1.5">Таймфреймы для уровней</label>
+      <label class="text-[11px] text-gray-300 font-medium block mb-1.5" data-i18n="tf_lvl">Таймфреймы для уровней</label>
       <div class="flex flex-wrap gap-1.5" id="tf-pills-levels">
         <button onclick="toggleModuleTf('levels', '5m')" class="tf-btn-levels px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="5m">5m</button>
         <button onclick="toggleModuleTf('levels', '15m')" class="tf-btn-levels px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="15m">15m</button>
@@ -253,40 +252,40 @@
     </div>
     <div class="space-y-2 pt-1 border-t border-purple-900/30">
       <label class="flex items-center justify-between p-2 rounded-xl bg-purple-950/40 border border-purple-900/30 text-xs">
-        <span>Ретест пробитого уровня</span>
+        <span data-i18n="lbl_ret">Ретест пробитого уровня</span>
         <input type="checkbox" id="ev-retest" checked class="w-4 h-4 rounded text-purple-600">
       </label>
       <label class="flex items-center justify-between p-2 rounded-xl bg-purple-950/40 border border-purple-900/30 text-xs">
-        <span>Пробой уровня</span>
+        <span data-i18n="lbl_brk">Пробой уровня</span>
         <input type="checkbox" id="ev-breakout" checked class="w-4 h-4 rounded text-purple-600">
       </label>
       <label class="flex items-center justify-between p-2 rounded-xl bg-purple-950/40 border border-purple-900/30 text-xs">
-        <span>Подход к уровню</span>
+        <span data-i18n="lbl_app">Подход к уровню</span>
         <input type="checkbox" id="ev-approach" class="w-4 h-4 rounded text-purple-600">
       </label>
     </div>
     <div>
       <div class="flex justify-between items-center mb-1 text-xs">
-        <span class="text-gray-300">Минимальный вес уровня</span>
+        <span class="text-gray-300" data-i18n="lbl_wgt">Минимальный вес уровня</span>
         <span id="weight-val" class="font-mono font-bold text-purple-300">70 / 100</span>
       </div>
       <input type="range" min="1" max="100" value="70" id="weight-slider" oninput="updateWeight(this.value)" class="w-full slider-purple">
     </div>
     <div>
-      <label class="text-xs text-gray-300 font-medium block mb-1">Сторона уровня</label>
+      <label class="text-xs text-gray-300 font-medium block mb-1" data-i18n="lbl_side">Сторона уровня</label>
       <div class="grid grid-cols-3 gap-2">
-        <button onclick="setSide('any')" id="side-any-btn" class="py-1 rounded text-xs font-medium bg-purple-700 text-white">Любая</button>
-        <button onclick="setSide('support')" id="side-sup-btn" class="py-1 rounded text-xs font-medium bg-purple-950/50 text-gray-400 border border-purple-900/40">Поддержка</button>
-        <button onclick="setSide('resistance')" id="side-res-btn" class="py-1 rounded text-xs font-medium bg-purple-950/50 text-gray-400 border border-purple-900/40">Сопротивление</button>
+        <button onclick="setSide('any')" id="side-any-btn" class="py-1 rounded text-xs font-medium bg-purple-700 text-white" data-i18n="side_any">Любая</button>
+        <button onclick="setSide('support')" id="side-sup-btn" class="py-1 rounded text-xs font-medium bg-purple-950/50 text-gray-400 border border-purple-900/40" data-i18n="side_sup">Поддержка</button>
+        <button onclick="setSide('resistance')" id="side-res-btn" class="py-1 rounded text-xs font-medium bg-purple-950/50 text-gray-400 border border-purple-900/40" data-i18n="side_res">Сопротивление</button>
       </div>
     </div>
   </div>
 
   <!-- БЛОК 2: Объём -->
   <div id="module-card-volume" class="glass-card p-4 space-y-3 border-l-4 border-l-blue-500">
-    <h3 class="font-bold text-white text-sm flex items-center gap-2">🔵 Объём и Свипы (Liquidity Grab)</h3>
+    <h3 class="font-bold text-white text-sm flex items-center gap-2">🔵 <span data-i18n="vol_title">Объём и Свипы</span></h3>
     <div>
-      <label class="text-[11px] text-gray-300 font-medium block mb-1.5">Таймфреймы для объёмов</label>
+      <label class="text-[11px] text-gray-300 font-medium block mb-1.5" data-i18n="tf_vol">Таймфреймы для объёмов</label>
       <div class="flex flex-wrap gap-1.5" id="tf-pills-volume">
         <button onclick="toggleModuleTf('volume', '5m')" class="tf-btn-volume px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="5m">5m</button>
         <button onclick="toggleModuleTf('volume', '15m')" class="tf-btn-volume px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="15m">15m</button>
@@ -298,11 +297,11 @@
     </div>
     <div class="space-y-2 pt-1 border-t border-purple-900/30">
       <label class="flex items-center justify-between p-2 rounded-xl bg-blue-950/40 border border-blue-900/30 text-xs">
-        <span>Аномальный всплеск объема (Volume Spike)</span>
+        <span data-i18n="lbl_vsp">Аномальный всплеск объема (Volume Spike)</span>
         <input type="checkbox" id="ev-vol-anomaly" checked class="w-4 h-4 rounded text-blue-600">
       </label>
       <label class="flex items-center justify-between p-2 rounded-xl bg-blue-950/40 border border-blue-900/30 text-xs">
-        <span>Захват ликвидности (Liquidity Grab / Stop Hunt)</span>
+        <span data-i18n="lbl_lgb">Захват ликвидности (Liquidity Grab / Stop Hunt)</span>
         <input type="checkbox" id="ev-liq-grab" checked class="w-4 h-4 rounded text-blue-600">
       </label>
     </div>
@@ -310,9 +309,9 @@
 
   <!-- БЛОК 3: Деривативы -->
   <div id="module-card-derivatives" class="glass-card p-4 space-y-3 border-l-4 border-l-amber-500">
-    <h3 class="font-bold text-white text-sm flex items-center gap-2">🟠 Деривативы (OI & Фандинг)</h3>
+    <h3 class="font-bold text-white text-sm flex items-center gap-2">🟠 <span data-i18n="der_title">Деривативы</span></h3>
     <div>
-      <label class="text-[11px] text-gray-300 font-medium block mb-1.5">Таймфреймы для деривативов</label>
+      <label class="text-[11px] text-gray-300 font-medium block mb-1.5" data-i18n="tf_der">Таймфреймы для деривативов</label>
       <div class="flex flex-wrap gap-1.5" id="tf-pills-derivatives">
         <button onclick="toggleModuleTf('derivatives', '5m')" class="tf-btn-derivatives px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="5m">5m</button>
         <button onclick="toggleModuleTf('derivatives', '15m')" class="tf-btn-derivatives px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="15m">15m</button>
@@ -324,11 +323,11 @@
     </div>
     <div class="space-y-2 pt-1 border-t border-purple-900/30">
       <label class="flex items-center justify-between p-2 rounded-xl bg-amber-950/40 border border-amber-900/30 text-xs">
-        <span>Аномалии Открытого интереса (OI Spike)</span>
+        <span data-i18n="lbl_oi">Аномалии Открытого интереса (OI Spike)</span>
         <input type="checkbox" id="ev-oi-anomaly" checked class="w-4 h-4 rounded text-amber-600">
       </label>
       <label class="flex items-center justify-between p-2 rounded-xl bg-amber-950/40 border border-amber-900/30 text-xs">
-        <span>Экстремальный фандинг (Funding Rate Alert)</span>
+        <span data-i18n="lbl_fnd">Экстремальный фандинг (Funding Rate Alert)</span>
         <input type="checkbox" id="ev-funding-anomaly" checked class="w-4 h-4 rounded text-amber-600">
       </label>
     </div>
@@ -336,9 +335,9 @@
 
   <!-- БЛОК 4: Индикаторы -->
   <div id="module-card-indicators" class="glass-card p-4 space-y-3 border-l-4 border-l-pink-500">
-    <h3 class="font-bold text-white text-sm flex items-center gap-2">🔴 Индикаторы (RSI & Squeeze)</h3>
+    <h3 class="font-bold text-white text-sm flex items-center gap-2">🔴 <span data-i18n="ind_title">Индикаторы</span></h3>
     <div>
-      <label class="text-[11px] text-gray-300 font-medium block mb-1.5">Таймфреймы для индикаторов</label>
+      <label class="text-[11px] text-gray-300 font-medium block mb-1.5" data-i18n="tf_ind">Таймфреймы для индикаторов</label>
       <div class="flex flex-wrap gap-1.5" id="tf-pills-indicators">
         <button onclick="toggleModuleTf('indicators', '5m')" class="tf-btn-indicators px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="5m">5m</button>
         <button onclick="toggleModuleTf('indicators', '15m')" class="tf-btn-indicators px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200" data-tf="15m">15m</button>
@@ -350,18 +349,18 @@
     </div>
     <div class="space-y-2 pt-1 border-t border-purple-900/30">
       <label class="flex items-center justify-between p-2 rounded-xl bg-pink-950/40 border border-pink-900/30 text-xs">
-        <span>RSI-дивергенции</span>
+        <span data-i18n="lbl_rsi">RSI-дивергенции</span>
         <input type="checkbox" id="ev-rsi-div" checked class="w-4 h-4 rounded text-pink-600">
       </label>
       <label class="flex items-center justify-between p-2 rounded-xl bg-pink-950/40 border border-pink-900/30 text-xs">
-        <span>Сжатие волатильности (Bollinger Squeeze)</span>
+        <span data-i18n="lbl_sqz">Сжатие волатильности (Bollinger Squeeze)</span>
         <input type="checkbox" id="ev-squeeze" checked class="w-4 h-4 rounded text-pink-600">
       </label>
     </div>
   </div>
 
   <!-- Кнопка сохранения -->
-  <button id="save-btn" onclick="saveSettingsToServer()" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 font-semibold text-white text-sm shadow-lg shadow-purple-900/40 transition">
+  <button id="save-btn" onclick="saveSettingsToServer()" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 font-semibold text-white text-sm shadow-lg shadow-purple-900/40 transition" data-i18n="btn_save">
     Сохранить настройки
   </button>
 </div>
@@ -374,7 +373,7 @@
       <button onclick="fetchSignalsManual()" class="px-3 py-1.5 rounded-lg bg-purple-900/60 text-xs text-purple-200">↻</button>
     </div>
     <div class="flex gap-1.5 overflow-x-auto hide-scroll" id="feed-tfs">
-      <button onclick="setFeedTf('All')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-600 text-white shadow-md">Все</button>
+      <button onclick="setFeedTf('All')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-600 text-white shadow-md" data-i18n="feed_all">Все</button>
       <button onclick="setFeedTf('5m')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">5m</button>
       <button onclick="setFeedTf('15m')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">15m</button>
       <button onclick="setFeedTf('30m')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">30m</button>
@@ -392,14 +391,14 @@
     <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-bold text-lg text-white" id="user-avatar-initials">TR</div>
     <div>
       <h3 class="font-bold text-white text-base" id="profile-name">Trader</h3>
-      <p class="text-xs text-purple-300" id="profile-plan-text">Тариф: Бесплатный триал</p>
+      <p class="text-xs text-purple-300"><span data-i18n="prof_plan">Тариф:</span> Бесплатный триал</p>
     </div>
   </div>
 
   <div class="glass-card p-4 flex justify-between items-center border-l-4 border-l-amber-500 bg-amber-950/10">
     <div>
-      <h3 class="font-bold text-white text-sm">Пауза уведомлений</h3>
-      <p class="text-[10px] text-gray-400 mt-0.5">Временно отключить все сигналы</p>
+      <h3 class="font-bold text-white text-sm" data-i18n="pause_h">Пауза уведомлений</h3>
+      <p class="text-[10px] text-gray-400 mt-0.5" data-i18n="pause_p">Временно отключить все сигналы</p>
     </div>
     <label class="relative inline-flex items-center cursor-pointer">
       <input type="checkbox" id="pause-toggle" onchange="savePauseState()" class="sr-only peer">
@@ -409,67 +408,67 @@
 
   <div class="glass-card p-4 space-y-2.5">
     <div class="flex justify-between items-center">
-      <h3 class="font-semibold text-white text-sm">Пригласить друга</h3>
+      <h3 class="font-semibold text-white text-sm" data-i18n="ref_h">Пригласить друга</h3>
       <span class="text-xs px-2 py-0.5 rounded bg-purple-900/60 text-purple-200 border border-purple-700/40">
-        Бонусы: <b id="bonus-days-val">0</b> дн. PRO
+        <span data-i18n="ref_b">Бонусы:</span> <b id="bonus-days-val">0</b> <span data-i18n="ref_d">дн. PRO</span>
       </span>
     </div>
-    <p class="text-xs text-gray-300 leading-relaxed">
+    <p class="text-xs text-gray-300 leading-relaxed" data-i18n="ref_p">
       Друг получает <b>10 дней триала</b> вместо 7. Когда друг впервые покупает PRO — вам начисляется <b>7 дней PRO</b>!
     </p>
     <div class="flex gap-2">
       <input type="text" readonly id="ref-link-input" value="https://t.me/ScannyBot?start=ref_..." class="flex-1 bg-purple-950/60 border border-purple-900/40 rounded-lg px-2.5 py-1.5 text-xs text-gray-300 font-mono outline-none">
-      <button onclick="copyRefLink()" class="px-3 py-1.5 bg-purple-700 hover:bg-purple-600 text-xs font-semibold rounded-lg text-white">Копировать</button>
+      <button onclick="copyRefLink()" class="px-3 py-1.5 bg-purple-700 hover:bg-purple-600 text-xs font-semibold rounded-lg text-white" data-i18n="btn_copy">Копировать</button>
     </div>
-    <button onclick="activateBonusPro()" class="w-full py-2 bg-purple-950/80 border border-purple-500/40 hover:border-purple-500 text-xs font-semibold rounded-lg text-purple-200 transition">
+    <button onclick="activateBonusPro()" class="w-full py-2 bg-purple-950/80 border border-purple-500/40 hover:border-purple-500 text-xs font-semibold rounded-lg text-purple-200 transition" data-i18n="btn_act">
       Активировать неделю PRO с баланса
     </button>
   </div>
 
   <div class="space-y-3">
-    <h3 class="font-semibold text-white text-sm">Тарифные планы</h3>
+    <h3 class="font-semibold text-white text-sm" data-i18n="plan_h">Тарифные планы</h3>
 
     <div class="glass-card p-3.5">
       <div class="flex justify-between items-start">
         <div>
           <span class="text-xs font-bold text-white">Starter</span>
-          <p class="text-xs text-gray-400">1h, 2h, 4h · 1 биржа · топ-50 пар</p>
+          <p class="text-xs text-gray-400" data-i18n="p_st_p">1h, 2h, 4h · 1 биржа · топ-50 пар</p>
         </div>
         <div class="text-right">
           <span class="text-base font-bold text-purple-300">$6.0</span>
           <span class="text-[10px] text-gray-400">/мес</span>
         </div>
       </div>
-      <button onclick="orderPlan('starter')" class="mt-3 w-full py-2 bg-purple-900/60 hover:bg-purple-800 border border-purple-500/30 text-xs font-semibold rounded-lg text-white">Выбрать Starter</button>
+      <button onclick="orderPlan('starter')" class="mt-3 w-full py-2 bg-purple-900/60 hover:bg-purple-800 border border-purple-500/30 text-xs font-semibold rounded-lg text-white" data-i18n="btn_st">Выбрать Starter</button>
     </div>
 
     <div class="glass-card p-3.5 glass-card-active relative">
-      <span class="absolute -top-2.5 right-4 px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-[10px] font-bold text-white uppercase tracking-wider">Хит продаж</span>
+      <span class="absolute -top-2.5 right-4 px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-[10px] font-bold text-white uppercase tracking-wider" data-i18n="hit">Хит продаж</span>
       <div class="flex justify-between items-start">
         <div>
           <span class="text-xs font-bold text-white">Trader</span>
-          <p class="text-xs text-gray-400">Все ТФ 5m–4h · Все сигналы · 1 биржа</p>
+          <p class="text-xs text-gray-400" data-i18n="p_tr_p">Все ТФ 5m–4h · Все сигналы · 1 биржа</p>
         </div>
         <div class="text-right">
           <span class="text-base font-bold text-purple-300">$9.5</span>
           <span class="text-[10px] text-gray-400">/мес</span>
         </div>
       </div>
-      <button onclick="orderPlan('trader')" class="mt-3 w-full py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 text-xs font-semibold rounded-lg text-white shadow-lg shadow-purple-900/50">Выбрать Trader</button>
+      <button onclick="orderPlan('trader')" class="mt-3 w-full py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 text-xs font-semibold rounded-lg text-white shadow-lg shadow-purple-900/50" data-i18n="btn_tr">Выбрать Trader</button>
     </div>
 
     <div class="glass-card p-3.5">
       <div class="flex justify-between items-start">
         <div>
           <span class="text-xs font-bold text-white">PRO Multi-Exchange</span>
-          <p class="text-xs text-gray-400">Все ТФ · Все сигналы · Все 6 бирж сразу</p>
+          <p class="text-xs text-gray-400" data-i18n="p_pr_p">Все ТФ · Все сигналы · Все 6 бирж сразу</p>
         </div>
         <div class="text-right">
           <span class="text-base font-bold text-purple-300">$12.5</span>
           <span class="text-[10px] text-gray-400">/мес</span>
         </div>
       </div>
-      <button onclick="orderPlan('pro')" class="mt-3 w-full py-2 bg-purple-900/60 hover:bg-purple-800 border border-purple-500/30 text-xs font-semibold rounded-lg text-white">Выбрать PRO</button>
+      <button onclick="orderPlan('pro')" class="mt-3 w-full py-2 bg-purple-900/60 hover:bg-purple-800 border border-purple-500/30 text-xs font-semibold rounded-lg text-white" data-i18n="btn_pr">Выбрать PRO</button>
     </div>
   </div>
 </div>
@@ -478,23 +477,23 @@
 <nav class="fixed bottom-0 left-0 right-0 bg-[#0E0A1A]/95 backdrop-blur-md border-t border-purple-900/40 px-3 flex justify-around z-50">
   <button onclick="switchTab('overview')" id="nav-overview" class="nav-btn flex flex-col items-center text-[10px] text-gray-400 nav-active">
     <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-    <span>Обзор</span>
+    <span data-i18n="nav_ov">Обзор</span>
   </button>
   <button onclick="switchTab('quotes')" id="nav-quotes" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
     <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-    <span>Рынок</span>
+    <span data-i18n="nav_mk">Рынок</span>
   </button>
   <button onclick="switchTab('screeners')" id="nav-screeners" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
     <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-    <span>Настройки</span>
+    <span data-i18n="nav_st">Настройки</span>
   </button>
   <button onclick="switchTab('feed')" id="nav-feed" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
     <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-    <span>Лента</span>
+    <span data-i18n="nav_fd">Лента</span>
   </button>
   <button onclick="switchTab('profile')" id="nav-profile" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
     <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-    <span>Профиль</span>
+    <span data-i18n="nav_pr">Профиль</span>
   </button>
 </nav>
 
@@ -507,11 +506,84 @@
     tg.setBackgroundColor('#080511');
   }
 
-  // --- ИСПРАВЛЕНИЕ 1: Логика кнопки языка ---
+  // --- ИСПРАВЛЕНИЕ: Мгновенный словарь переводов ---
+  const translations = {
+    ru: {
+      scr_title: "Скринер фьючерсов", scr_sub: "Активен 24/7 · 6 бирж", scr_status: "В работе",
+      lvl_title: "Уровни и Ретест", lvl_h: "Ретест зеркальных уровней (1.2–6.5 ATR)", lvl_p: "Отслеживание подхода, пробоя и отскока", btn_setup: "Настроить",
+      vol_title: "Объём и Свипы", vol_h: "Всплеск объёма и Liquidity Grab", vol_p: "Снятие стопов за локальными свингами",
+      der_title: "Деривативы", der_h: "Открытый интерес (OI) и Фандинг", der_p: "Набор позиций и риск шорт/лонг-сквизов",
+      ind_title: "Индикаторы", ind_h: "RSI-дивергенции и Squeeze", ind_p: "Сжатие Боллинджера перед мощным выстрелом",
+      qt_title: "Выбор биржи и монет", qt_sub: "Выберите биржу и режим сканирования", qt_all: "Все монеты", qt_sel: "Только избранные",
+      pool_top: "Топ-ликвидность", pool_meme: "Meme-токены", pool_ai: "AI проекты",
+      vol_24: "Объём (24ч) от:", pr_24: "Изм. цены (24ч) от:", qt_pairs: "Отметьте нужные пары:",
+      mod_h: "Настройка модулей", mod_rst: "Сбросить всё",
+      tf_lvl: "Таймфреймы для уровней", lbl_ret: "Ретест пробитого уровня", lbl_brk: "Пробой уровня", lbl_app: "Подход к уровню",
+      lbl_wgt: "Минимальный вес уровня", lbl_side: "Сторона уровня", side_any: "Любая", side_sup: "Поддержка", side_res: "Сопротивление",
+      tf_vol: "Таймфреймы для объёмов", lbl_vsp: "Аномальный всплеск объема (Volume Spike)", lbl_lgb: "Захват ликвидности (Liquidity Grab / Stop Hunt)",
+      tf_der: "Таймфреймы для деривативов", lbl_oi: "Аномалии Открытого интереса (OI Spike)", lbl_fnd: "Экстремальный фандинг (Funding Rate Alert)",
+      tf_ind: "Таймфреймы для индикаторов", lbl_rsi: "RSI-дивергенции", lbl_sqz: "Сжатие волатильности (Bollinger Squeeze)",
+      btn_save: "Сохранить настройки", feed_all: "Все", prof_plan: "Тариф:",
+      pause_h: "Пауза уведомлений", pause_p: "Временно отключить все сигналы",
+      ref_h: "Пригласить друга", ref_b: "Бонусы:", ref_d: "дн. PRO",
+      ref_p: "Друг получает <b>10 дней триала</b> вместо 7. Когда друг впервые покупает PRO — вам начисляется <b>7 дней PRO</b>!",
+      btn_copy: "Копировать", btn_act: "Активировать неделю PRO с баланса",
+      plan_h: "Тарифные планы", p_st_p: "1h, 2h, 4h · 1 биржа · топ-50 пар", btn_st: "Выбрать Starter",
+      hit: "Хит продаж", p_tr_p: "Все ТФ 5m–4h · Все сигналы · 1 биржа", btn_tr: "Выбрать Trader",
+      p_pr_p: "Все ТФ · Все сигналы · Все 6 бирж сразу", btn_pr: "Выбрать PRO",
+      nav_ov: "Обзор", nav_mk: "Рынок", nav_st: "Настройки", nav_fd: "Лента", nav_pr: "Профиль",
+      feed_empty: "Сигналов не найдено"
+    },
+    en: {
+      scr_title: "Futures Screener", scr_sub: "Active 24/7 · 6 exchanges", scr_status: "Running",
+      lvl_title: "Levels & Retest", lvl_h: "Mirror levels retest (1.2–6.5 ATR)", lvl_p: "Tracking approach, breakout, and bounce", btn_setup: "Setup",
+      vol_title: "Volume & Sweeps", vol_h: "Volume Spike & Liquidity Grab", vol_p: "Stop hunts behind local swings",
+      der_title: "Derivatives", der_h: "Open Interest (OI) & Funding", der_p: "Position building and squeeze risks",
+      ind_title: "Indicators", ind_h: "RSI-divergences & Squeeze", ind_p: "Bollinger squeeze before massive breakout",
+      qt_title: "Exchange & Coins", qt_sub: "Select exchange and scanning mode", qt_all: "All coins", qt_sel: "Selected only",
+      pool_top: "Top Liquidity", pool_meme: "Meme Tokens", pool_ai: "AI Projects",
+      vol_24: "Volume (24h) from:", pr_24: "Price chg (24h) from:", qt_pairs: "Select pairs:",
+      mod_h: "Modules Setup", mod_rst: "Reset all",
+      tf_lvl: "Timeframes for levels", lbl_ret: "Broken level retest", lbl_brk: "Level breakout", lbl_app: "Level approach",
+      lbl_wgt: "Min level weight", lbl_side: "Level side", side_any: "Any", side_sup: "Support", side_res: "Resistance",
+      tf_vol: "Timeframes for volume", lbl_vsp: "Abnormal volume spike", lbl_lgb: "Liquidity Grab (Stop Hunt)",
+      tf_der: "Timeframes for derivatives", lbl_oi: "OI Anomaly (Spike)", lbl_fnd: "Extreme Funding Alert",
+      tf_ind: "Timeframes for indicators", lbl_rsi: "RSI divergences", lbl_sqz: "Bollinger Squeeze",
+      btn_save: "Save Settings", feed_all: "All", prof_plan: "Plan:",
+      pause_h: "Pause Notifications", pause_p: "Temporarily disable all signals",
+      ref_h: "Invite a Friend", ref_b: "Bonus:", ref_d: "days PRO",
+      ref_p: "Friend gets <b>10 days trial</b> instead of 7. When they buy PRO — you get <b>7 days PRO</b>!",
+      btn_copy: "Copy", btn_act: "Activate PRO week from balance",
+      plan_h: "Subscription Plans", p_st_p: "1h, 2h, 4h · 1 exchange · top-50 pairs", btn_st: "Choose Starter",
+      hit: "Best Seller", p_tr_p: "All TF 5m–4h · All signals · 1 exchange", btn_tr: "Choose Trader",
+      p_pr_p: "All TF · All signals · All 6 exchanges", btn_pr: "Choose PRO",
+      nav_ov: "Overview", nav_mk: "Market", nav_st: "Settings", nav_fd: "Feed", nav_pr: "Profile",
+      feed_empty: "No signals found"
+    }
+  };
+
+  // --- ИСПРАВЛЕНИЕ: Функция мгновенного перевода ---
   function toggleLanguage() {
     const isRu = document.getElementById('lang-toggle').checked;
-    document.getElementById('lang-en').className = isRu ? "text-[10px] font-bold text-gray-500 pl-1.5 transition-colors" : "text-[10px] font-bold text-purple-300 pl-1.5 transition-colors";
-    document.getElementById('lang-ru').className = isRu ? "text-[10px] font-bold text-purple-300 pr-1.5 transition-colors" : "text-[10px] font-bold text-gray-500 pr-1.5 transition-colors";
+    const lang = isRu ? 'ru' : 'en';
+    
+    document.getElementById('lang-en').className = isRu ? "text-[10px] font-bold text-gray-500 pl-1 transition-colors" : "text-[10px] font-bold text-purple-300 pl-1 transition-colors";
+    document.getElementById('lang-ru').className = isRu ? "text-[10px] font-bold text-purple-300 pr-1 transition-colors" : "text-[10px] font-bold text-gray-500 pr-1 transition-colors";
+    
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if(translations[lang][key]) {
+        el.innerHTML = translations[lang][key];
+      }
+    });
+
+    const searchInput = document.getElementById('feed-search');
+    if(searchInput) searchInput.placeholder = lang === 'ru' ? 'Поиск по тикеру...' : 'Search ticker...';
+
+    if(!document.getElementById('tab-feed').classList.contains('hidden')) {
+        renderFeed();
+    }
+    
     if(tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
   }
 
@@ -719,11 +791,11 @@
       },
       body: JSON.stringify(payload)
     }).then(r => r.json()).then(data => {
-      // ИСПРАВЛЕНИЕ 2: Честная обработка ошибки (если сервер не сохранил)
       if (data.status === 'error' || data.detail) {
         alert("Ошибка сервера: " + (data.detail || data.status));
         if (btn) {
-          btn.textContent = 'Ошибка сохранения';
+          const lang = document.getElementById('lang-toggle').checked ? 'ru' : 'en';
+          btn.textContent = translations[lang]['btn_save'];
           btn.style.opacity = '1';
           btn.disabled = false;
         }
@@ -737,14 +809,16 @@
       if (btn) {
           btn.innerHTML = 'Сохранено ✓';
           setTimeout(() => {
-            btn.textContent = 'Сохранить настройки';
+            const lang = document.getElementById('lang-toggle').checked ? 'ru' : 'en';
+            btn.textContent = translations[lang]['btn_save'];
             btn.style.opacity = '1';
             btn.disabled = false;
           }, 2000);
       }
     }).catch(err => {
       if (btn) {
-          btn.textContent = 'Сбой сети';
+          const lang = document.getElementById('lang-toggle').checked ? 'ru' : 'en';
+          btn.textContent = translations[lang]['btn_save'];
           btn.style.opacity = '1';
           btn.disabled = false;
       }
@@ -763,7 +837,7 @@
   function setFeedTf(tf) {
     activeFeedTf = tf;
     document.querySelectorAll('.feed-tf-btn').forEach(b => {
-      b.className = (b.innerText === tf)
+      b.className = (b.innerText === tf || (tf === 'All' && b.hasAttribute('data-i18n')))
         ? "feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-600 text-white shadow-md"
         : "feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40";
     });
@@ -780,17 +854,24 @@
   function fetchSignalsManual() {
     if(tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
     const now = new Date();
+    const lang = document.getElementById('lang-toggle').checked ? 'ru' : 'en';
+    const s1 = lang === 'ru' ? 'Ретест поддержки' : 'Support Retest';
+    const s2 = lang === 'ru' ? 'Всплеск объёма' : 'Volume Spike';
+    const s3 = lang === 'ru' ? 'Свип ликвидности' : 'Liquidity Grab';
+
     rawSignalsMock = [
-      { coin: 'BTC/USDT', tf: '15m', type: 'Ретест поддержки', price: '64,200 $', time: now, color: 'emerald' },
-      { coin: 'BTC/USDT', tf: '5m', type: 'Ретест поддержки', price: '64,210 $', time: new Date(now.getTime() - 60000), color: 'emerald' },
-      { coin: 'ETH/USDT', tf: '1h', type: 'Всплеск объёма', price: '3,450 $', time: new Date(now.getTime() - 120000), color: 'blue' },
-      { coin: 'SOL/USDT', tf: '30m', type: 'Свип ликвидности', price: '142.5 $', time: new Date(now.getTime() - 300000), color: 'amber' }
+      { coin: 'BTC/USDT', tf: '15m', type: s1, price: '64,200 $', time: now, color: 'emerald' },
+      { coin: 'BTC/USDT', tf: '5m', type: s1, price: '64,210 $', time: new Date(now.getTime() - 60000), color: 'emerald' },
+      { coin: 'ETH/USDT', tf: '1h', type: s2, price: '3,450 $', time: new Date(now.getTime() - 120000), color: 'blue' },
+      { coin: 'SOL/USDT', tf: '30m', type: s3, price: '142.5 $', time: new Date(now.getTime() - 300000), color: 'amber' }
     ];
     renderFeed();
   }
 
   function renderFeed() {
     const searchQ = document.getElementById('feed-search').value.toLowerCase();
+    const lang = document.getElementById('lang-toggle').checked ? 'ru' : 'en';
+
     let filtered = rawSignalsMock.filter(s => {
       const matchSearch = s.coin.toLowerCase().includes(searchQ);
       const matchTf = (activeFeedTf === 'All') || (s.tf.toLowerCase() === activeFeedTf.toLowerCase());
@@ -809,17 +890,19 @@
 
     const html = Object.values(grouped).map(g => {
       const tfsStr = g.tfs.sort().join(', ').toUpperCase();
+      const justNowTxt = lang === 'ru' ? 'Только что' : 'Just now';
       return `
       <div class="glass-card p-3 border-l-4 border-l-${g.color}-500 mb-2">
         <div class="flex justify-between items-start">
           <span class="text-xs font-bold text-white">${g.coin} <span class="text-[10px] bg-purple-900/60 px-1.5 py-0.5 rounded text-purple-300 ml-1">${tfsStr}</span></span>
-          <span class="text-[10px] text-gray-400">Только что</span>
+          <span class="text-[10px] text-gray-400">${justNowTxt}</span>
         </div>
         <p class="text-xs text-gray-300 mt-1.5">${g.type}: <b class="text-white">${g.price}</b></p>
       </div>`;
     }).join('');
 
-    document.getElementById('feed-items-container').innerHTML = html || '<p class="text-xs text-center text-gray-500 mt-4">Сигналов не найдено</p>';
+    const emptyTxt = translations[lang]['feed_empty'];
+    document.getElementById('feed-items-container').innerHTML = html || `<p class="text-xs text-center text-gray-500 mt-4">${emptyTxt}</p>`;
   }
 
   window.addEventListener('DOMContentLoaded', () => {
@@ -846,19 +929,16 @@
         if (s.exchange) selectExchange(s.exchange.toLowerCase());
         if (s.coins_mode) setCoinsMode(s.coins_mode);
         
-        // --- ИСПРАВЛЕНИЕ 3: Бронебойный парсер для таймфреймов (чтобы не слетали) ---
         let tfData = s.timeframes || s.timeframes_list;
         if (typeof tfData === 'string') {
           try { 
-            // Заменяем питоновские одинарные кавычки на двойные (если есть), иначе JSON.parse крашится
             tfData = JSON.parse(tfData.replace(/'/g, '"')); 
           } catch(e) {
-            // Если в базе лежит старая строчка типа "5m,15m,30m,1h" - превращаем её в объекты
             if (tfData.includes(',')) {
               const arr = tfData.split(',').map(x => x.trim());
               tfData = { levels: arr, volume: arr, derivatives: arr, indicators: arr };
             } else {
-              tfData = null; // Фолбэк на дефолты
+              tfData = null;
             }
           }
         }
