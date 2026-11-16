@@ -12,9 +12,7 @@
     --card-bg: rgba(22, 16, 38, 0.75);
     --card-border: rgba(147, 51, 234, 0.2);
     --purple-primary: #9333EA;
-    --purple-glow: rgba(168, 85, 247, 0.4);
     --text-primary: #F3F4F6;
-    --text-muted: #9CA3AF;
   }
 
   body {
@@ -22,7 +20,7 @@
     color: var(--text-primary);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     min-height: 100vh;
-    padding-bottom: calc(100px + env(safe-area-inset-bottom, 20px)) !important; /* Правка для iOS Dock */
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 20px)) !important;
     position: relative;
     overflow-x: hidden;
   }
@@ -77,7 +75,6 @@
     box-shadow: 0 0 10px #A855F7;
   }
 
-  /* Правки Dock панели (жирные иконки, обводка, отступы iOS) */
   nav {
     padding-bottom: calc(10px + env(safe-area-inset-bottom, 20px)) !important;
     padding-top: 10px !important;
@@ -111,15 +108,20 @@
     <div>
       <h1 class="font-bold text-lg leading-tight tracking-tight text-white flex items-center gap-1.5">
         Scanny
-        <span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-900/60 text-purple-300 border border-purple-500/30 uppercase font-mono">v2.1</span>
+        <span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-900/60 text-purple-300 border border-purple-500/30 uppercase font-mono">v2.2</span>
       </h1>
       <p id="top-plan-badge" class="text-xs text-purple-300/80 font-medium">Бесплатный триал (7 дней)</p>
     </div>
   </div>
-  <div class="flex items-center gap-2">
-    <button onclick="toggleLanguage()" id="lang-btn" class="px-2.5 py-1 rounded-full bg-purple-950/80 border border-purple-700/40 text-xs font-semibold text-purple-200">
-      EN / RU
-    </button>
+  
+  <!-- ИСПРАВЛЕНО: iOS Переключатель языков -->
+  <div class="flex items-center gap-1.5 bg-purple-950/80 p-1 rounded-full border border-purple-700/40">
+    <span class="text-[10px] font-bold text-gray-500 pl-1.5 transition-colors" id="lang-en">EN</span>
+    <label class="relative inline-flex items-center cursor-pointer">
+      <input type="checkbox" id="lang-toggle" onchange="toggleLanguage()" class="sr-only peer" checked>
+      <div class="w-8 h-4 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-purple-500"></div>
+    </label>
+    <span class="text-[10px] font-bold text-purple-300 pr-1.5 transition-colors" id="lang-ru">RU</span>
   </div>
 </header>
 
@@ -202,7 +204,6 @@
       <button onclick="setCoinsMode('selected')" id="mode-sel-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400">Только избранные</button>
     </div>
     
-    <!-- ПУНКТ 7: Добавлены пулы, фильтры по объему и расширен список монет -->
     <div id="coins-selector-box" class="hidden space-y-3">
       <div class="flex gap-2 overflow-x-auto hide-scroll pb-1">
         <button class="px-3 py-1 rounded-full bg-purple-700 text-xs text-white font-medium whitespace-nowrap">Топ-ликвидность</button>
@@ -223,7 +224,7 @@
 
       <p class="text-xs text-purple-300 font-medium">Отметьте нужные пары:</p>
       <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1" id="coin-list">
-        <!-- Генерируется в JS для снятия лимита -->
+        <!-- Генерируется в JS -->
       </div>
     </div>
   </div>
@@ -365,7 +366,7 @@
   </button>
 </div>
 
-<!-- ================= 4. TAB: ЛЕНТА (ПУНКТ 5 и 6 - Поиск, фильтры, авторефреш) ================= -->
+<!-- ================= 4. TAB: ЛЕНТА ================= -->
 <div id="tab-feed" class="tab-content hidden space-y-3">
   <div class="glass-card p-3 space-y-3">
     <div class="flex gap-2">
@@ -382,12 +383,10 @@
       <button onclick="setFeedTf('4h')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">4h</button>
     </div>
   </div>
-  <div class="space-y-2.5" id="feed-items-container">
-    <!-- Сюда JS рендерит сигналы -->
-  </div>
+  <div class="space-y-2.5" id="feed-items-container"></div>
 </div>
 
-<!-- ================= 5. TAB: ПРОФИЛЬ (С ТАРИФАМИ И РЕФЕРАЛКОЙ) ================= -->
+<!-- ================= 5. TAB: ПРОФИЛЬ ================= -->
 <div id="tab-profile" class="tab-content hidden space-y-4">
   <div class="glass-card p-4 flex items-center gap-3">
     <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-bold text-lg text-white" id="user-avatar-initials">TR</div>
@@ -397,7 +396,6 @@
     </div>
   </div>
 
-  <!-- ПУНКТ 8: Кнопка остановки уведомлений -->
   <div class="glass-card p-4 flex justify-between items-center border-l-4 border-l-amber-500 bg-amber-950/10">
     <div>
       <h3 class="font-bold text-white text-sm">Пауза уведомлений</h3>
@@ -476,7 +474,7 @@
   </div>
 </div>
 
-<!-- ================= BOTTOM NAVIGATION BAR (ПУНКТ 3: iOS Style) ================= -->
+<!-- ================= BOTTOM NAVIGATION BAR ================= -->
 <nav class="fixed bottom-0 left-0 right-0 bg-[#0E0A1A]/95 backdrop-blur-md border-t border-purple-900/40 px-3 flex justify-around z-50">
   <button onclick="switchTab('overview')" id="nav-overview" class="nav-btn flex flex-col items-center text-[10px] text-gray-400 nav-active">
     <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
@@ -509,6 +507,14 @@
     tg.setBackgroundColor('#080511');
   }
 
+  // --- ИСПРАВЛЕНИЕ 1: Логика кнопки языка ---
+  function toggleLanguage() {
+    const isRu = document.getElementById('lang-toggle').checked;
+    document.getElementById('lang-en').className = isRu ? "text-[10px] font-bold text-gray-500 pl-1.5 transition-colors" : "text-[10px] font-bold text-purple-300 pl-1.5 transition-colors";
+    document.getElementById('lang-ru').className = isRu ? "text-[10px] font-bold text-purple-300 pr-1.5 transition-colors" : "text-[10px] font-bold text-gray-500 pr-1.5 transition-colors";
+    if(tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
+  }
+
   function switchTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
     const target = document.getElementById('tab-' + tabId);
@@ -518,7 +524,6 @@
     const navBtn = document.getElementById('nav-' + tabId);
     if (navBtn) navBtn.classList.add('nav-active');
 
-    // ПУНКТ 5: Автостарт ленты при переходе
     if (tabId === 'feed') fetchSignalsAuto();
   }
 
@@ -550,7 +555,6 @@
     document.getElementById('mode-sel-btn').className = mode === 'selected' ? "flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white" : "flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400";
   }
 
-  // ПУНКТ 7: Генерация монет для снятия лимита
   const coinsList = ["BTC","ETH","SOL","XRP","ADA","DOGE","AVAX","LINK","MATIC","DOT","LTC","SHIB","TRX","ATOM","UNI","NEAR","APT","OP","ARB","SUI","INJ","RNDR"];
   document.getElementById('coin-list').innerHTML = coinsList.map(c => 
     `<label class="flex items-center gap-2 p-2 rounded-lg bg-purple-950/40 border border-purple-900/30 text-xs"><input type="checkbox" checked value="${c}/USDT:USDT" class="coin-checkbox rounded text-purple-600 focus:ring-0"> ${c}/USDT</label>`
@@ -644,7 +648,6 @@
     }).catch(err => alert("Ошибка сети: " + err));
   }
 
-  // ПУНКТ 1: Анимация и тост при сохранении
   function saveSettingsToServer() {
     if (!document.getElementById('toast-style')) {
         const style = document.createElement('style');
@@ -716,8 +719,18 @@
       },
       body: JSON.stringify(payload)
     }).then(r => r.json()).then(data => {
+      // ИСПРАВЛЕНИЕ 2: Честная обработка ошибки (если сервер не сохранил)
+      if (data.status === 'error' || data.detail) {
+        alert("Ошибка сервера: " + (data.detail || data.status));
+        if (btn) {
+          btn.textContent = 'Ошибка сохранения';
+          btn.style.opacity = '1';
+          btn.disabled = false;
+        }
+        return;
+      }
+
       if (window.Telegram?.WebApp?.HapticFeedback) window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
-      
       toast.classList.add('toast-visible');
       setTimeout(() => toast.classList.remove('toast-visible'), 3000);
       
@@ -731,23 +744,18 @@
       }
     }).catch(err => {
       if (btn) {
-          btn.textContent = 'Ошибка';
+          btn.textContent = 'Сбой сети';
           btn.style.opacity = '1';
           btn.disabled = false;
       }
-      alert('Ошибка сохранения: ' + err);
+      alert('Сбой: ' + err);
     });
   }
 
-  // ПУНКТ 8: Пауза уведомлений на лету
   function savePauseState() {
-      const isPaused = document.getElementById('pause-toggle').checked;
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
-      // Опционально можно сразу слать запрос на сохранение при переключении
-      // saveSettingsToServer(); 
   }
 
-  // ПУНКТ 5 и 6: Лента (Фильтры, Группировка, Автообновление)
   let activeFeedTf = 'All';
   let feedInterval = null;
   let rawSignalsMock = []; 
@@ -765,14 +773,13 @@
   function fetchSignalsAuto() {
     if(!feedInterval) {
       fetchSignalsManual();
-      feedInterval = setInterval(fetchSignalsManual, 30000); // автообновление раз в 30 сек
+      feedInterval = setInterval(fetchSignalsManual, 30000);
     }
   }
 
   function fetchSignalsManual() {
     if(tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
     const now = new Date();
-    // Имитация сигналов для UI (Пункт 6: группировка)
     rawSignalsMock = [
       { coin: 'BTC/USDT', tf: '15m', type: 'Ретест поддержки', price: '64,200 $', time: now, color: 'emerald' },
       { coin: 'BTC/USDT', tf: '5m', type: 'Ретест поддержки', price: '64,210 $', time: new Date(now.getTime() - 60000), color: 'emerald' },
@@ -784,7 +791,6 @@
 
   function renderFeed() {
     const searchQ = document.getElementById('feed-search').value.toLowerCase();
-    
     let filtered = rawSignalsMock.filter(s => {
       const matchSearch = s.coin.toLowerCase().includes(searchQ);
       const matchTf = (activeFeedTf === 'All') || (s.tf.toLowerCase() === activeFeedTf.toLowerCase());
@@ -831,7 +837,7 @@
       if (user.days_left !== undefined) {
         document.getElementById('top-plan-badge').textContent = `Триал: осталось ${user.days_left} дн.`;
       }
-      // Восстанавливаем состояние кнопки паузы
+      
       if (user.settings && user.settings.length > 0) {
         const s = user.settings[user.settings.length - 1];
         if (s.notifications_paused !== undefined && document.getElementById('pause-toggle')) {
@@ -840,9 +846,21 @@
         if (s.exchange) selectExchange(s.exchange.toLowerCase());
         if (s.coins_mode) setCoinsMode(s.coins_mode);
         
+        // --- ИСПРАВЛЕНИЕ 3: Бронебойный парсер для таймфреймов (чтобы не слетали) ---
         let tfData = s.timeframes || s.timeframes_list;
         if (typeof tfData === 'string') {
-          try { tfData = JSON.parse(tfData); } catch(e) {}
+          try { 
+            // Заменяем питоновские одинарные кавычки на двойные (если есть), иначе JSON.parse крашится
+            tfData = JSON.parse(tfData.replace(/'/g, '"')); 
+          } catch(e) {
+            // Если в базе лежит старая строчка типа "5m,15m,30m,1h" - превращаем её в объекты
+            if (tfData.includes(',')) {
+              const arr = tfData.split(',').map(x => x.trim());
+              tfData = { levels: arr, volume: arr, derivatives: arr, indicators: arr };
+            } else {
+              tfData = null; // Фолбэк на дефолты
+            }
+          }
         }
         
         if (tfData) {
