@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Scanny — Screener</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
@@ -22,7 +22,7 @@
     color: var(--text-primary);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     min-height: 100vh;
-    padding-bottom: 130px !important;
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 20px)) !important; /* Правка для iOS Dock */
     position: relative;
     overflow-x: hidden;
   }
@@ -77,12 +77,28 @@
     box-shadow: 0 0 10px #A855F7;
   }
 
+  /* Правки Dock панели (жирные иконки, обводка, отступы iOS) */
+  nav {
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 20px)) !important;
+    padding-top: 10px !important;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  .nav-btn {
+    transition: all 0.2s ease;
+    border-radius: 12px;
+    padding: 6px 10px;
+  }
   .nav-active {
-    color: #C084FC !important;
+    background: rgba(168, 85, 247, 0.15);
+    color: #D8B4FE !important;
   }
   .nav-active svg {
-    stroke: #C084FC !important;
+    stroke: #D8B4FE !important;
   }
+
+  .hide-scroll::-webkit-scrollbar { display: none; }
+  .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
 </head>
 <body class="p-4">
@@ -95,7 +111,7 @@
     <div>
       <h1 class="font-bold text-lg leading-tight tracking-tight text-white flex items-center gap-1.5">
         Scanny
-        <span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-900/60 text-purple-300 border border-purple-500/30 uppercase font-mono">v2.0</span>
+        <span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-900/60 text-purple-300 border border-purple-500/30 uppercase font-mono">v2.1</span>
       </h1>
       <p id="top-plan-badge" class="text-xs text-purple-300/80 font-medium">Бесплатный триал (7 дней)</p>
     </div>
@@ -180,25 +196,34 @@
       <button onclick="selectExchange('kraken')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="kraken">Kraken</button>
       <button onclick="selectExchange('coinbase')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="coinbase">Coinbase</button>
     </div>
+    
     <div class="flex gap-2 p-1 bg-purple-950/60 rounded-xl mb-4 border border-purple-900/40">
       <button onclick="setCoinsMode('all')" id="mode-all-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white">Все монеты</button>
       <button onclick="setCoinsMode('selected')" id="mode-sel-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400">Только избранные</button>
     </div>
-    <div id="coins-selector-box" class="hidden space-y-2">
+    
+    <!-- ПУНКТ 7: Добавлены пулы, фильтры по объему и расширен список монет -->
+    <div id="coins-selector-box" class="hidden space-y-3">
+      <div class="flex gap-2 overflow-x-auto hide-scroll pb-1">
+        <button class="px-3 py-1 rounded-full bg-purple-700 text-xs text-white font-medium whitespace-nowrap">Топ-ликвидность</button>
+        <button class="px-3 py-1 rounded-full bg-purple-900/40 border border-purple-500/30 text-xs text-gray-300 font-medium whitespace-nowrap">Meme-токены</button>
+        <button class="px-3 py-1 rounded-full bg-purple-900/40 border border-purple-500/30 text-xs text-gray-300 font-medium whitespace-nowrap">AI проекты</button>
+      </div>
+      
+      <div class="p-3 bg-purple-950/30 rounded-xl border border-purple-900/30 space-y-3">
+        <div>
+          <div class="flex justify-between text-[10px] text-gray-400 mb-1"><span>Объём (24ч) от:</span> <span id="vol-val" class="font-mono text-purple-300">10M$</span></div>
+          <input type="range" min="1" max="100" value="10" oninput="document.getElementById('vol-val').innerText=this.value+'M$'" class="w-full slider-purple">
+        </div>
+        <div>
+          <div class="flex justify-between text-[10px] text-gray-400 mb-1"><span>Изм. цены (24ч) от:</span> <span id="price-val" class="font-mono text-purple-300">+5%</span></div>
+          <input type="range" min="1" max="50" value="5" oninput="document.getElementById('price-val').innerText='+'+this.value+'%'" class="w-full slider-purple">
+        </div>
+      </div>
+
       <p class="text-xs text-purple-300 font-medium">Отметьте нужные пары:</p>
-      <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1">
-        <label class="flex items-center gap-2 p-2 rounded-lg bg-purple-950/40 border border-purple-900/30 text-xs">
-          <input type="checkbox" checked value="BTC/USDT:USDT" class="coin-checkbox rounded text-purple-600 focus:ring-0"> BTC/USDT
-        </label>
-        <label class="flex items-center gap-2 p-2 rounded-lg bg-purple-950/40 border border-purple-900/30 text-xs">
-          <input type="checkbox" checked value="ETH/USDT:USDT" class="coin-checkbox rounded text-purple-600 focus:ring-0"> ETH/USDT
-        </label>
-        <label class="flex items-center gap-2 p-2 rounded-lg bg-purple-950/40 border border-purple-900/30 text-xs">
-          <input type="checkbox" checked value="SOL/USDT:USDT" class="coin-checkbox rounded text-purple-600 focus:ring-0"> SOL/USDT
-        </label>
-        <label class="flex items-center gap-2 p-2 rounded-lg bg-purple-950/40 border border-purple-900/30 text-xs">
-          <input type="checkbox" value="XRP/USDT:USDT" class="coin-checkbox rounded text-purple-600 focus:ring-0"> XRP/USDT
-        </label>
+      <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1" id="coin-list">
+        <!-- Генерируется в JS для снятия лимита -->
       </div>
     </div>
   </div>
@@ -340,20 +365,25 @@
   </button>
 </div>
 
-<!-- ================= 4. TAB: ЛЕНТА ================= -->
+<!-- ================= 4. TAB: ЛЕНТА (ПУНКТ 5 и 6 - Поиск, фильтры, авторефреш) ================= -->
 <div id="tab-feed" class="tab-content hidden space-y-3">
-  <div class="glass-card p-3 flex gap-2">
-    <input type="text" placeholder="Поиск по тикеру..." id="feed-search" class="flex-1 bg-purple-950/50 border border-purple-900/40 rounded-lg px-3 py-1.5 text-xs text-white placeholder-gray-500 outline-none">
-    <button onclick="loadFeed()" class="px-3 py-1.5 rounded-lg bg-purple-900/60 text-xs text-purple-200">↻</button>
+  <div class="glass-card p-3 space-y-3">
+    <div class="flex gap-2">
+      <input type="text" placeholder="Поиск по тикеру..." id="feed-search" oninput="renderFeed()" class="flex-1 bg-purple-950/50 border border-purple-900/40 rounded-lg px-3 py-1.5 text-xs text-white placeholder-gray-500 outline-none">
+      <button onclick="fetchSignalsManual()" class="px-3 py-1.5 rounded-lg bg-purple-900/60 text-xs text-purple-200">↻</button>
+    </div>
+    <div class="flex gap-1.5 overflow-x-auto hide-scroll" id="feed-tfs">
+      <button onclick="setFeedTf('All')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-600 text-white shadow-md">Все</button>
+      <button onclick="setFeedTf('5m')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">5m</button>
+      <button onclick="setFeedTf('15m')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">15m</button>
+      <button onclick="setFeedTf('30m')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">30m</button>
+      <button onclick="setFeedTf('1h')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">1h</button>
+      <button onclick="setFeedTf('2h')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">2h</button>
+      <button onclick="setFeedTf('4h')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">4h</button>
+    </div>
   </div>
   <div class="space-y-2.5" id="feed-items-container">
-    <div class="glass-card p-3.5 border-l-4 border-l-emerald-500">
-      <div class="flex justify-between items-start">
-        <span class="text-xs font-bold text-white">🟢 SOL/USDT · 15M</span>
-        <span class="text-[10px] text-gray-400">10 мин назад</span>
-      </div>
-      <p class="text-xs text-gray-300 mt-1">Ретест поддержки: <b>83.58 $</b></p>
-    </div>
+    <!-- Сюда JS рендерит сигналы -->
   </div>
 </div>
 
@@ -365,6 +395,18 @@
       <h3 class="font-bold text-white text-base" id="profile-name">Trader</h3>
       <p class="text-xs text-purple-300" id="profile-plan-text">Тариф: Бесплатный триал</p>
     </div>
+  </div>
+
+  <!-- ПУНКТ 8: Кнопка остановки уведомлений -->
+  <div class="glass-card p-4 flex justify-between items-center border-l-4 border-l-amber-500 bg-amber-950/10">
+    <div>
+      <h3 class="font-bold text-white text-sm">Пауза уведомлений</h3>
+      <p class="text-[10px] text-gray-400 mt-0.5">Временно отключить все сигналы</p>
+    </div>
+    <label class="relative inline-flex items-center cursor-pointer">
+      <input type="checkbox" id="pause-toggle" onchange="savePauseState()" class="sr-only peer">
+      <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+    </label>
   </div>
 
   <div class="glass-card p-4 space-y-2.5">
@@ -434,26 +476,26 @@
   </div>
 </div>
 
-<!-- ================= BOTTOM NAVIGATION BAR ================= -->
-<nav class="fixed bottom-0 left-0 right-0 bg-[#0E0A1A]/95 backdrop-blur-md border-t border-purple-900/40 px-3 py-2 z-50 flex justify-around">
-  <button onclick="switchTab('overview')" id="nav-overview" class="flex flex-col items-center text-[10px] text-gray-400 nav-active">
-    <svg class="w-5 h-5 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke-width="2"/></svg>
+<!-- ================= BOTTOM NAVIGATION BAR (ПУНКТ 3: iOS Style) ================= -->
+<nav class="fixed bottom-0 left-0 right-0 bg-[#0E0A1A]/95 backdrop-blur-md border-t border-purple-900/40 px-3 flex justify-around z-50">
+  <button onclick="switchTab('overview')" id="nav-overview" class="nav-btn flex flex-col items-center text-[10px] text-gray-400 nav-active">
+    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
     <span>Обзор</span>
   </button>
-  <button onclick="switchTab('quotes')" id="nav-quotes" class="flex flex-col items-center text-[10px] text-gray-400">
-    <svg class="w-5 h-5 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-    <span>Котировки</span>
+  <button onclick="switchTab('quotes')" id="nav-quotes" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
+    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+    <span>Рынок</span>
   </button>
-  <button onclick="switchTab('screeners')" id="nav-screeners" class="flex flex-col items-center text-[10px] text-gray-400">
-    <svg class="w-5 h-5 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-    <span>Скринеры</span>
+  <button onclick="switchTab('screeners')" id="nav-screeners" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
+    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+    <span>Настройки</span>
   </button>
-  <button onclick="switchTab('feed')" id="nav-feed" class="flex flex-col items-center text-[10px] text-gray-400">
-    <svg class="w-5 h-5 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+  <button onclick="switchTab('feed')" id="nav-feed" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
+    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
     <span>Лента</span>
   </button>
-  <button onclick="switchTab('profile')" id="nav-profile" class="flex flex-col items-center text-[10px] text-gray-400">
-    <svg class="w-5 h-5 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+  <button onclick="switchTab('profile')" id="nav-profile" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
+    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
     <span>Профиль</span>
   </button>
 </nav>
@@ -475,6 +517,9 @@
     document.querySelectorAll('nav button').forEach(b => b.classList.remove('nav-active'));
     const navBtn = document.getElementById('nav-' + tabId);
     if (navBtn) navBtn.classList.add('nav-active');
+
+    // ПУНКТ 5: Автостарт ленты при переходе
+    if (tabId === 'feed') fetchSignalsAuto();
   }
 
   function openModule(moduleName) {
@@ -504,6 +549,12 @@
     document.getElementById('mode-all-btn').className = mode === 'all' ? "flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white" : "flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400";
     document.getElementById('mode-sel-btn').className = mode === 'selected' ? "flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white" : "flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400";
   }
+
+  // ПУНКТ 7: Генерация монет для снятия лимита
+  const coinsList = ["BTC","ETH","SOL","XRP","ADA","DOGE","AVAX","LINK","MATIC","DOT","LTC","SHIB","TRX","ATOM","UNI","NEAR","APT","OP","ARB","SUI","INJ","RNDR"];
+  document.getElementById('coin-list').innerHTML = coinsList.map(c => 
+    `<label class="flex items-center gap-2 p-2 rounded-lg bg-purple-950/40 border border-purple-900/30 text-xs"><input type="checkbox" checked value="${c}/USDT:USDT" class="coin-checkbox rounded text-purple-600 focus:ring-0"> ${c}/USDT</label>`
+  ).join('');
 
   let moduleTfs = {
     levels: new Set(['5m', '15m', '30m', '1h', '2h', '4h']),
@@ -593,6 +644,7 @@
     }).catch(err => alert("Ошибка сети: " + err));
   }
 
+  // ПУНКТ 1: Анимация и тост при сохранении
   function saveSettingsToServer() {
     if (!document.getElementById('toast-style')) {
         const style = document.createElement('style');
@@ -623,7 +675,7 @@
     const btn = document.getElementById('save-btn');
     if (btn) {
       btn.innerHTML = '⚙️ Сохраняем...';
-      btn.style.opacity = '0.7';
+      btn.style.opacity = '0.5';
       btn.disabled = true;
     }
 
@@ -650,7 +702,8 @@
       },
       signals_list: signals,
       min_level_weight: activeWeight,
-      level_side: activeSide
+      level_side: activeSide,
+      notifications_paused: document.getElementById('pause-toggle') ? document.getElementById('pause-toggle').checked : false
     };
 
     const apiUrl = window.location.hostname.includes('github.io') ? 'https://157.228.127.251.nip.io/api/settings' : '/api/settings';
@@ -669,7 +722,7 @@
       setTimeout(() => toast.classList.remove('toast-visible'), 3000);
       
       if (btn) {
-          btn.innerHTML = '✅ Сохранено';
+          btn.innerHTML = 'Сохранено ✓';
           setTimeout(() => {
             btn.textContent = 'Сохранить настройки';
             btn.style.opacity = '1';
@@ -686,7 +739,83 @@
     });
   }
 
-  // Загрузка настроек и профиля при старте с безопасным парсингом таймфреймов
+  // ПУНКТ 8: Пауза уведомлений на лету
+  function savePauseState() {
+      const isPaused = document.getElementById('pause-toggle').checked;
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+      // Опционально можно сразу слать запрос на сохранение при переключении
+      // saveSettingsToServer(); 
+  }
+
+  // ПУНКТ 5 и 6: Лента (Фильтры, Группировка, Автообновление)
+  let activeFeedTf = 'All';
+  let feedInterval = null;
+  let rawSignalsMock = []; 
+
+  function setFeedTf(tf) {
+    activeFeedTf = tf;
+    document.querySelectorAll('.feed-tf-btn').forEach(b => {
+      b.className = (b.innerText === tf)
+        ? "feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-600 text-white shadow-md"
+        : "feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40";
+    });
+    renderFeed();
+  }
+
+  function fetchSignalsAuto() {
+    if(!feedInterval) {
+      fetchSignalsManual();
+      feedInterval = setInterval(fetchSignalsManual, 30000); // автообновление раз в 30 сек
+    }
+  }
+
+  function fetchSignalsManual() {
+    if(tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+    const now = new Date();
+    // Имитация сигналов для UI (Пункт 6: группировка)
+    rawSignalsMock = [
+      { coin: 'BTC/USDT', tf: '15m', type: 'Ретест поддержки', price: '64,200 $', time: now, color: 'emerald' },
+      { coin: 'BTC/USDT', tf: '5m', type: 'Ретест поддержки', price: '64,210 $', time: new Date(now.getTime() - 60000), color: 'emerald' },
+      { coin: 'ETH/USDT', tf: '1h', type: 'Всплеск объёма', price: '3,450 $', time: new Date(now.getTime() - 120000), color: 'blue' },
+      { coin: 'SOL/USDT', tf: '30m', type: 'Свип ликвидности', price: '142.5 $', time: new Date(now.getTime() - 300000), color: 'amber' }
+    ];
+    renderFeed();
+  }
+
+  function renderFeed() {
+    const searchQ = document.getElementById('feed-search').value.toLowerCase();
+    
+    let filtered = rawSignalsMock.filter(s => {
+      const matchSearch = s.coin.toLowerCase().includes(searchQ);
+      const matchTf = (activeFeedTf === 'All') || (s.tf.toLowerCase() === activeFeedTf.toLowerCase());
+      return matchSearch && matchTf;
+    });
+
+    const grouped = {};
+    filtered.forEach(s => {
+      const key = `${s.coin}_${s.type}`;
+      if(!grouped[key]) {
+        grouped[key] = { ...s, tfs: [s.tf] };
+      } else {
+        if(!grouped[key].tfs.includes(s.tf)) grouped[key].tfs.push(s.tf);
+      }
+    });
+
+    const html = Object.values(grouped).map(g => {
+      const tfsStr = g.tfs.sort().join(', ').toUpperCase();
+      return `
+      <div class="glass-card p-3 border-l-4 border-l-${g.color}-500 mb-2">
+        <div class="flex justify-between items-start">
+          <span class="text-xs font-bold text-white">${g.coin} <span class="text-[10px] bg-purple-900/60 px-1.5 py-0.5 rounded text-purple-300 ml-1">${tfsStr}</span></span>
+          <span class="text-[10px] text-gray-400">Только что</span>
+        </div>
+        <p class="text-xs text-gray-300 mt-1.5">${g.type}: <b class="text-white">${g.price}</b></p>
+      </div>`;
+    }).join('');
+
+    document.getElementById('feed-items-container').innerHTML = html || '<p class="text-xs text-center text-gray-500 mt-4">Сигналов не найдено</p>';
+  }
+
   window.addEventListener('DOMContentLoaded', () => {
     const apiUrl = window.location.hostname.includes('github.io') ? 'https://157.228.127.251.nip.io/api/me' : '/api/me';
 
@@ -702,9 +831,12 @@
       if (user.days_left !== undefined) {
         document.getElementById('top-plan-badge').textContent = `Триал: осталось ${user.days_left} дн.`;
       }
-
+      // Восстанавливаем состояние кнопки паузы
       if (user.settings && user.settings.length > 0) {
         const s = user.settings[user.settings.length - 1];
+        if (s.notifications_paused !== undefined && document.getElementById('pause-toggle')) {
+            document.getElementById('pause-toggle').checked = s.notifications_paused;
+        }
         if (s.exchange) selectExchange(s.exchange.toLowerCase());
         if (s.coins_mode) setCoinsMode(s.coins_mode);
         
