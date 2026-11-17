@@ -1043,7 +1043,7 @@
         }
         if (s.level_side) setSide(s.level_side);
       } else { selectExchange(activeExchange); }
-    }).catch(err => { console.error("Ошибка загрузки:", err); selectExchange(activeExchange); alert('Не удалось загрузить настройки. Закройте и откройте приложение ещё раз.'); });
+    }).catch(err => { console.error("Ошибка загрузки:", err); selectExchange(activeExchange); alert(!tg?.initData ? 'Откройте приложение кнопкой «📱 Приложение» рядом с полем ввода в чате с ботом. Старая кнопка на клавиатуре не поддерживает вход.' : 'Не удалось загрузить настройки. Закройте и откройте приложение ещё раз.'); });
   });
 </script>
 </body>
