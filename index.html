@@ -626,7 +626,11 @@
     });
     document.getElementById('exchange-enabled-wrap').classList.toggle('hidden', !multiExchangeAllowed());
     document.getElementById('exchange-enabled').checked = exchangeSettings[ex].enabled;
-    document.getElementById('exchange-plan-hint').textContent = multiExchangeAllowed() ? 'Выберите биржи и настройте монеты для каждой.' : 'На вашем тарифе доступна одна биржа.';
+    const exchangeNames = {bingx: 'BingX', binance: 'Binance', bybit: 'Bybit', bitget: 'Bitget'};
+    const enabledNames = supportedExchanges.filter(id => exchangeSettings[id].enabled).map(id => exchangeNames[id]).join(', ');
+    document.getElementById('exchange-plan-hint').textContent = multiExchangeAllowed()
+      ? `Сигналы включены: ${enabledNames || 'нет'}. Вкладка открывает список монет; флажок включает сигналы с биржи.`
+      : `Сигналы включены: ${enabledNames || 'нет'}. На вашем тарифе доступна одна биржа.`;
     setCoinsMode(activeCoinsMode);
     loadMarket(ex);
   }
