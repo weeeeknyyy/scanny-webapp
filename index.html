@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!-- Exchange icons from @web3icons/core, MIT License, Copyright (c) 2024 0xa3k5.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -96,140 +100,114 @@
 
   .hide-scroll::-webkit-scrollbar { display: none; }
   .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+  :root { --bg-main:#010102; --card-bg:rgba(17,13,29,.91); --card-border:rgba(173,145,228,.14); --purple-primary:#7022fc; --text-primary:#f8f5ff; }
+  body { box-sizing:border-box; background:#010102; color:#f8f5ff; max-width:680px; margin:auto; padding:16px; }
+  button { font:inherit; color:inherit; background:transparent; border:0; cursor:pointer; }
+  .tab-content.hidden { display:none; }
+  .animated-mesh-bg { z-index:-1; background:radial-gradient(ellipse at 80% 2%,rgba(112,34,252,.38),transparent 40%),radial-gradient(ellipse at 8% 52%,rgba(112,34,252,.15),transparent 44%),radial-gradient(ellipse at 84% 84%,rgba(253,143,50,.12),transparent 35%),#010102; animation:pulseMesh 22s ease-in-out infinite alternate; }
+  .app-header { display:flex; justify-content:space-between; align-items:center; border:0; margin:0 0 24px; padding:4px 2px 0; min-height:44px; }
+  .app-header > div { display:flex; align-items:center; gap:10px; }
+  .brand-icon { width:37px; height:37px; border-radius:13px; display:grid; place-items:center; color:#fbf7ff; font-size:21px; font-weight:800; background:radial-gradient(circle at 82% 85%,rgba(253,143,50,.65),transparent 48%),radial-gradient(circle at 20% 20%,rgba(112,34,252,.9),#1a0d30 70%); box-shadow:0 0 22px rgba(112,34,252,.25); }
+  .brand-word { font-size:19px; font-weight:750; letter-spacing:-.04em; }
+  .brand-caption { color:#a69ab6; font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+  .home-screen { padding-bottom:12px; }
+  .home-intro { display:flex; align-items:center; justify-content:space-between; min-height:140px; overflow:hidden; position:relative; }.home-intro > div:first-child {min-width:0;}
+  .home-eyebrow,.home-kicker { color:#bf9aff; font-size:10px; font-weight:700; letter-spacing:.13em; }
+  .home-intro h2 { font-size:27px; line-height:1.1; font-weight:750; letter-spacing:-.045em; margin:9px 0; }
+  .home-subtitle { color:#b5aabd; font-size:12px; max-width:205px; line-height:1.45; }
+  .home-orbit { width:122px; height:122px; flex:none; border:1px solid rgba(171,116,255,.22); border-radius:50%; position:relative; background:radial-gradient(circle at 44% 45%,rgba(112,34,252,.5),rgba(48,17,104,.16) 45%,transparent 67%); box-shadow:0 0 50px rgba(112,34,252,.24); }
+  .home-orbit:before,.home-orbit:after { content:''; position:absolute; inset:16px -10px; border:1px solid rgba(194,159,255,.45); border-radius:50%; transform:rotate(-35deg); }
+  .home-orbit:after { transform:rotate(40deg); border-color:rgba(253,143,50,.45); }
+  .home-orbit span { position:absolute; width:14px; height:14px; border-radius:50%; background:#fd8f32; top:32px; right:1px; box-shadow:0 0 20px #fd8f32; }
+  .home-orbit i { position:absolute; inset:42px; border-radius:50%; background:#b18bff; box-shadow:0 0 28px #7022fc; }
+  .home-status { border:1px solid rgba(195,174,230,.15); background:rgba(16,12,24,.88); border-radius:20px; padding:13px 14px; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+  .status-left { display:flex; align-items:flex-start; gap:9px; min-width:0; }.status-dot { width:7px;height:7px;border-radius:50%;background:#b8a9ca;margin-top:5px; flex:none; }
+  .status-left b,.status-updated b { display:block; font-size:11px; font-weight:650; }.status-left small,.status-updated span { display:block; color:#a79bb3; font-size:10px; margin-top:3px; }.status-updated { text-align:right; flex:none; }
+  .home-section-title { display:flex; justify-content:space-between; align-items:end; margin:29px 1px 12px; }.home-section-title h3 { font-size:17px; letter-spacing:-.025em; font-weight:700; margin-top:4px; }.home-link { color:#d0b6ff; font-size:11px; font-weight:650; padding:8px 0; }.home-link span { color:#fd8f32; }
+  .module-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }.module-tile { min-width:0; border-radius:23px; border:1px solid rgba(197,171,240,.16); background:linear-gradient(145deg,rgba(37,23,59,.91),rgba(13,11,20,.95)); overflow:hidden; position:relative; }.module-levels,.module-volume { grid-column:1/-1; display:grid; grid-template-columns:minmax(0,1fr) 43%; min-height:185px; }.module-volume { min-height:160px; }.tile-visual { display:grid; place-items:center; min-width:0; position:relative; }.module-levels .tile-visual,.module-volume .tile-visual { grid-column:2; grid-row:1; }.tile-visual:before { content:''; position:absolute; inset:15%; background:radial-gradient(circle,rgba(112,34,252,.12),transparent 72%); filter:blur(12px); }.tile-visual svg { width:92%; position:relative; overflow:visible; }.tile-content { padding:18px; display:flex; flex-direction:column; justify-content:space-between; gap:10px; min-width:0; }.module-levels .tile-content,.module-volume .tile-content { grid-column:1; grid-row:1; padding-right:0; }.tile-index { color:#bb9adc; font-size:9px; letter-spacing:.1em; font-weight:700; }.tile-content h4 { font-size:16px; font-weight:700; letter-spacing:-.025em; line-height:1.15; margin:6px 0; }.tile-content p { color:#bab0c2; font-size:11px; line-height:1.4; }.tile-bottom { display:flex; flex-wrap:wrap; align-items:center; gap:9px; }.tile-timeframes { color:#d9c7f5; font-size:10px; letter-spacing:.025em; line-height:1.4; }.tile-content button { align-self:flex-start; border:1px solid rgba(185,146,255,.35); border-radius:999px; padding:8px 13px; background:rgba(112,34,252,.2); color:#eee4ff; font-size:11px; font-weight:650; }.tile-content button:active { transform:scale(.97); }.module-small .tile-content { padding:14px; }.module-small .tile-content h4 { font-size:14px; }.visual-small { height:78px; margin-top:4px; }.visual-small svg { width:90px; }.home-events-title { margin-top:27px; }.home-recent { border-top:1px solid rgba(194,177,217,.14); }.home-event { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 1px; border-bottom:1px solid rgba(194,177,217,.11); }.home-event b { font-size:12px; }.home-event small { display:block; color:#b4a7bf; font-size:10px; margin-top:4px; }.home-event-time { text-align:right; color:#c5b6d3; font-size:10px; }.home-empty { padding:16px 0; color:#a99eb3; font-size:12px; }
+  nav { position:fixed; bottom:0; left:0; right:0; z-index:50; display:flex; justify-content:space-around; border-radius:22px 22px 0 0; background:rgba(10,8,17,.96)!important; border-color:rgba(168,128,221,.16)!important; }.nav-btn { display:flex; flex-direction:column; align-items:center; position:relative; min-width:52px; color:#9b8da6; font-size:10px; }.nav-btn svg {width:24px;height:24px;stroke:currentColor;}.nav-active { background:transparent; color:#f1eaff!important; }.nav-active:after { content:''; position:absolute; bottom:0; width:24px; height:3px; border-radius:5px; background:#aa7dff; box-shadow:0 0 13px #7022fc; }.nav-active svg { stroke:#d9c1ff!important; }
+  @media(max-width:340px){.home-intro h2{font-size:23px}.home-orbit{width:95px;height:95px}.home-orbit i{inset:34px}.tile-content{padding:14px}.module-levels,.module-volume{grid-template-columns:minmax(0,1fr) 39%}}
+
+  .design-screen {padding-bottom:18px}.screen-heading{margin:10px 0 26px}.screen-heading h2{font-size:27px;font-weight:750;letter-spacing:-.04em;margin:6px 0}.screen-heading p,.screen-note{font-size:12px;line-height:1.5;color:#ada2ba}.screen-section{margin:0 0 20px}.screen-section-head{display:flex;align-items:end;justify-content:space-between;gap:12px}.screen-section-head h3{font-size:17px;font-weight:700;letter-spacing:-.02em;margin:4px 0}.screen-section-head>span{font-size:11px;color:#bd9bf4}.exchange-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}.exchange-card{border:1px solid rgba(183,158,212,.16);border-radius:22px;background:rgba(20,15,31,.92);padding:14px;transition:border-color .2s,background .2s}.exchange-card.is-enabled{border-color:rgba(166,109,255,.85);background:rgba(48,25,75,.82)}.exchange-select{display:grid;text-align:left;width:100%;gap:5px}.exchange-select b{font-size:14px;font-weight:700}.exchange-select small{font-size:10px;color:#aca1b8}.exchange-card.is-enabled small{color:#d5beff}.exchange-mark{width:30px;height:30px;display:grid;place-items:center;border-radius:10px;background:#2e2340;color:#e5d9f5;font-size:10px;font-weight:800;letter-spacing:.03em;margin-bottom:3px}.exchange-coins{font-size:11px;color:#d0b6ff;margin-top:10px;padding:5px 0}.field-error{color:#ffb396;font-size:11px;line-height:1.4}.segment-control,.coin-view-toggle{display:flex;gap:3px;background:rgba(25,18,38,.9);border-radius:14px;padding:4px}.segment-control{margin:14px 0}.segment-control button{flex:1;padding:10px 6px;color:#aaa0b4;font-size:11px;border-radius:11px}.segment-control button.is-active,.coin-view-toggle button.is-active{background:#4d2586;color:#f7f0ff}.coin-tools{display:flex;gap:8px}.coin-tools input{min-width:0;flex:1;background:rgba(20,15,31,.9);border:1px solid rgba(183,158,212,.18);color:#f8f5ff;border-radius:13px;padding:10px 12px;font-size:12px}.coin-view-toggle button{width:34px;border-radius:10px;color:#a89db2}.market-categories{display:flex;gap:7px;overflow-x:auto;margin:14px 0;scrollbar-width:none}.market-categories button{white-space:nowrap;font-size:11px;padding:8px 12px;border-radius:999px;border:1px solid rgba(183,158,212,.18);color:#b6a9c2}.market-categories button.is-active{background:#4d2586;border-color:#9b68e9;color:#fff}.coin-bulk{display:flex;justify-content:space-between;gap:8px;align-items:center;color:#a99cb5;font-size:10px;margin-bottom:10px}.coin-bulk div{display:flex;gap:10px}.coin-bulk button{color:#d0b6ff;font-size:10px}.coin-list{display:grid;gap:7px;max-height:420px;overflow-y:auto}.coin-list.is-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.coin-row{display:flex;align-items:center;gap:9px;padding:10px 12px;border:1px solid rgba(183,158,212,.13);border-radius:15px;background:rgba(20,15,31,.85);cursor:pointer}.coin-row input{accent-color:#7022fc;width:17px;height:17px}.coin-row-copy{min-width:0;flex:1}.coin-row-copy b,.coin-row-copy small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.coin-row-copy b{font-size:12px}.coin-row-copy small{color:#a79bb3;font-size:10px;margin-top:3px}.coin-price{font-size:11px;white-space:nowrap;color:#e5d9ed}.coin-list.is-grid .coin-row{flex-wrap:wrap}.coin-list.is-grid .coin-price{width:100%;padding-left:26px}.primary-save{display:block;width:100%;padding:14px;border-radius:16px;background:#7022fc;color:#fff;font-size:13px;font-weight:700}.primary-save:disabled{opacity:.45}.primary-save:active{transform:scale(.99)}
+
+  .filter-common,.filter-module{background:rgba(20,15,31,.9);border:1px solid rgba(183,158,212,.16);border-radius:21px;margin-bottom:11px}.filter-common{padding:16px}.filter-common h3{font-size:14px;font-weight:700}.filter-common p{font-size:11px;color:#ada2ba;margin-top:5px}.common-tfs{display:flex;flex-wrap:wrap;gap:6px;margin:13px 0}.common-tfs button{border:1px solid rgba(183,158,212,.2);border-radius:999px;padding:7px 11px;color:#b9acc7;font-size:11px}.common-tfs button.is-active{background:#4d2586;color:#fff;border-color:#ac75fb}.secondary-save{padding:10px 14px;border:1px solid rgba(175,129,246,.45);border-radius:13px;color:#ebddff;background:rgba(112,34,252,.2);font-size:11px;font-weight:700}.secondary-save:disabled{opacity:.45}.filter-module>summary{list-style:none;cursor:pointer;padding:16px;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700}.filter-module>summary::-webkit-details-marker{display:none}.filter-chevron{font-size:18px;color:#bba5d4;transition:transform .2s}.filter-module[open] .filter-chevron{transform:rotate(180deg)}.filter-content{padding:0 16px 16px;display:grid;gap:13px}.filter-content>div{min-width:0}.filter-content .secondary-save{justify-self:start}.filter-content input[type=checkbox]{accent-color:#7022fc}.filter-content button[data-tf]{border-radius:999px}.filter-content label{line-height:1.4}.filter-content label.flex{min-height:38px}
+
+  .unsaved-dialog{width:min(330px,calc(100% - 40px));border:1px solid rgba(183,158,212,.3);border-radius:22px;padding:20px;background:#181123;color:#f8f5ff}.unsaved-dialog::backdrop{background:rgba(0,0,0,.72)}.unsaved-dialog h3{font-weight:700;font-size:16px}.unsaved-dialog p{color:#beb1cc;font-size:12px;line-height:1.5;margin:10px 0 16px}.unsaved-actions{display:grid;gap:9px}.unsaved-actions button{width:100%;text-align:center}
+  .signal-explanation summary{list-style:none;color:#c7a8fa;font-size:10px;cursor:pointer;padding:3px 2px}.signal-explanation summary::-webkit-details-marker{display:none}.signal-explanation p{color:#b7aabc;font-size:11px;line-height:1.45;padding:4px 2px 8px}
+  .event-toolbar{padding-bottom:8px}.event-refresh{flex:none;width:42px;border-radius:13px;border:1px solid rgba(183,158,212,.2);background:rgba(20,15,31,.9);font-size:20px;color:#d3bdf1}.event-refresh:disabled{opacity:.45}.event-toolbar .screen-note{margin:9px 2px 0;font-size:10px}.event-list{display:grid;gap:8px}.event-row{border:1px solid rgba(183,158,212,.16);background:rgba(20,15,31,.88);border-radius:19px;overflow:hidden}.event-row>summary{list-style:none;cursor:pointer;padding:14px}.event-row>summary::-webkit-details-marker{display:none}.event-row-head{display:flex;justify-content:space-between;gap:12px;align-items:start}.event-symbol{font-size:14px;font-weight:750}.event-time{font-size:10px;color:#a99cb5;white-space:nowrap}.event-summary{color:#d8c2fa;font-size:11px;line-height:1.45;margin-top:6px}.event-venues{font-size:10px;color:#aa9ab9;margin-top:6px}.event-detail{border-top:1px solid rgba(183,158,212,.14);padding:12px 14px}.event-exchange{font-size:11px;font-weight:700;color:#e8d9ff;margin-bottom:6px}.event-detail p{font-size:11px;color:#baafc5;margin:4px 0}.event-detail a{display:inline-block;font-size:11px;color:#d7b9ff;margin:8px 0 12px;text-decoration:underline}.event-empty{padding:22px 4px;color:#b7aabc;font-size:12px}.event-empty button{display:block;color:#d0b6ff;font-weight:650;margin-top:10px}
+
+  .timezone-select{background:#241731;color:#f8f5ff;border:1px solid rgba(183,158,212,.22);border-radius:12px;padding:8px 10px;font-size:12px}
+
+  #tab-profile .glass-card{background:rgba(20,15,31,.9);border:1px solid rgba(183,158,212,.16)!important;border-radius:20px;margin-bottom:10px}#tab-profile .glass-card-active{box-shadow:none!important;border-color:rgba(166,109,255,.55)!important}#tab-profile .profile-section-label{font-size:10px;font-weight:700;letter-spacing:.12em;color:#b49bcf;margin:23px 2px 10px}#tab-profile input[readonly]{min-width:0;flex:1;background:#241731;border:1px solid rgba(183,158,212,.22);color:#d4c7df;padding:9px;border-radius:10px;font-size:11px}#tab-profile button{border-radius:12px}#user-avatar-initials{width:48px;height:48px;flex:none;display:grid;place-items:center;border-radius:50%;background:linear-gradient(140deg,#7022fc,#2c174e);color:#fff;font-size:16px;font-weight:750}#tab-profile [onclick^="orderPlan"],#tab-profile [onclick="activateBonusPro()"]{display:block;width:100%;padding:10px;border-radius:12px;background:rgba(112,34,252,.22);border:1px solid rgba(175,129,246,.35);color:#eee4ff;font-size:11px;font-weight:650;margin-top:10px}#tab-profile [onclick="copyRefLink()"]{flex:none;padding:8px;color:#d6bcff;font-size:11px;font-weight:700}
+  /* Essential layout fallbacks for Mini App webviews while external styles load. */
+  .flex{display:flex}.grid{display:grid}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-start{align-items:flex-start}.justify-between{justify-content:space-between}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.p-4{padding:1rem}.p-2{padding:.5rem}.w-full{width:100%}.text-xs{font-size:.75rem}.text-sm{font-size:.875rem}.font-semibold{font-weight:600}.font-bold{font-weight:700}.text-white{color:#f8f5ff}.text-gray-300{color:#d3cbd9}.text-gray-400{color:#aca2b7}.text-purple-300{color:#d0b6ff}.rounded-xl{border-radius:.75rem}.hidden{display:none!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .filter-content label.flex{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px;border-radius:12px;background:rgba(48,31,66,.45);border:1px solid rgba(183,158,212,.12)}.filter-content [id^="tf-pills-"]{display:flex;flex-wrap:wrap;gap:6px}.tf-pill{border:1px solid rgba(183,158,212,.2);border-radius:999px;padding:7px 11px;color:#b9acc7;font-size:11px}.tf-pill.is-active{background:#4d2586;color:#fff;border-color:#ac75fb}.filter-content input[type=range]{width:100%}.filter-content .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.filter-content .grid button{padding:8px;border:1px solid rgba(183,158,212,.2);border-radius:10px;font-size:11px}
+  #tab-profile>div.glass-card{padding:16px}#tab-profile label.relative{position:relative;display:inline-flex}#tab-profile input[type=checkbox]+div{width:44px;height:24px;border-radius:999px;background:#574d60;position:relative}#tab-profile input[type=checkbox]+div:after{content:'';position:absolute;width:18px;height:18px;top:3px;left:3px;border-radius:50%;background:#f9f5ff;transition:transform .2s}#tab-profile input[type=checkbox]:checked+div{background:#7022fc}#tab-profile input[type=checkbox]:checked+div:after{transform:translateX(20px)}#tab-profile #lang-toggle+div{width:36px;height:20px}#tab-profile #lang-toggle+div:after{width:14px;height:14px}#tab-profile #lang-toggle:checked+div:after{transform:translateX(16px)}
+  .exchange-mark{position:relative;overflow:hidden}.exchange-mark img,.exchange-mark svg{display:block;width:21px;height:21px;object-fit:contain}
 </style>
 </head>
 <body class="p-4">
 <div class="animated-mesh-bg"></div>
 
 <!-- Top Bar -->
-<header class="flex justify-between items-center mb-5 pb-3 border-b border-purple-900/30">
-  <div class="flex items-center gap-2">
-    <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-700 to-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-purple-900/50">S</div>
-    <div>
-      <h1 class="font-bold text-lg leading-tight tracking-tight text-white flex items-center gap-1.5">
-        Scanny
-        <span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-900/60 text-purple-300 border border-purple-500/30 uppercase font-mono">v2.3</span>
-      </h1>
-      <p id="top-plan-badge" class="text-xs text-purple-300/80 font-medium">Бесплатный триал (7 дней)</p>
-    </div>
-  </div>
-  
-  <!-- ИСПРАВЛЕНО: Математически ровный iOS Переключатель языков -->
-  <div class="flex items-center gap-1.5 bg-purple-950/80 p-1 rounded-full border border-purple-700/40">
-    <span class="text-[10px] font-bold text-gray-500 pl-1 transition-colors" id="lang-en">EN</span>
-    <label class="relative inline-flex items-center cursor-pointer">
-      <input type="checkbox" id="lang-toggle" onchange="toggleLanguage()" class="sr-only peer" checked>
-      <!-- w-9 и h-5 контейнер, w-4 и h-4 кругляшок = идеальный ход от края до края -->
-      <div class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-purple-500"></div>
-    </label>
-    <span class="text-[10px] font-bold text-purple-300 pr-1 transition-colors" id="lang-ru">RU</span>
-  </div>
+<header class="app-header flex justify-between items-center">
+  <div class="flex items-center gap-2.5"><div class="brand-icon" aria-hidden="true">S</div><div><h1 class="brand-word">Scanny</h1><p class="brand-caption">Market signals</p></div></div>
+  <span id="top-plan-badge" class="text-xs text-purple-300/80 font-medium"></span>
 </header>
 
 <!-- ================= 1. TAB: ОБЗОР ================= -->
-<div id="tab-overview" class="tab-content space-y-4">
-  <div class="glass-card p-4 flex justify-between items-center">
-    <div>
-      <h2 class="font-semibold text-white text-base" data-i18n="scr_title">Скринер фьючерсов</h2>
-      <p class="text-xs text-purple-300" data-i18n="scr_sub">Активен 24/7 · 4 биржи</p>
-    </div>
-    <span class="px-3 py-1 text-xs rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-medium flex items-center gap-1">
-      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span data-i18n="scr_status">В работе</span>
-    </span>
-  </div>
-
-  <div class="space-y-3">
-    <div class="glass-card p-4 hover:border-purple-500/50 transition">
-      <div class="flex justify-between items-start">
-        <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-purple-900/50 text-purple-300 border border-purple-700/40" data-i18n="lvl_title">Уровни и Ретест</span>
-          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="lvl_h">Ретест зеркальных уровней (1.2–6.5 ATR)</h3>
-          <p class="text-xs text-gray-400 mt-0.5" data-i18n="lvl_p">Отслеживание подхода, пробоя и отскока</p>
-        </div>
-        <button onclick="openModule('levels')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="btn_setup">Настроить</button>
-      </div>
-    </div>
-
-    <div class="glass-card p-4 hover:border-purple-500/50 transition">
-      <div class="flex justify-between items-start">
-        <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-900/50 text-blue-300 border border-blue-700/40" data-i18n="vol_title">Объём и Свипы</span>
-          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="vol_h">Всплеск объёма и Liquidity Grab</h3>
-          <p class="text-xs text-gray-400 mt-0.5" data-i18n="vol_p">Снятие стопов за локальными свингами</p>
-        </div>
-        <button onclick="openModule('volume')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="btn_setup">Настроить</button>
-      </div>
-    </div>
-
-    <div class="glass-card p-4 hover:border-purple-500/50 transition">
-      <div class="flex justify-between items-start">
-        <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-900/50 text-amber-300 border border-amber-700/40" data-i18n="der_title">Деривативы</span>
-          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="der_h">Открытый интерес (OI) и Фандинг</h3>
-          <p class="text-xs text-gray-400 mt-0.5" data-i18n="der_p">Набор позиций и риск шорт/лонг-сквизов</p>
-        </div>
-        <button onclick="openModule('derivatives')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="btn_setup">Настроить</button>
-      </div>
-    </div>
-
-    <div class="glass-card p-4 hover:border-purple-500/50 transition">
-      <div class="flex justify-between items-start">
-        <div>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-900/50 text-pink-300 border border-pink-700/40" data-i18n="ind_title">Индикаторы</span>
-          <h3 class="font-medium text-white text-sm mt-1.5" data-i18n="ind_h">RSI-дивергенции и Squeeze</h3>
-          <p class="text-xs text-gray-400 mt-0.5" data-i18n="ind_p">Сжатие Боллинджера перед мощным выстрелом</p>
-        </div>
-        <button onclick="openModule('indicators')" class="px-3 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-xs font-medium text-purple-200 border border-purple-500/30" data-i18n="btn_setup">Настроить</button>
-      </div>
-    </div>
-  </div>
+<div id="tab-overview" class="tab-content home-screen">
+  <section class="home-intro" aria-labelledby="home-title">
+    <div><p class="home-eyebrow">SCANNY · FUTURES</p><h2 id="home-title" data-i18n="home_title">Сигналы рынка<br>в одном месте.</h2><p class="home-subtitle" data-i18n="home_subtitle">Сигналы для выбранной стратегии.</p></div>
+    <div class="home-orbit" aria-hidden="true"><span></span><i></i><b></b></div>
+  </section>
+  <section class="home-status" aria-label="Статус сканера">
+    <div class="status-left"><span id="home-status-dot" class="status-dot"></span><div><b id="home-status-label">Статус сканера не проверен</b><small id="home-exchanges">Биржи: загрузка…</small></div></div>
+    <div class="status-updated"><span data-i18n="home_last">Последняя свеча</span><b id="home-updated">—</b></div>
+  </section>
+  <div class="home-section-title"><div><span class="home-kicker" data-i18n="home_section_kicker">МОНИТОРИНГ</span><h3 data-i18n="home_modules">Модули сигналов</h3></div><button class="home-link" onclick="switchTab('screeners')" data-i18n="home_all_filters">Все фильтры <span>↗</span></button></div>
+  <section class="module-grid" aria-label="Модули сигналов">
+    <article class="module-tile module-levels"><div class="tile-visual visual-levels" aria-hidden="true"><svg viewBox="0 0 280 130" fill="none"><path d="M20 30H260M20 64H260M20 98H260" stroke="#cdc2df" stroke-opacity=".18" stroke-width="1"/><path d="M20 64H260" stroke="#bf9cff" stroke-opacity=".8" stroke-width="1.5"/><rect x="20" y="58" width="240" height="12" fill="#b18aff" fill-opacity=".07"/><path d="M28 91l30-7 25 3 29-33 27 12 22-1 29-26 26 6 25-12" stroke="#e5dbea" stroke-opacity=".85" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="139" cy="66" r="5" fill="#fd8f32"/><path d="M139 74v18M133 92h12" stroke="#fd8f32" stroke-opacity=".65" stroke-width="1.5"/><text x="215" y="54" fill="#b6a1ca" font-family="monospace" font-size="10" letter-spacing="1">LEVEL</text></svg></div><div class="tile-content"><div><span class="tile-index">01 / LEVELS</span><h4 data-i18n="lvl_title">Уровни и ретест</h4><p data-i18n="home_levels_desc">Подходы, пробои и ретесты важных уровней</p></div><div class="tile-bottom"><span id="home-tf-levels" class="tile-timeframes">—</span><button onclick="openModule('levels')" data-i18n="btn_setup">Настроить</button></div></div></article>
+    <article class="module-tile module-volume"><div class="tile-visual visual-volume" aria-hidden="true"><svg viewBox="0 0 220 110" fill="none"><path d="M20 86H200M20 56H200M20 26H200" stroke="#e0d4e9" stroke-opacity=".14"/><path d="M30 86V73M47 86V62M64 86V69M81 86V47M98 86V61M115 86V35M132 86V55M149 86V19M166 86V45M183 86V65" stroke="#a890c5" stroke-opacity=".7" stroke-width="6"/><path d="M149 86V19" stroke="#fd8f32" stroke-width="6"/><path d="M138 13h22M149 8v10" stroke="#fd8f32" stroke-width="1.5"/><text x="20" y="106" fill="#a59ab6" font-family="monospace" font-size="9" letter-spacing="1">VOLUME / LIQUIDITY</text></svg></div><div class="tile-content"><div><span class="tile-index">02 / VOLUME</span><h4 data-i18n="vol_title">Объём и свипы</h4><p data-i18n="home_volume_desc">Всплески объёма и захваты ликвидности</p></div><div class="tile-bottom"><span id="home-tf-volume" class="tile-timeframes">—</span><button onclick="openModule('volume')" data-i18n="btn_setup">Настроить</button></div></div></article>
+    <article class="module-tile module-small"><div class="tile-visual visual-small" aria-hidden="true"><svg viewBox="0 0 100 60" fill="none"><rect x="13" y="11" width="47" height="25" rx="4" stroke="#ad9cbc" stroke-width="1.4"/><rect x="39" y="24" width="47" height="25" rx="4" fill="#1d152b" stroke="#b48bea" stroke-width="1.4"/><path d="M22 24h22m-5-5 5 5-5 5" stroke="#d9d0e1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M76 37H54m5-5-5 5 5 5" stroke="#fd8f32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tile-content"><div><span class="tile-index">03 / FUTURES</span><h4 data-i18n="der_title">Деривативы</h4><p data-i18n="home_der_desc">Фандинг и открытый интерес</p></div><span id="home-tf-derivatives" class="tile-timeframes">—</span><button onclick="openModule('derivatives')" data-i18n="btn_setup">Настроить</button></div></article>
+    <article class="module-tile module-small"><div class="tile-visual visual-small" aria-hidden="true"><svg viewBox="0 0 100 60" fill="none"><path d="M9 13H91M9 30H91M9 47H91" stroke="#d6c8e2" stroke-opacity=".18"/><path d="M9 40 19 34 28 38 38 22 47 25 56 18 65 29 75 22 91 17" stroke="#c5b5d4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 46 19 43 28 45 38 33 47 34 56 28 65 35 75 29 91 25" stroke="#a07de1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="65" cy="29" r="3" fill="#fd8f32"/></svg></div><div class="tile-content"><div><span class="tile-index">04 / TECHNICAL</span><h4 data-i18n="ind_title">Индикаторы</h4><p data-i18n="home_ind_desc">RSI-дивергенции и сжатие</p></div><span id="home-tf-indicators" class="tile-timeframes">—</span><button onclick="openModule('indicators')" data-i18n="btn_setup">Настроить</button></div></article>
+  </section>
+  <div class="home-section-title home-events-title"><div><span class="home-kicker" data-i18n="home_activity">АКТИВНОСТЬ</span><h3 data-i18n="home_recent">Последние события</h3></div><button class="home-link" onclick="switchTab('feed')" data-i18n="home_view_all">Все события <span>↗</span></button></div>
+  <div id="home-recent-events" class="home-recent" aria-live="polite"><p class="home-empty" data-i18n="home_loading">Загрузка событий…</p></div>
 </div>
+
 
 <!-- ================= 2. TAB: КОТИРОВКИ ================= -->
-<div id="tab-quotes" class="tab-content hidden space-y-4">
-  <div class="glass-card p-4">
-    <h2 class="font-semibold text-white text-base mb-2" data-i18n="qt_title">Выбор биржи и монет</h2>
-    <p class="text-xs text-gray-400 mb-3" data-i18n="qt_sub">Выберите биржу и режим сканирования</p>
-    <div class="grid grid-cols-2 gap-2 mb-3" id="exchange-grid">
-      <button onclick="selectExchange('bingx')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-900/40 border-purple-500 text-purple-200" data-ex="bingx">BingX</button>
-      <button onclick="selectExchange('binance')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="binance">Binance</button>
-      <button onclick="selectExchange('bybit')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="bybit">Bybit</button>
-      <button onclick="selectExchange('bitget')" class="ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300" data-ex="bitget">Bitget</button>
-    </div>
-    
-    <label id="exchange-enabled-wrap" class="hidden flex items-center gap-2 text-xs text-purple-200 mb-3"><input type="checkbox" id="exchange-enabled" onchange="setExchangeEnabled(this.checked)"> <span>Получать сигналы с этой биржи</span></label>
-    <p id="exchange-plan-hint" class="text-xs text-gray-400 mb-3"></p>
-    <div class="flex gap-2 p-1 bg-purple-950/60 rounded-xl mb-4 border border-purple-900/40">
-      <button onclick="setCoinsMode('all')" id="mode-all-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white" data-i18n="qt_all">Все монеты</button>
-      <button onclick="setCoinsMode('selected')" id="mode-sel-btn" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400" data-i18n="qt_sel">Только избранные</button>
-    </div>
-    
-    <div id="coins-selector-box" class="hidden space-y-3">
-      <div class="flex gap-2 overflow-x-auto hide-scroll pb-1" id="market-categories">
-        <button type="button" onclick="setMarketCategory('top')" data-category="top" class="market-category px-3 py-1 rounded-full text-xs whitespace-nowrap">Топ-200</button>
-        <button type="button" onclick="setMarketCategory('meme')" data-category="meme" class="market-category px-3 py-1 rounded-full text-xs whitespace-nowrap">Мемы</button>
-        <button type="button" onclick="setMarketCategory('layer1')" data-category="layer1" class="market-category px-3 py-1 rounded-full text-xs whitespace-nowrap">Основные сети</button>
-        <button type="button" onclick="setMarketCategory('defi')" data-category="defi" class="market-category px-3 py-1 rounded-full text-xs whitespace-nowrap">DeFi</button>
-      </div>
-      <p id="market-status" class="text-xs text-gray-400"></p>
-      <p class="text-xs text-purple-300 font-medium" data-i18n="qt_pairs">Отметьте нужные пары:</p>
-      <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1" id="coin-list"></div>
-    </div>
-    <button id="market-save-btn" disabled onclick="saveSettingsToServer('market-save-btn')" class="w-full mt-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-semibold text-white text-sm shadow-lg shadow-purple-900/40 transition">Сохранить выбор</button>
+<div id="tab-quotes" class="tab-content hidden design-screen">
+  <div class="screen-heading"><span class="home-kicker" data-ui="markets_kicker">БИРЖИ И МОНЕТЫ</span><h2 data-i18n="nav_mk">Рынки</h2><p data-ui="markets_intro">Биржи для сигналов и список отслеживаемых монет.</p></div>
+  <div class="screen-section"><div class="screen-section-head"><h3 data-ui="exchanges">Биржи</h3><span id="market-selection-count">—</span></div><p class="screen-note" data-ui="exchange_help">Нажмите на карточку, чтобы включить или выключить биржу.</p>
+    <div id="exchange-grid" class="exchange-grid">
+      <article class="exchange-card" data-exchange-card="bingx"><button type="button" class="exchange-select" onclick="toggleExchange('bingx')" aria-pressed="false"><span class="exchange-mark"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="#d6c4ff" stroke-width="4" stroke-linecap="round"><path d="M6 11 C15 11 19 18 24 24 C29 30 34 37 42 37"/><path d="M6 37 C15 37 19 30 24 24 C29 18 34 11 42 11"/></svg></span><b>BingX</b><small data-exchange-status="bingx">Выключена</small></button><button type="button" class="exchange-coins" onclick="openCoinExchange('bingx')" data-ui="coins_button">Монеты ↗</button></article>
+      <article class="exchange-card" data-exchange-card="binance"><button type="button" class="exchange-select" onclick="toggleExchange('binance')" aria-pressed="false"><span class="exchange-mark"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI0IDI0IiBjbGFzcz0id2ViM2ljb25zIj4KICAgIDxwYXRoIGZpbGw9IiNmZmYiIGQ9Im03LjA2OCAxMi0yLjAzIDIuMDNMMy4wMDMgMTJsMi4wMy0yLjAzem00LjkzNS00LjkzNSAzLjQ4MiAzLjQ4MyAyLjAzLTIuMDNMMTIuMDAzIDMgNi40ODUgOC41MThsMi4wMyAyLjAzem02Ljk2NCAyLjkwNUwxNi45MzcgMTJsMi4wMyAyLjAzIDIuMDMtMi4wM3ptLTYuOTY0IDYuOTY1TDguNTIgMTMuNDUybC0yLjAzIDIuMDNMMTIuMDAzIDIxbDUuNTEyLTUuNTE4LTIuMDMtMi4wM3ptMC0yLjkwNSAyLjAzLTIuMDMtMi4wMy0yLjAzTDkuOTY3IDEyeiIvPgo8L3N2Zz4K" alt="" aria-hidden="true"></span><b>Binance</b><small data-exchange-status="binance">Выключена</small></button><button type="button" class="exchange-coins" onclick="openCoinExchange('binance')" data-ui="coins_button">Монеты ↗</button></article>
+      <article class="exchange-card" data-exchange-card="bybit"><button type="button" class="exchange-select" onclick="toggleExchange('bybit')" aria-pressed="false"><span class="exchange-mark"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI0IDI0IiBjbGFzcz0id2ViM2ljb25zIj4KICAgIDxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xNS44MjkgMTMuNjI2VjloLjkzdjQuNjI2ek00Ljk5MyAxNUgzdi00LjYyNmgxLjkxM2MuOTMgMCAxLjQ3MS41MDcgMS40NzEgMS4zIDAgLjUxMy0uMzQ4Ljg0NS0uNTg4Ljk1NS4yODcuMTMuNjU1LjQyMy42NTUgMS4wNCAwIC44NjMtLjYwOSAxLjMzLTEuNDU4IDEuMzNtLS4xNTQtMy44MmgtLjkxdjEuMDY1aC45MWMuMzk1IDAgLjYxNS0uMjE0LjYxNS0uNTMzIDAtLjMxNy0uMjItLjUzMi0uNjE1LS41MzJtLjA2IDEuODc3aC0uOTd2MS4xMzdoLjk3Yy40MiAwIC42MjItLjI1OS42MjItLjU3MXMtLjIwMS0uNTY1LS42MjItLjU2NXptNC4zODguMDQ2VjE1aC0uOTIzdi0xLjg5OGwtMS40MzEtMi43MjhoMS4wMWwuODg5IDEuODY0Ljg3Ny0xLjg2NGgxLjAxek0xMy4zNTUgMTVoLTEuOTkzdi00LjYyNmgxLjkxM2MuOTMgMCAxLjQ3LjUwNyAxLjQ3IDEuMyAwIC41MTMtLjM0Ny44NDUtLjU4OC45NTUuMjg3LjEzLjY1NS40MjMuNjU1IDEuMDQgMCAuODYzLS42MDggMS4zMy0xLjQ1NyAxLjMzbS0uMTU1LTMuODJoLS45MXYxLjA2NWguOTFjLjM5NSAwIC42MTYtLjIxNC42MTYtLjUzMyAwLS4zMTctLjIyLS41MzItLjYxNi0uNTMybS4wNiAxLjg3N2gtLjk3djEuMTM3aC45N2MuNDIyIDAgLjYyMi0uMjU5LjYyMi0uNTcxcy0uMi0uNTY1LS42MjItLjU2NXptNi40OTUtMS44NzZWMTVoLS45Mjl2LTMuODJoLTEuMjQ1di0uODA2SDIxdi44MDZ6Ii8+Cjwvc3ZnPgo=" alt="" aria-hidden="true"></span><b>Bybit</b><small data-exchange-status="bybit">Выключена</small></button><button type="button" class="exchange-coins" onclick="openCoinExchange('bybit')" data-ui="coins_button">Монеты ↗</button></article>
+      <article class="exchange-card" data-exchange-card="bitget"><button type="button" class="exchange-select" onclick="toggleExchange('bitget')" aria-pressed="false"><span class="exchange-mark"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI0IDI0IiBjbGFzcz0id2ViM2ljb25zIj4KICAgIDxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xMS4xMjEgOS40Nmg0LjI4M2w0LjM4MSA0LjU1NWEuNzg1Ljc4NSAwIDAgMSAuMDAzIDEuMDc2TDE0LjE3IDIxSDkuNzU3bDEuMzM0LTEuMzU3IDQuODk4LTUuMDkyLTQuODM2LTUuMDkyIi8+CiAgICA8cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTIuODc5IDE0LjU0SDguNTk2TDQuMjE1IDkuOTg2YS43ODUuNzg1IDAgMCAxLS4wMDMtMS4wNzZMOS44MyAzaDQuNDEybC0xLjMzNCAxLjM1N0w4LjAxIDkuNDQ5bDQuODM2IDUuMDkyIi8+Cjwvc3ZnPgo=" alt="" aria-hidden="true"></span><b>Bitget</b><small data-exchange-status="bitget">Выключена</small></button><button type="button" class="exchange-coins" onclick="openCoinExchange('bitget')" data-ui="coins_button">Монеты ↗</button></article>
+    </div><p id="exchange-plan-hint" class="screen-note"></p><p id="exchange-error" class="field-error" role="status"></p>
   </div>
+  <section class="screen-section" id="market-coins-panel"><div class="screen-section-head"><div><span class="home-kicker" data-ui="coin_list">СПИСОК МОНЕТ</span><h3 id="market-exchange-title">BingX</h3></div><button class="home-link" type="button" onclick="refreshMarket()" data-ui="refresh">Обновить ↻</button></div>
+    <div class="segment-control"><button type="button" onclick="setCoinsMode('all')" id="mode-all-btn" data-i18n="qt_all">Все монеты</button><button type="button" onclick="setCoinsMode('selected')" id="mode-sel-btn" data-i18n="qt_sel">Только выбранные</button></div>
+    <div class="coin-tools"><input type="search" id="market-search" placeholder="Поиск монеты" oninput="renderMarket()" aria-label="Поиск монеты"><div class="coin-view-toggle" role="group" aria-label="Вид списка"><button type="button" id="coin-view-list" onclick="setCoinView('list')" aria-label="Список">☰</button><button type="button" id="coin-view-grid" onclick="setCoinView('grid')" aria-label="Плитки">▦</button></div></div>
+    <div class="market-categories" id="market-categories"><button type="button" onclick="setMarketCategory('top')" data-category="top" data-ui="top">Топ</button><button type="button" onclick="setMarketCategory('meme')" data-category="meme" data-ui="memes">Мемы</button><button type="button" onclick="setMarketCategory('layer1')" data-category="layer1">Layer 1</button><button type="button" onclick="setMarketCategory('defi')" data-category="defi">DeFi</button><button type="button" onclick="setMarketCategory('ai')" data-category="ai">AI</button></div>
+    <div class="coin-bulk"><span id="market-status" aria-live="polite"></span><div><button type="button" onclick="bulkCoins(true)" data-ui="select_all">Выбрать все</button><button type="button" onclick="bulkCoins(false)" data-ui="clear_all">Снять все</button></div></div>
+    <p id="market-error" class="field-error" role="status"></p><div id="coin-list" class="coin-list"></div>
+  </section>
+  <button id="market-save-btn" disabled onclick="saveMarkets()" class="primary-save" data-ui="save_markets">Сохранить рынки</button>
 </div>
 
-<!-- ================= 3. TAB: СКРИНЕРЫ (4 МОДУЛЯ С ТФ) ================= -->
-<div id="tab-screeners" class="tab-content hidden space-y-4">
-  <div class="flex justify-between items-center mb-1 px-1">
-    <h2 class="font-semibold text-white text-base" data-i18n="mod_h">Настройка модулей</h2>
-    <button onclick="resetDefaults()" class="text-xs text-purple-400 hover:text-purple-300 underline" data-i18n="mod_rst">Сбросить всё</button>
-  </div>
 
+<!-- ================= 3. TAB: СКРИНЕРЫ (4 МОДУЛЯ С ТФ) ================= -->
+<div id="tab-screeners" class="tab-content hidden design-screen">
+  <div class="screen-heading"><span class="home-kicker" data-ui="filters_kicker">НАСТРОЙКИ СИГНАЛОВ</span><h2 data-i18n="nav_st">Фильтры</h2><p data-ui="filters_intro">Общие таймфреймы и отдельные настройки каждого модуля.</p></div>
+  <div class="filter-common"><h3 data-ui="common_timeframes">Общие таймфреймы</h3><p data-ui="common_help">Выбор применяется ко всем модулям.</p><div class="common-tfs" id="common-tfs">
+    <button type="button" data-tf="5m" onclick="toggleCommonTf('5m')">5m</button><button type="button" data-tf="15m" onclick="toggleCommonTf('15m')">15m</button><button type="button" data-tf="30m" onclick="toggleCommonTf('30m')">30m</button><button type="button" data-tf="1h" onclick="toggleCommonTf('1h')">1h</button><button type="button" data-tf="2h" onclick="toggleCommonTf('2h')">2h</button><button type="button" data-tf="4h" onclick="toggleCommonTf('4h')">4h</button>
+  </div><button type="button" id="common-save-btn" class="secondary-save" onclick="applyCommonTfs()" data-ui="apply_all">Применить ко всем</button><p id="common-error" class="field-error" role="status"></p></div>
   <!-- БЛОК 1: Уровни -->
-  <div id="module-card-levels" class="glass-card p-4 space-y-3 border-l-4 border-l-purple-500">
-    <h3 class="font-bold text-white text-sm flex items-center gap-2">🟣 <span data-i18n="lvl_title">Уровни и Ретест</span></h3>
+  <details id="module-card-levels" class="filter-module">
+    <summary><span data-i18n="lvl_title">Уровни и ретест</span><span class="filter-chevron">⌄</span></summary><div class="filter-content">
     <div>
       <label class="text-[11px] text-gray-300 font-medium block mb-1.5" data-i18n="tf_lvl">Таймфреймы для уровней</label>
       <div class="flex flex-wrap gap-1.5" id="tf-pills-levels">
@@ -245,15 +223,15 @@
       <label class="flex items-center justify-between p-2 rounded-xl bg-purple-950/40 border border-purple-900/30 text-xs">
         <span data-i18n="lbl_ret">Ретест пробитого уровня</span>
         <input type="checkbox" id="ev-retest" checked class="w-4 h-4 rounded text-purple-600">
-      </label>
+      </label><details class="signal-explanation"><summary>Что это?</summary><p>Возврат цены к пробитому уровню с реакцией от него.</p></details>
       <label class="flex items-center justify-between p-2 rounded-xl bg-purple-950/40 border border-purple-900/30 text-xs">
         <span data-i18n="lbl_brk">Пробой уровня</span>
         <input type="checkbox" id="ev-breakout" checked class="w-4 h-4 rounded text-purple-600">
-      </label>
+      </label><details class="signal-explanation"><summary>Что это?</summary><p>Цена пробивает область поддержки или сопротивления.</p></details>
       <label class="flex items-center justify-between p-2 rounded-xl bg-purple-950/40 border border-purple-900/30 text-xs">
         <span data-i18n="lbl_app">Подход к уровню</span>
         <input type="checkbox" id="ev-approach" class="w-4 h-4 rounded text-purple-600">
-      </label>
+      </label><details class="signal-explanation"><summary>Что это?</summary><p>Цена приближается к найденному уровню.</p></details>
     </div>
     <div>
       <div class="flex justify-between items-center mb-1 text-xs">
@@ -270,11 +248,11 @@
         <button onclick="setSide('resistance')" id="side-res-btn" class="py-1 rounded text-xs font-medium bg-purple-950/50 text-gray-400 border border-purple-900/40" data-i18n="side_res">Сопротивление</button>
       </div>
     </div>
-  </div>
+  <p id="module-error-levels" class="field-error" role="status"></p><button type="button" id="save-levels-btn" class="secondary-save" onclick="saveModule('levels')" data-ui="save">Сохранить</button></div></details>
 
   <!-- БЛОК 2: Объём -->
-  <div id="module-card-volume" class="glass-card p-4 space-y-3 border-l-4 border-l-blue-500">
-    <h3 class="font-bold text-white text-sm flex items-center gap-2">🔵 <span data-i18n="vol_title">Объём и Свипы</span></h3>
+  <details id="module-card-volume" class="filter-module">
+    <summary><span data-i18n="vol_title">Объём и свипы</span><span class="filter-chevron">⌄</span></summary><div class="filter-content">
     <div>
       <label class="text-[11px] text-gray-300 font-medium block mb-1.5" data-i18n="tf_vol">Таймфреймы для объёмов</label>
       <div class="flex flex-wrap gap-1.5" id="tf-pills-volume">
@@ -290,17 +268,17 @@
       <label class="flex items-center justify-between p-2 rounded-xl bg-blue-950/40 border border-blue-900/30 text-xs">
         <span data-i18n="lbl_vsp">Аномальный всплеск объема (Volume Spike)</span>
         <input type="checkbox" id="ev-vol-anomaly" checked class="w-4 h-4 rounded text-blue-600">
-      </label>
+      </label><details class="signal-explanation"><summary>Что это?</summary><p>Объём заметно превышает обычный для этого рынка.</p></details>
       <label class="flex items-center justify-between p-2 rounded-xl bg-blue-950/40 border border-blue-900/30 text-xs">
         <span data-i18n="lbl_lgb">Захват ликвидности (Liquidity Grab / Stop Hunt)</span>
         <input type="checkbox" id="ev-liq-grab" checked class="w-4 h-4 rounded text-blue-600">
-      </label>
+      </label><details class="signal-explanation"><summary>Что это?</summary><p>Цена проходит область ликвидности и возвращается обратно.</p></details>
     </div>
-  </div>
+  <p id="module-error-volume" class="field-error" role="status"></p><button type="button" id="save-volume-btn" class="secondary-save" onclick="saveModule('volume')" data-ui="save">Сохранить</button></div></details>
 
   <!-- БЛОК 3: Деривативы -->
-  <div id="module-card-derivatives" class="glass-card p-4 space-y-3 border-l-4 border-l-amber-500">
-    <h3 class="font-bold text-white text-sm flex items-center gap-2">🟠 <span data-i18n="der_title">Деривативы</span></h3>
+  <details id="module-card-derivatives" class="filter-module">
+    <summary><span data-i18n="der_title">Деривативы</span><span class="filter-chevron">⌄</span></summary><div class="filter-content">
     <div>
       <label class="text-[11px] text-gray-300 font-medium block mb-1.5" data-i18n="tf_der">Таймфреймы для деривативов</label>
       <div class="flex flex-wrap gap-1.5" id="tf-pills-derivatives">
@@ -316,17 +294,17 @@
       <label class="flex items-center justify-between p-2 rounded-xl bg-amber-950/40 border border-amber-900/30 text-xs">
         <span data-i18n="lbl_oi">Аномалии Открытого интереса (OI Spike)</span>
         <input type="checkbox" id="ev-oi-anomaly" checked class="w-4 h-4 rounded text-amber-600">
-      </label>
+      </label><details class="signal-explanation"><summary>Что это?</summary><p>Открытый интерес меняется сильнее обычного.</p></details>
       <label class="flex items-center justify-between p-2 rounded-xl bg-amber-950/40 border border-amber-900/30 text-xs">
         <span data-i18n="lbl_fnd">Экстремальный фандинг (Funding Rate Alert)</span>
         <input type="checkbox" id="ev-funding-anomaly" checked class="w-4 h-4 rounded text-amber-600">
-      </label>
+      </label><details class="signal-explanation"><summary>Что это?</summary><p>Ставка финансирования достигает экстремального значения.</p></details>
     </div>
-  </div>
+  <p id="module-error-derivatives" class="field-error" role="status"></p><button type="button" id="save-derivatives-btn" class="secondary-save" onclick="saveModule('derivatives')" data-ui="save">Сохранить</button></div></details>
 
   <!-- БЛОК 4: Индикаторы -->
-  <div id="module-card-indicators" class="glass-card p-4 space-y-3 border-l-4 border-l-pink-500">
-    <h3 class="font-bold text-white text-sm flex items-center gap-2">🔴 <span data-i18n="ind_title">Индикаторы</span></h3>
+  <details id="module-card-indicators" class="filter-module">
+    <summary><span data-i18n="ind_title">Индикаторы</span><span class="filter-chevron">⌄</span></summary><div class="filter-content">
     <div>
       <label class="text-[11px] text-gray-300 font-medium block mb-1.5" data-i18n="tf_ind">Таймфреймы для индикаторов</label>
       <div class="flex flex-wrap gap-1.5" id="tf-pills-indicators">
@@ -342,50 +320,55 @@
       <label class="flex items-center justify-between p-2 rounded-xl bg-pink-950/40 border border-pink-900/30 text-xs">
         <span data-i18n="lbl_rsi">RSI-дивергенции</span>
         <input type="checkbox" id="ev-rsi-div" checked class="w-4 h-4 rounded text-pink-600">
-      </label>
+      </label><details class="signal-explanation"><summary>Что это?</summary><p>Движение цены расходится с движением RSI.</p></details>
       <label class="flex items-center justify-between p-2 rounded-xl bg-pink-950/40 border border-pink-900/30 text-xs">
         <span data-i18n="lbl_sqz">Сжатие волатильности (Bollinger Squeeze)</span>
         <input type="checkbox" id="ev-squeeze" checked class="w-4 h-4 rounded text-pink-600">
-      </label>
+      </label><details class="signal-explanation"><summary>Что это?</summary><p>Волатильность сжимается, указывая на возможное сильное движение.</p></details>
     </div>
-  </div>
+  <p id="module-error-indicators" class="field-error" role="status"></p><button type="button" id="save-indicators-btn" class="secondary-save" onclick="saveModule('indicators')" data-ui="save">Сохранить</button></div></details>
 
-  <!-- Кнопка сохранения -->
-  <button id="save-btn" disabled onclick="saveSettingsToServer()" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 font-semibold text-white text-sm shadow-lg shadow-purple-900/40 transition" data-i18n="btn_save">
-    Сохранить настройки
-  </button>
+  <button id="save-btn" hidden disabled></button>
 </div>
 
 <!-- ================= 4. TAB: ЛЕНТА ================= -->
-<div id="tab-feed" class="tab-content hidden space-y-3">
-  <div class="glass-card p-3 space-y-3">
-    <div class="flex gap-2">
-      <input type="text" placeholder="Поиск по тикеру..." id="feed-search" oninput="renderFeed()" class="flex-1 bg-purple-950/50 border border-purple-900/40 rounded-lg px-3 py-1.5 text-xs text-white placeholder-gray-500 outline-none">
-      <button id="feed-refresh-btn" onclick="fetchSignalsManual()" class="px-3 py-1.5 rounded-lg bg-purple-900/60 text-xs text-purple-200">↻</button>
-    </div>
-    <p id="feed-update-status" class="text-[10px] text-gray-400" aria-live="polite"></p>
-    <div class="flex gap-1.5 overflow-x-auto hide-scroll" id="feed-tfs">
-      <button onclick="setFeedTf('All')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-600 text-white shadow-md" data-i18n="feed_all">Все</button>
-      <button onclick="setFeedTf('5m')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">5m</button>
-      <button onclick="setFeedTf('15m')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">15m</button>
-      <button onclick="setFeedTf('30m')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">30m</button>
-      <button onclick="setFeedTf('1h')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">1h</button>
-      <button onclick="setFeedTf('2h')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">2h</button>
-      <button onclick="setFeedTf('4h')" class="feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40">4h</button>
-    </div>
+<div id="tab-feed" class="tab-content hidden design-screen">
+  <div class="screen-heading"><span class="home-kicker" data-ui="events_kicker">АКТИВНОСТЬ РЫНКА</span><h2 data-i18n="nav_fd">События</h2><p data-ui="events_intro">Последние сигналы по выбранным настройкам.</p></div>
+  <div class="event-toolbar"><div class="coin-tools"><input type="search" id="feed-search" placeholder="Поиск по тикеру" oninput="renderFeed()" aria-label="Поиск по тикеру"><button id="feed-refresh-btn" type="button" onclick="fetchSignalsManual()" class="event-refresh" aria-label="Обновить события">↻</button></div>
+    <p id="feed-update-status" class="screen-note" aria-live="polite"></p>
+    <div class="market-categories" id="feed-tfs"><button type="button" onclick="setFeedTf('All')" class="feed-tf-btn is-active" data-i18n="feed_all">Все</button><button type="button" onclick="setFeedTf('5m')" class="feed-tf-btn">5m</button><button type="button" onclick="setFeedTf('15m')" class="feed-tf-btn">15m</button><button type="button" onclick="setFeedTf('30m')" class="feed-tf-btn">30m</button><button type="button" onclick="setFeedTf('1h')" class="feed-tf-btn">1h</button><button type="button" onclick="setFeedTf('2h')" class="feed-tf-btn">2h</button><button type="button" onclick="setFeedTf('4h')" class="feed-tf-btn">4h</button></div>
   </div>
-  <div class="space-y-2.5" id="feed-items-container"></div>
+  <div id="feed-items-container" class="event-list" aria-live="polite"></div>
 </div>
 
+
 <!-- ================= 5. TAB: ПРОФИЛЬ ================= -->
-<div id="tab-profile" class="tab-content hidden space-y-4">
-  <div class="glass-card p-4 flex items-center gap-3">
+<div id="tab-profile" class="tab-content hidden design-screen profile-screen"><div class="screen-heading"><span class="home-kicker" data-ui="account_kicker">АККАУНТ</span><h2 data-i18n="nav_pr">Профиль</h2><p data-ui="profile_intro">Тариф, уведомления и настройки приложения.</p></div>
+<div class="glass-card p-4 flex items-center gap-3">
     <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-bold text-lg text-white" id="user-avatar-initials">TR</div>
     <div>
       <h3 class="font-bold text-white text-base" id="profile-name">Trader</h3>
-      <p class="text-xs text-purple-300"><span data-i18n="prof_plan">Тариф:</span> Бесплатный триал</p>
+      <p class="text-xs text-purple-300"><span data-i18n="prof_plan">Тариф:</span> <span id="profile-plan">—</span></p>
     </div>
   </div>
+<h3 class="profile-section-label" data-ui="preferences">ПРЕДПОЧТЕНИЯ</h3>
+<div class="glass-card p-4 flex items-center justify-between"><span class="text-sm font-semibold">Язык / Language</span>
+  <!-- ИСПРАВЛЕНО: Математически ровный iOS Переключатель языков -->
+  <div class="flex items-center gap-1.5 bg-purple-950/80 p-1 rounded-full border border-purple-700/40">
+    <span class="text-[10px] font-bold text-gray-500 pl-1 transition-colors" id="lang-en">EN</span>
+    <label class="relative inline-flex items-center cursor-pointer">
+      <input type="checkbox" id="lang-toggle" onchange="toggleLanguage()" class="sr-only peer" checked>
+      <!-- w-9 и h-5 контейнер, w-4 и h-4 кругляшок = идеальный ход от края до края -->
+      <div class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-purple-500"></div>
+    </label>
+    <span class="text-[10px] font-bold text-purple-300 pr-1 transition-colors" id="lang-ru">RU</span>
+  </div>
+  </div>
+<div class="glass-card p-4 flex items-center justify-between"><label for="event-timezone" class="text-sm font-semibold" data-ui="event_time">Время событий</label><select id="event-timezone" onchange="setFeedTimezone(this.value)" class="timezone-select"><option value="local" data-ui="local_time">Местное</option><option value="utc">UTC</option></select></div>
+
+  
+  
+  
 
   <div class="glass-card p-4 flex justify-between items-center border-l-4 border-l-amber-500 bg-amber-950/10">
     <div>
@@ -398,6 +381,7 @@
     </label>
   </div>
 
+  <h3 class="profile-section-label" data-ui="invitations">ПРИГЛАШЕНИЯ</h3>
   <div class="glass-card p-4 space-y-2.5">
     <div class="flex justify-between items-center">
       <h3 class="font-semibold text-white text-sm" data-i18n="ref_h">Пригласить друга</h3>
@@ -468,26 +452,28 @@
 <!-- ================= BOTTOM NAVIGATION BAR ================= -->
 <nav class="fixed bottom-0 left-0 right-0 bg-[#0E0A1A]/95 backdrop-blur-md border-t border-purple-900/40 px-3 flex justify-around z-50">
   <button onclick="switchTab('overview')" id="nav-overview" class="nav-btn flex flex-col items-center text-[10px] text-gray-400 nav-active">
-    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-    <span data-i18n="nav_ov">Обзор</span>
+    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+    <span data-i18n="nav_ov">Главная</span>
   </button>
   <button onclick="switchTab('quotes')" id="nav-quotes" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
-    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-    <span data-i18n="nav_mk">Рынок</span>
+    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 19V5m0 14h16M7 15l4-4 3 2 5-6m-4 0h4v4"/></svg>
+    <span data-i18n="nav_mk">Рынки</span>
   </button>
   <button onclick="switchTab('screeners')" id="nav-screeners" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
-    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-    <span data-i18n="nav_st">Настройки</span>
+    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 17h16M8 4v6m8 4v6"/><circle cx="8" cy="7" r="2" fill="#110b1b"/><circle cx="16" cy="17" r="2" fill="#110b1b"/></svg>
+    <span data-i18n="nav_st">Фильтры</span>
   </button>
   <button onclick="switchTab('feed')" id="nav-feed" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
-    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-    <span data-i18n="nav_fd">Лента</span>
+    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5h14v14H5zM8 9h8M8 13h8M8 17h5"/></svg>
+    <span data-i18n="nav_fd">События</span>
   </button>
   <button onclick="switchTab('profile')" id="nav-profile" class="nav-btn flex flex-col items-center text-[10px] text-gray-400">
-    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+    <svg class="w-6 h-6 mb-0.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2.8"><circle cx="12" cy="8" r="3.3"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 20c.4-4 3-6 7-6s6.6 2 7 6z"/></svg>
     <span data-i18n="nav_pr">Профиль</span>
   </button>
 </nav>
+
+<dialog id="unsaved-dialog" class="unsaved-dialog"><form method="dialog"><h3 data-ui="unsaved_title">Несохранённые изменения</h3><p id="unsaved-description">Сохранить изменения перед переходом?</p><div class="unsaved-actions"><button value="save" class="primary-save" data-ui="save">Сохранить</button><button value="discard" class="secondary-save" data-ui="discard">Не сохранять</button><button value="stay" class="home-link" data-ui="stay">Остаться</button></div></form></dialog>
 
 <script>
   const tg = window.Telegram?.WebApp;
@@ -497,6 +483,13 @@
     tg.setHeaderColor('#080511');
     tg.setBackgroundColor('#080511');
   }
+
+  const uiCopy={
+    ru:{markets_kicker:'БИРЖИ И МОНЕТЫ',markets_intro:'Биржи для сигналов и список отслеживаемых монет.',exchanges:'Биржи',exchange_help:'Нажмите на карточку, чтобы включить или выключить биржу.',coins_button:'Монеты ↗',coin_list:'СПИСОК МОНЕТ',refresh:'Обновить ↻',top:'Топ',memes:'Мемы',select_all:'Выбрать все',clear_all:'Снять все',save_markets:'Сохранить рынки',filters_kicker:'НАСТРОЙКИ СИГНАЛОВ',filters_intro:'Общие таймфреймы и отдельные настройки каждого модуля.',common_timeframes:'Общие таймфреймы',common_help:'Выбор применяется ко всем модулям.',apply_all:'Применить ко всем',events_kicker:'АКТИВНОСТЬ РЫНКА',events_intro:'Последние сигналы по выбранным настройкам.',account_kicker:'АККАУНТ',profile_intro:'Тариф, уведомления и настройки приложения.',preferences:'ПРЕДПОЧТЕНИЯ',invitations:'ПРИГЛАШЕНИЯ',event_time:'Время событий',local_time:'Местное',unsaved_title:'Несохранённые изменения',save:'Сохранить',discard:'Не сохранять',stay:'Остаться'},
+    en:{markets_kicker:'EXCHANGES & COINS',markets_intro:'Signal exchanges and the list of tracked coins.',exchanges:'Exchanges',exchange_help:'Tap a card to enable or disable its signals.',coins_button:'Coins ↗',coin_list:'COINS',refresh:'Refresh ↻',top:'Top',memes:'Memes',select_all:'Select all',clear_all:'Clear all',save_markets:'Save markets',filters_kicker:'SIGNAL SETTINGS',filters_intro:'Shared timeframes and individual module settings.',common_timeframes:'Shared timeframes',common_help:'This selection applies to all modules.',apply_all:'Apply to all',events_kicker:'MARKET ACTIVITY',events_intro:'Recent signals matching the selected settings.',account_kicker:'ACCOUNT',profile_intro:'Plan, notifications and app settings.',preferences:'PREFERENCES',invitations:'REFERRALS',event_time:'Event time',local_time:'Local',unsaved_title:'Unsaved changes',save:'Save',discard:'Discard',stay:'Stay'}
+  };
+  function currentLanguage(){return document.getElementById('lang-toggle')?.checked?'ru':'en';}
+  function updateNewLanguage(){const lang=currentLanguage();document.querySelectorAll('[data-ui]').forEach(el=>{const value=uiCopy[lang][el.dataset.ui];if(value)el.textContent=value;});const search=document.getElementById('market-search');if(search)search.placeholder=lang==='ru'?'Поиск монеты':'Search coins';renderExchangeCards();renderMarket();renderFeed();updateHomeProfile();}
 
   // --- ИСПРАВЛЕНИЕ: Мгновенный словарь переводов ---
   const translations = {
@@ -523,7 +516,8 @@
       plan_h: "Тарифные планы", p_st_p: "1h, 2h, 4h · 1 биржа · топ-50 пар", btn_st: "Выбрать Starter",
       hit: "Хит продаж", p_tr_p: "Все ТФ 5m–4h · Все сигналы · 1 биржа", btn_tr: "Выбрать Trader",
       p_pr_p: "Все ТФ · Все сигналы · Все 4 биржи сразу", btn_pr: "Выбрать PRO",
-      nav_ov: "Обзор", nav_mk: "Рынок", nav_st: "Настройки", nav_fd: "Лента", nav_pr: "Профиль",
+      nav_ov: "Главная", nav_mk: "Рынки", nav_st: "Фильтры", nav_fd: "События", nav_pr: "Профиль",
+      home_title: "Сигналы рынка<br>в одном месте.", home_subtitle: "Сигналы для выбранной стратегии.", home_last: "Последняя свеча", home_section_kicker: "МОНИТОРИНГ", home_modules: "Модули сигналов", home_all_filters: "Все фильтры ↗", home_levels_desc: "Подходы, пробои и ретесты важных уровней", home_volume_desc: "Всплески объёма и захваты ликвидности", home_der_desc: "Фандинг и открытый интерес", home_ind_desc: "RSI-дивергенции и сжатие", home_activity: "АКТИВНОСТЬ", home_recent: "Последние события", home_view_all: "Все события ↗", home_loading: "Загрузка событий…",
       feed_empty: "Сигналов не найдено"
     },
     en: {
@@ -549,7 +543,8 @@
       plan_h: "Subscription Plans", p_st_p: "1h, 2h, 4h · 1 exchange · top-50 pairs", btn_st: "Choose Starter",
       hit: "Best Seller", p_tr_p: "All TF 5m–4h · All signals · 1 exchange", btn_tr: "Choose Trader",
       p_pr_p: "All TF · All signals · All 4 exchanges", btn_pr: "Choose PRO",
-      nav_ov: "Overview", nav_mk: "Market", nav_st: "Settings", nav_fd: "Feed", nav_pr: "Profile",
+      nav_ov: "Home", nav_mk: "Markets", nav_st: "Filters", nav_fd: "Events", nav_pr: "Profile",
+      home_title: "Your market,<br>in one place.", home_subtitle: "Tailor signals to your strategy.", home_last: "Latest event", home_section_kicker: "YOUR STRATEGY", home_modules: "Signal modules", home_all_filters: "All filters ↗", home_levels_desc: "Approaches, breakouts and retests", home_volume_desc: "Volume spikes and liquidity grabs", home_der_desc: "Funding and open interest", home_ind_desc: "RSI divergence and squeeze", home_activity: "ACTIVITY", home_recent: "Recent events", home_view_all: "All events ↗", home_loading: "Loading events…",
       feed_empty: "No signals found"
     }
   };
@@ -576,10 +571,12 @@
         renderFeed();
     }
     
+    updateNewLanguage();
     if(tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
   }
 
-  function switchTab(tabId) {
+  async function switchTab(tabId, skipDirtyCheck = false) {
+    if (!skipDirtyCheck && !(await resolveUnsavedChanges(tabId))) return false;
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
     const target = document.getElementById('tab-' + tabId);
     if (target) target.classList.remove('hidden');
@@ -589,12 +586,15 @@
     if (navBtn) navBtn.classList.add('nav-active');
 
     if (tabId === 'feed') fetchSignalsAuto();
+    if (tabId === 'overview' && settingsReady) { fetchHomeEvents(); fetchScannerStatus(); }
+    return true;
   }
 
-  function openModule(moduleName) {
-    switchTab('screeners');
+  async function openModule(moduleName) {
+    if (!(await switchTab('screeners'))) return;
     const card = document.getElementById('module-card-' + moduleName);
     if (card) {
+      card.open = true;
       card.scrollIntoView({ behavior: 'smooth', block: 'center' });
       card.classList.add('glass-card-active');
       setTimeout(() => card.classList.remove('glass-card-active'), 2500);
@@ -610,84 +610,116 @@
   const marketCache = {};
   let marketRequest = 0;
   const multiExchangeAllowed = () => currentPlan === 'pro' || currentPlan === 'trial';
+  const exchangeNames = {bingx:'BingX',binance:'Binance',bybit:'Bybit',bitget:'Bitget'};
+  const marketPriceCache = {};
+  let coinView = 'list';
+  try { if (localStorage.getItem('scanny-coin-view') === 'grid') coinView='grid'; } catch (_) {}
+  let marketDirty = false;
+  let savedExchangeSettings = null;
+  let savedActiveExchange = 'bingx';
   function selectExchange(ex) {
     if (!supportedExchanges.includes(ex)) ex = 'bingx';
     activeExchange = ex;
-    if (!multiExchangeAllowed()) {
-      supportedExchanges.forEach(id => exchangeSettings[id].enabled = id === ex);
-    }
     activeCoinsMode = exchangeSettings[ex].mode;
-    document.querySelectorAll('.ex-btn').forEach(b => {
-      const selected = b.dataset.ex === ex;
-      const enabled = exchangeSettings[b.dataset.ex]?.enabled;
-      b.className = selected
-        ? 'ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-900/40 border-purple-500 text-purple-200'
-        : 'ex-btn py-2 px-3 rounded-lg text-xs font-semibold border bg-purple-950/40 border-purple-900/40 text-gray-300';
-      b.textContent = b.dataset.ex[0].toUpperCase() + b.dataset.ex.slice(1) + (enabled ? ' ✓' : '');
-    });
-    document.getElementById('exchange-enabled-wrap').classList.toggle('hidden', !multiExchangeAllowed());
-    document.getElementById('exchange-enabled').checked = exchangeSettings[ex].enabled;
-    const exchangeNames = {bingx: 'BingX', binance: 'Binance', bybit: 'Bybit', bitget: 'Bitget'};
-    const enabledNames = supportedExchanges.filter(id => exchangeSettings[id].enabled).map(id => exchangeNames[id]).join(', ');
-    document.getElementById('exchange-plan-hint').textContent = multiExchangeAllowed()
-      ? `Сигналы включены: ${enabledNames || 'нет'}. Вкладка открывает список монет; флажок включает сигналы с биржи.`
-      : `Сигналы включены: ${enabledNames || 'нет'}. На вашем тарифе доступна одна биржа.`;
-    setCoinsMode(activeCoinsMode);
+    renderExchangeCards();
+    document.getElementById('market-exchange-title').textContent = exchangeNames[ex];
+    renderCoinMode();
     loadMarket(ex);
   }
-  function setExchangeEnabled(enabled) {
-    if (!enabled && Object.values(exchangeSettings).filter(x => x.enabled).length === 1 && exchangeSettings[activeExchange].enabled) {
-      document.getElementById('exchange-enabled').checked = true;
-      return;
+  function renderExchangeCards() {
+    for (const ex of supportedExchanges) {
+      const card = document.querySelector(`[data-exchange-card="${ex}"]`);
+      if (!card) continue;
+      const enabled = !!exchangeSettings[ex].enabled;
+      card.classList.toggle('is-enabled',enabled);
+      card.querySelector('.exchange-select').setAttribute('aria-pressed',String(enabled));
+      card.querySelector('[data-exchange-status]').textContent = currentLanguage()==='ru'?(enabled?'Сигналы включены':'Сигналы выключены'):(enabled?'Signals on':'Signals off');
     }
-    exchangeSettings[activeExchange].enabled = enabled;
-    selectExchange(activeExchange);
+    const names = supportedExchanges.filter(ex=>exchangeSettings[ex].enabled).map(ex=>exchangeNames[ex]);
+    document.getElementById('market-selection-count').textContent = (currentLanguage()==='ru'?'Выбрано: ':'Selected: ')+names.length;
+    document.getElementById('exchange-plan-hint').textContent = names.length ? (currentLanguage()==='ru'?'Сигналы: ':'Signals: ')+names.join(', ') : (currentLanguage()==='ru'?'Выберите биржу для сигналов.':'Select an exchange for signals.');
   }
+  function toggleExchange(ex) {
+    const state=exchangeSettings[ex];
+    if (!state) return;
+    const error=document.getElementById('exchange-error');error.textContent='';
+    if (!multiExchangeAllowed()) {
+      supportedExchanges.forEach(id=>exchangeSettings[id].enabled=id===ex);
+    } else if (state.enabled && supportedExchanges.filter(id=>exchangeSettings[id].enabled).length===1) {
+      error.textContent='Для сигналов нужна хотя бы одна биржа.';return;
+    } else state.enabled=!state.enabled;
+    marketDirty=true;renderExchangeCards();
+  }
+  function openCoinExchange(ex) { selectExchange(ex);document.getElementById('market-coins-panel').scrollIntoView({behavior:'smooth',block:'start'}); }
   function setCoinsMode(mode) {
-    activeCoinsMode = mode;
-    exchangeSettings[activeExchange].mode = mode;
-    document.getElementById('coins-selector-box').classList.toggle('hidden', mode === 'all');
-    document.getElementById('mode-all-btn').className = mode === 'all' ? 'flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white' : 'flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400';
-    document.getElementById('mode-sel-btn').className = mode === 'selected' ? 'flex-1 py-1.5 rounded-lg text-xs font-medium bg-purple-700 text-white' : 'flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400';
+    if (!['all','selected'].includes(mode)) return;
+    if (exchangeSettings[activeExchange].mode!==mode) marketDirty=true;
+    activeCoinsMode=mode;exchangeSettings[activeExchange].mode=mode;renderCoinMode();renderMarket();
   }
-  function setMarketCategory(category) { activeMarketCategory = category; renderMarket(); }
-  async function loadMarket(ex) {
-    const request = ++marketRequest;
-    if (marketCache[ex]) { renderMarket(); return; }
-    document.getElementById('market-status').textContent = 'Загружаем рынки биржи...';
-    document.getElementById('coin-list').replaceChildren();
+  function renderCoinMode() {
+    document.getElementById('mode-all-btn').classList.toggle('is-active',activeCoinsMode==='all');
+    document.getElementById('mode-sel-btn').classList.toggle('is-active',activeCoinsMode==='selected');
+  }
+  function setCoinView(view) {
+    coinView=view==='grid'?'grid':'list';try { localStorage.setItem('scanny-coin-view',coinView); } catch (_) {} renderMarket();
+  }
+  function setMarketCategory(category) {activeMarketCategory=category;renderMarket();}
+  async function loadMarket(ex, force=false) {
+    const request=++marketRequest;
+    if (!force && marketCache[ex]) {renderMarket();loadMarketPrices(ex);return;}
+    const status=document.getElementById('market-status'), error=document.getElementById('market-error');
+    status.textContent='Загружаем монеты…';error.textContent='';
     try {
-      const base = window.location.hostname.includes('github.io') ? 'https://157.228.127.251.nip.io' : '';
-      const response = await fetch(base + '/api/markets/' + encodeURIComponent(ex), {headers: {'X-Telegram-Init-Data': window.Telegram?.WebApp?.initData || ''}});
-      if (!response.ok) throw new Error('HTTP ' + response.status);
-      const data = await response.json();
-      marketCache[ex] = data;
-      if (request === marketRequest) renderMarket();
-    } catch (error) {
-      if (request === marketRequest) document.getElementById('market-status').textContent = 'Не удалось загрузить рынки. Выберите биржу ещё раз.';
-    }
+      const base=window.location.hostname.includes('github.io')?'https://157.228.127.251.nip.io':'';
+      const response=await fetch(base+'/api/markets/'+encodeURIComponent(ex),{headers:{'X-Telegram-Init-Data':tg?.initData||''}});
+      if(!response.ok)throw new Error('HTTP '+response.status);
+      const data=await response.json();if(!Array.isArray(data.top)||!data.categories)throw new Error('Invalid market data');
+      marketCache[ex]=data;if(request===marketRequest)renderMarket();loadMarketPrices(ex);
+    } catch(errorValue) {if(request===marketRequest){error.textContent='Не удалось загрузить монеты. Нажмите «Обновить».';status.textContent='';}}
+  }
+  async function loadMarketPrices(ex){
+    try{
+      const base=window.location.hostname.includes('github.io')?'https://157.228.127.251.nip.io':'';
+      const response=await fetch(base+'/api/market-prices/'+encodeURIComponent(ex),{headers:{'X-Telegram-Init-Data':tg?.initData||''}});
+      if(!response.ok)throw new Error('Price request failed');
+      const result=await response.json();if(!result.prices||!Number.isFinite(Number(result.updated_at)))throw new Error('Invalid prices');
+      marketPriceCache[ex]=result;if(ex===activeExchange)renderMarket();
+    }catch(_){if(ex===activeExchange){document.getElementById('market-error').textContent='Цены временно недоступны. Повторите обновление.';renderMarket();}}
+  }
+  function refreshMarket(){return loadMarket(activeExchange,true);}
+  function categoryMarketItems(){
+    const data=marketCache[activeExchange];if(!data)return [];
+    return activeMarketCategory==='top'?data.top:(data.categories[activeMarketCategory]||[]);
+  }
+  function currentMarketItems(){
+    const items=categoryMarketItems();
+    const q=document.getElementById('market-search').value.trim().toLowerCase();
+    return items.filter(item=>String(item.symbol||'').toLowerCase().includes(q)||String(item.name||'').toLowerCase().includes(q));
+  }
+  function bulkCoins(select) {
+    if(activeCoinsMode!=='selected'){document.getElementById('market-error').textContent='Для выбора монет включите режим «Только выбранные».';return;}
+    const coins=new Set(exchangeSettings[activeExchange].coins);
+    for(const item of categoryMarketItems()) select?coins.add(item.symbol):coins.delete(item.symbol);
+    exchangeSettings[activeExchange].coins=Array.from(coins);marketDirty=true;renderMarket();
   }
   function renderMarket() {
-    document.querySelectorAll('.market-category').forEach(b => b.className = 'market-category px-3 py-1 rounded-full text-xs whitespace-nowrap ' + (b.dataset.category === activeMarketCategory ? 'bg-purple-700 text-white' : 'bg-purple-900/40 border border-purple-500/30 text-gray-300'));
-    const data = marketCache[activeExchange];
-    if (!data) return;
-    const items = activeMarketCategory === 'top' ? data.top : data.categories[activeMarketCategory] || [];
-    const list = document.getElementById('coin-list');
-    list.replaceChildren();
-    document.getElementById('market-status').textContent = items.length ? 'Выбрано: ' + exchangeSettings[activeExchange].coins.length : 'В этом разделе нет доступных пар.';
-    items.forEach(item => {
-      const label = document.createElement('label'); label.className = 'flex items-center gap-2 p-2 rounded-lg bg-purple-950/40 border border-purple-900/30 text-xs';
-      const input = document.createElement('input'); input.type = 'checkbox'; input.className = 'coin-checkbox rounded text-purple-600 focus:ring-0'; input.value = item.symbol;
-      input.checked = exchangeSettings[activeExchange].coins.includes(item.symbol);
-      input.addEventListener('change', () => {
-        const coins = new Set(exchangeSettings[activeExchange].coins);
-        input.checked ? coins.add(item.symbol) : coins.delete(item.symbol);
-        exchangeSettings[activeExchange].coins = Array.from(coins);
-        document.getElementById('market-status').textContent = 'Выбрано: ' + coins.size;
-      });
-      label.append(input, document.createTextNode(' ' + item.symbol)); list.appendChild(label);
-    });
+    document.querySelectorAll('.market-category').forEach(b=>b.classList.toggle('is-active',b.dataset.category===activeMarketCategory));
+    document.getElementById('coin-view-list').classList.toggle('is-active',coinView==='list');
+    document.getElementById('coin-view-grid').classList.toggle('is-active',coinView==='grid');
+    const list=document.getElementById('coin-list');list.classList.toggle('is-grid',coinView==='grid');list.replaceChildren();
+    if(!marketCache[activeExchange])return;
+    const items=currentMarketItems();
+    document.getElementById('market-status').textContent=items.length ? (currentLanguage()==='ru'?`Монет: ${items.length} · Выбрано: ${exchangeSettings[activeExchange].coins.length}`:`Coins: ${items.length} · Selected: ${exchangeSettings[activeExchange].coins.length}`) : (currentLanguage()==='ru'?'В этой категории монет пока нет.':'No coins in this category yet.');
+    for(const item of items){
+      const row=document.createElement('label');row.className='coin-row';
+      const input=document.createElement('input');input.type='checkbox';input.value=item.symbol;input.checked=activeCoinsMode==='all'||exchangeSettings[activeExchange].coins.includes(item.symbol);input.disabled=activeCoinsMode==='all';
+      input.addEventListener('change',()=>{const coins=new Set(exchangeSettings[activeExchange].coins);input.checked?coins.add(item.symbol):coins.delete(item.symbol);exchangeSettings[activeExchange].coins=Array.from(coins);marketDirty=true;renderMarket();});
+      const copy=document.createElement('span');copy.className='coin-row-copy';const ticker=document.createElement('b');ticker.textContent=String(item.symbol).replace(':USDT','');const name=document.createElement('small');name.textContent=item.name||'—';copy.append(ticker,name);
+      const price=document.createElement('span');price.className='coin-price';const quote=marketPriceCache[activeExchange];const raw=quote && Date.now()-Number(quote.updated_at)<90000?quote.prices[item.symbol]:null;const value=Number(raw);price.textContent=raw!==null&&raw!==undefined&&Number.isFinite(value)?'$'+value.toLocaleString(undefined,{maximumFractionDigits:8}):'—';
+      row.append(input,copy,price);list.appendChild(row);
+    }
   }
+  setInterval(()=>{const tab=document.getElementById('tab-quotes');if(tab&&!tab.classList.contains('hidden'))loadMarket(activeExchange,true);},60000);
 
   let moduleTfs = {
     levels: new Set(['5m', '15m', '30m', '1h', '2h', '4h']),
@@ -697,6 +729,7 @@
   };
 
   function toggleModuleTf(mod, tf) {
+    if (settingsReady) setModuleDirty(mod);
     if (moduleTfs[mod].has(tf)) {
       if (moduleTfs[mod].size > 1) moduleTfs[mod].delete(tf);
     } else {
@@ -706,14 +739,16 @@
   }
 
   function updateModuleTfPills(mod) {
+    const summary = document.getElementById('home-tf-' + mod);
+    if (summary) summary.textContent = Array.from(moduleTfs[mod]).sort((a,b) => ['5m','15m','30m','1h','2h','4h'].indexOf(a)-['5m','15m','30m','1h','2h','4h'].indexOf(b)).join(' · ').toUpperCase() || '—';
     document.querySelectorAll(`.tf-btn-${mod}`).forEach(b => {
       const t = b.dataset.tf;
-      b.className = moduleTfs[mod].has(t) 
-        ? `tf-btn-${mod} px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-900/50 border-purple-500 text-purple-200`
-        : `tf-btn-${mod} px-2.5 py-1 rounded-full text-[11px] font-semibold border bg-purple-950/40 border-purple-900/30 text-gray-400`;
+      b.className = `tf-btn-${mod} tf-pill` + (moduleTfs[mod].has(t) ? ' is-active' : '');
+      b.setAttribute('aria-pressed',String(moduleTfs[mod].has(t)));
     });
   }
 
+  let settingsReady = false;
   let activeWeight = 70;
   function updateWeight(val) {
     activeWeight = parseInt(val);
@@ -723,6 +758,7 @@
   let activeSide = 'any';
   function setSide(side) {
     activeSide = side;
+    if (settingsReady) setModuleDirty('levels');
     ['any', 'sup', 'res'].forEach(k => {
       const btn = document.getElementById('side-' + k + '-btn');
       if (btn) btn.className = "py-1 rounded text-xs font-medium bg-purple-950/50 text-gray-400 border border-purple-900/40";
@@ -749,6 +785,118 @@
     document.getElementById('ev-squeeze').checked = true;
     setSide('any');
   }
+
+  const moduleControls = {
+    levels:{'ev-retest':'retest','ev-breakout':'breakout','ev-approach':'approach'},
+    volume:{'ev-vol-anomaly':'volume_anomaly','ev-liq-grab':'liquidity_grab'},
+    derivatives:{'ev-oi-anomaly':'open_interest','ev-funding-anomaly':'funding_anomaly'},
+    indicators:{'ev-rsi-div':'rsi_divergence','ev-squeeze':'squeeze'}
+  };
+  let commonTfs=new Set(['5m','15m','30m','1h','2h','4h']);
+  const dirtyModules=new Set();
+  const savedModuleDrafts={};
+  let commonDirty=false;
+  function moduleDraft(mod){
+    const result={timeframes:Array.from(moduleTfs[mod]),signals:Object.entries(moduleControls[mod]).filter(([id])=>document.getElementById(id).checked).map(([,signal])=>signal)};
+    if(mod==='levels'){result.min_level_weight=activeWeight;result.level_side=activeSide;}
+    return result;
+  }
+  function setModuleDirty(mod){if(moduleControls[mod])dirtyModules.add(mod);}
+  function toggleCommonTf(tf){
+    if(commonTfs.has(tf)){if(commonTfs.size>1)commonTfs.delete(tf)}else commonTfs.add(tf);
+    commonDirty=true;renderCommonTfs();
+  }
+  function renderCommonTfs(){document.querySelectorAll('#common-tfs [data-tf]').forEach(button=>{button.classList.toggle('is-active',commonTfs.has(button.dataset.tf));button.setAttribute('aria-pressed',String(commonTfs.has(button.dataset.tf)));});}
+  function syncCommonTfs(){
+    const modules=Object.keys(moduleControls);
+    commonTfs=new Set(Array.from(moduleTfs[modules[0]]).filter(tf=>modules.every(mod=>moduleTfs[mod].has(tf))));
+    commonDirty=false;renderCommonTfs();
+  }
+  async function postSettings(path,payload){
+    const base=window.location.hostname.includes('github.io')?'https://157.228.127.251.nip.io':'';
+    const response=await fetch(base+path,{method:'POST',headers:{'Content-Type':'application/json','X-Telegram-Init-Data':tg?.initData||''},body:JSON.stringify(payload)});
+    let body={};try{body=await response.json()}catch(_){}
+    if(!response.ok||body.status!=='success')throw new Error(body.detail||'Ошибка сохранения');
+    return body;
+  }
+  function markSaved(button){
+    if(!button)return;
+    const old=button.textContent;button.textContent='Сохранено ✓';button.disabled=true;
+    if(tg?.HapticFeedback)tg.HapticFeedback.notificationOccurred('success');
+    setTimeout(()=>{button.textContent=old;button.disabled=false},2000);
+  }
+  async function saveModule(mod){
+    if(!moduleControls[mod])return false;
+    const button=document.getElementById('save-'+mod+'-btn'),error=document.getElementById('module-error-'+mod);
+    const draft=moduleDraft(mod);error.textContent='';button.disabled=true;
+    try{
+      await postSettings('/api/settings/module/'+encodeURIComponent(mod),draft);
+      savedModuleDrafts[mod]=JSON.parse(JSON.stringify(draft));
+      if(JSON.stringify(moduleDraft(mod))===JSON.stringify(draft))dirtyModules.delete(mod);
+      updateHomeProfile();markSaved(button);return true;
+    }catch(err){error.textContent='Не удалось сохранить. Попробуйте ещё раз.';button.disabled=false;return false;}
+  }
+  async function applyCommonTfs(){
+    const error=document.getElementById('common-error'),button=document.getElementById('common-save-btn');error.textContent='';
+    if(!commonTfs.size){error.textContent='Выберите хотя бы один таймфрейм.';return false;}
+    if(dirtyModules.size && !window.confirm('Индивидуальные изменения таймфреймов будут заменены общим выбором. Продолжить?'))return false;
+    const chosen=Array.from(commonTfs);button.disabled=true;
+    try{
+      await postSettings('/api/settings/timeframes',{timeframes:chosen});
+      for(const mod of Object.keys(moduleControls)){moduleTfs[mod]=new Set(chosen);updateModuleTfPills(mod);}
+      for(const mod of Object.keys(moduleControls)){
+        if(savedModuleDrafts[mod])savedModuleDrafts[mod].timeframes=[...chosen];
+        if(savedModuleDrafts[mod] && JSON.stringify(moduleDraft(mod))===JSON.stringify(savedModuleDrafts[mod]))dirtyModules.delete(mod);
+      }
+      commonDirty=false;markSaved(button);return true;
+    }catch(err){error.textContent='Не удалось применить. Попробуйте ещё раз.';button.disabled=false;return false;}
+  }
+  async function saveMarkets(){
+    const button=document.getElementById('market-save-btn'),error=document.getElementById('exchange-error');
+    const payload={exchange:activeExchange,exchange_settings:JSON.parse(JSON.stringify(exchangeSettings))};error.textContent='';button.disabled=true;
+    try{
+      await postSettings('/api/settings/markets',payload);
+      savedExchangeSettings=JSON.parse(JSON.stringify(payload.exchange_settings));
+      savedActiveExchange=payload.exchange_settings[payload.exchange]?.enabled ? payload.exchange : Object.keys(payload.exchange_settings).find(ex=>payload.exchange_settings[ex].enabled);
+      if(JSON.stringify(exchangeSettings)===JSON.stringify(payload.exchange_settings))marketDirty=false;
+      updateHomeProfile();markSaved(button);return true;
+    }catch(err){error.textContent='Не удалось сохранить рынки. Проверьте выбор и попробуйте ещё раз.';button.disabled=false;return false;}
+  }
+
+  function restoreModuleDraft(mod){
+    const value=savedModuleDrafts[mod];if(!value)return;
+    moduleTfs[mod]=new Set(value.timeframes);
+    for(const [id,signal] of Object.entries(moduleControls[mod]))document.getElementById(id).checked=value.signals.includes(signal);
+    if(mod==='levels'){document.getElementById('weight-slider').value=value.min_level_weight;updateWeight(value.min_level_weight);setSide(value.level_side);}
+    updateModuleTfPills(mod);
+  }
+  async function resolveUnsavedChanges(target){
+    const markets=document.getElementById('tab-quotes'),filters=document.getElementById('tab-screeners');
+    const leavingMarkets=markets && !markets.classList.contains('hidden') && target!=='quotes' && marketDirty;
+    const leavingFilters=filters && !filters.classList.contains('hidden') && target!=='screeners' && (dirtyModules.size>0||commonDirty);
+    if(!leavingMarkets&&!leavingFilters)return true;
+    const dialog=document.getElementById('unsaved-dialog');
+    let choice;
+    if(!dialog || typeof dialog.showModal!=='function')choice=window.confirm('Есть несохранённые изменения. Отменить их и перейти?')?'discard':'stay';
+    else {
+      const description=document.getElementById('unsaved-description');
+      description.textContent=commonDirty&&dirtyModules.size?'Сначала сохраните модули и отдельно примените общий выбор, либо отмените изменения.':'Сохранить изменения перед переходом?';
+      choice=await new Promise(resolve=>{dialog.addEventListener('close',()=>resolve(dialog.returnValue),{once:true});dialog.showModal();});
+    }
+    if(choice==='stay'||!choice)return false;
+    if(choice==='save'){
+      if(commonDirty&&dirtyModules.size){return false;}
+      if(leavingMarkets&&!(await saveMarkets()))return false;
+      if(leavingFilters){for(const mod of [...dirtyModules])if(!(await saveModule(mod)))return false;if(commonDirty&&!(await applyCommonTfs()))return false;}
+      return true;
+    }
+    if(choice!=='discard')return false;
+    if(leavingMarkets&&savedExchangeSettings){exchangeSettings=JSON.parse(JSON.stringify(savedExchangeSettings));marketDirty=false;selectExchange(savedActiveExchange);}
+    if(leavingFilters){const previous=settingsReady;settingsReady=false;for(const mod of Object.keys(moduleControls))restoreModuleDraft(mod);settingsReady=previous;dirtyModules.clear();syncCommonTfs();updateHomeProfile();}
+    return true;
+  }
+  window.addEventListener('beforeunload',event=>{if(marketDirty||dirtyModules.size||commonDirty){event.preventDefault();event.returnValue='';}});
+
 
   async function copyRefLink() {
     const el = document.getElementById('ref-link-input');
@@ -865,6 +1013,7 @@
       }
 
       if (window.Telegram?.WebApp?.HapticFeedback) window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
+      updateHomeProfile();
       toast.classList.add('toast-visible');
       setTimeout(() => toast.classList.remove('toast-visible'), 3000);
       
@@ -902,66 +1051,148 @@
       const result = await response.json();
       if (result.paused !== wanted) throw new Error('Invalid response');
       if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+      updateHomeProfile();
     } catch (error) {
       toggle.checked = !wanted;
       alert('Не удалось сохранить паузу уведомлений. Попробуйте ещё раз.');
     } finally { toggle.disabled = false; }
   }
 
-  let activeFeedTf = 'All';
-  let feedInterval = null;
-  let feedSignals = [];
-  let feedLoading = false;
-
-  function setFeedTf(tf) {
-    activeFeedTf = tf;
-    document.querySelectorAll('.feed-tf-btn').forEach(b => {
-      const selected = tf === 'All' ? b.hasAttribute('data-i18n') : b.textContent.trim().toLowerCase() === tf.toLowerCase();
-      b.className = selected ? 'feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-600 text-white shadow-md' : 'feed-tf-btn px-3 py-1 rounded-full text-xs font-semibold bg-purple-950/50 text-gray-400 border border-purple-900/40';
-    });
-    renderFeed();
+  let activeFeedTf='All';
+  let feedInterval=null;
+  let feedSignals=[];
+  let feedLoading=false;
+  let feedTimezone='local';
+  try{if(localStorage.getItem('scanny-event-timezone')==='utc')feedTimezone='utc';}catch(_){}
+  const eventLabels={retest:['Ретест','Retest'],breakout:['Пробой','Breakout'],approach:['Подход','Approach'],volume_anomaly:['Объём','Volume'],liquidity_grab:['Свип','Liquidity sweep'],high_funding:['Фандинг','Funding'],oi_spike:['Открытый интерес','Open interest'],divergence:['RSI-дивергенция','RSI divergence'],rsi_divergence:['RSI-дивергенция','RSI divergence'],squeeze:['Сжатие','Squeeze'],momentum:['Импульс','Momentum']};
+  function eventLabel(type){return eventLabels[type]?.[currentLanguage()==='ru'?0:1]||type;}
+  function setFeedTimezone(value){feedTimezone=value==='utc'?'utc':'local';try{localStorage.setItem('scanny-event-timezone',feedTimezone)}catch(_){}renderFeed();renderHomeEvents();updateHomeProfile();}
+  function eventTime(ms){
+    const value=Number(ms);if(!Number.isFinite(value)||value<=0)return '—';
+    const date=new Date(value);const options={day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'};
+    if(feedTimezone==='utc')options.timeZone='UTC';
+    return date.toLocaleString(undefined,options)+(feedTimezone==='utc'?' UTC':'');
   }
-
-  function fetchSignalsAuto() {
+  function setFeedTf(tf){
+    activeFeedTf=tf;
+    document.querySelectorAll('.feed-tf-btn').forEach(b=>b.classList.toggle('is-active',tf==='All'?b.hasAttribute('data-i18n'):b.textContent.trim().toLowerCase()===tf.toLowerCase()));
     fetchSignalsManual(false);
-    if (!feedInterval) feedInterval = setInterval(() => fetchSignalsManual(false), 30000);
+  }
+  function fetchSignalsAuto(){
+    fetchSignalsManual(false);
+    if(!feedInterval)feedInterval=setInterval(()=>{
+      const feed=document.getElementById('tab-feed');
+      if(feed&&!feed.classList.contains('hidden'))fetchSignalsManual(false);
+      else fetchHomeEvents();
+    },30000);
+  }
+  async function getSignalData(tf='All'){
+    const base=window.location.hostname.includes('github.io')?'https://157.228.127.251.nip.io':'';
+    const query=tf==='All'?'':'?timeframe='+encodeURIComponent(tf);
+    const response=await fetch(base+'/api/feed'+query,{headers:{'X-Telegram-Init-Data':tg?.initData||''}});
+    if(!response.ok)throw new Error('Feed unavailable');
+    const data=await response.json();if(!Array.isArray(data.signals))throw new Error('Invalid feed');return data.signals;
+  }
+  let homeSignals=[];
+  async function fetchHomeEvents(){
+    try{homeSignals=await getSignalData();renderHomeEvents(homeSignals)}
+    catch(_){const root=document.getElementById('home-recent-events');if(root)root.textContent='Не удалось загрузить события';}
+  }
+  async function fetchSignalsManual(manual=true){
+    if(feedLoading)return;
+    feedLoading=true;const button=document.getElementById('feed-refresh-btn'),status=document.getElementById('feed-update-status');
+    button.disabled=true;button.textContent='…';status.textContent='Обновляем события…';
+    if(manual&&tg?.HapticFeedback)tg.HapticFeedback.impactOccurred('light');
+    const requestedTf=activeFeedTf;
+    try{
+      const data=await getSignalData(requestedTf);
+      if(requestedTf!==activeFeedTf){setTimeout(()=>fetchSignalsManual(false),0);return;}
+      feedSignals=data;renderFeed();
+      if(requestedTf==='All'){homeSignals=data;renderHomeEvents(homeSignals);}
+      status.textContent='Обновлено: '+new Date().toLocaleTimeString();
+    }catch(_){status.textContent='Не удалось обновить события. Нажмите ↻, чтобы повторить.';}
+    finally{feedLoading=false;button.disabled=false;button.textContent='↻';}
+  }
+  function groupEvents(signals){
+    const groups=new Map();
+    for(const [index,sig] of signals.entries()){
+      const key=String(sig.symbol)+'|'+(sig.event_ms == null ? 'unknown-'+index : String(sig.event_ms));
+      if(!groups.has(key))groups.set(key,{symbol:sig.symbol,event_ms:sig.event_ms,items:[]});
+      groups.get(key).items.push(sig);
+    }
+    return Array.from(groups.values()).sort((a,b)=>(Number(b.event_ms)||0)-(Number(a.event_ms)||0)).slice(0,100);
+  }
+  function renderFeed(){
+    const q=document.getElementById('feed-search').value.trim().toLowerCase(),root=document.getElementById('feed-items-container');
+    const groups=groupEvents(feedSignals.filter(sig=>String(sig.symbol||'').toLowerCase().includes(q)&&(activeFeedTf==='All'||sig.timeframe===activeFeedTf)));
+    root.replaceChildren();
+    if(!groups.length){const empty=document.createElement('div');empty.className='event-empty';empty.append(document.createTextNode(currentLanguage()==='ru'?'Событий по текущим настройкам пока нет.':'No events match the current settings yet.'));const btn=document.createElement('button');btn.type='button';btn.textContent=currentLanguage()==='ru'?'Проверить фильтры →':'Check filters →';btn.onclick=()=>switchTab('screeners');empty.appendChild(btn);root.appendChild(empty);return;}
+    for(const group of groups){
+      const block=document.createElement('details');block.className='event-row';const summary=document.createElement('summary');
+      const head=document.createElement('div');head.className='event-row-head';const symbol=document.createElement('span');symbol.className='event-symbol';symbol.textContent=String(group.symbol||'').replace(':USDT','');const time=document.createElement('time');time.className='event-time';time.textContent=eventTime(group.event_ms);head.append(symbol,time);
+      const types=document.createElement('p');types.className='event-summary';types.textContent=Array.from(new Set(group.items.map(item=>eventLabel(item.signal_type)))).join(' · ');
+      const venues=document.createElement('p');venues.className='event-venues';venues.textContent=Array.from(new Set(group.items.map(item=>String(item.exchange||'').toUpperCase()))).join(' · ')+'  /  '+Array.from(new Set(group.items.map(item=>String(item.timeframe||'').toUpperCase()))).join(', ');
+      summary.append(head,types,venues);block.appendChild(summary);
+      const byExchange=new Map();for(const item of group.items){const ex=String(item.exchange||'').toUpperCase();if(!byExchange.has(ex))byExchange.set(ex,[]);byExchange.get(ex).push(item);}
+      for(const [ex,items] of byExchange){
+        const detail=document.createElement('div');detail.className='event-detail';const title=document.createElement('h4');title.className='event-exchange';title.textContent=ex;detail.appendChild(title);
+        const byType=new Map();for(const item of items){const name=eventLabel(item.signal_type);if(!byType.has(name))byType.set(name,new Set());byType.get(name).add(String(item.timeframe||'').toUpperCase());}
+        for(const [name,frames] of byType){const row=document.createElement('p');row.textContent=name+' · '+Array.from(frames).join(', ');detail.appendChild(row);}
+        if(['BINGX','BINANCE','BYBIT','BITGET'].includes(ex)){const chart=document.createElement('a');const symbol=String(group.symbol||'').replace(':USDT','').replace('/','');chart.href='https://www.tradingview.com/chart/?symbol='+encodeURIComponent(ex+':'+symbol+'.P');chart.target='_blank';chart.rel='noopener noreferrer';chart.textContent=currentLanguage()==='ru'?'Открыть график ↗':'Open chart ↗';detail.appendChild(chart);}
+        block.appendChild(detail);
+      }
+      root.appendChild(block);
+    }
   }
 
-  async function fetchSignalsManual(manual = true) {
-    if (feedLoading) return;
-    feedLoading = true;
-    const button = document.getElementById('feed-refresh-btn');
-    const status = document.getElementById('feed-update-status');
-    button.disabled = true; button.textContent = '…'; status.textContent = 'Обновляем сигналы…';
-    if (manual && tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-    try {
-      const base = window.location.hostname.includes('github.io') ? 'https://157.228.127.251.nip.io' : '';
-      const response = await fetch(base + '/api/feed', {headers: {'X-Telegram-Init-Data': tg?.initData || ''}});
-      if (!response.ok) throw new Error('HTTP ' + response.status);
-      const data = await response.json();
-      if (!Array.isArray(data.signals)) throw new Error('Invalid response');
-      feedSignals = data.signals;
-      renderFeed();
-      status.textContent = 'Обновлено: ' + new Date().toLocaleTimeString();
-    } catch (error) { status.textContent = 'Не удалось обновить ленту'; }
-    finally { feedLoading = false; button.disabled = false; button.textContent = '↻'; }
-  }
 
-  function renderFeed() {
-    const search = document.getElementById('feed-search').value.toLowerCase();
-    const labels = {retest:'Ретест',breakout:'Пробой',approach:'Подход',volume_anomaly:'Объём',liquidity_grab:'Свип',high_funding:'Фандинг',oi_spike:'Открытый интерес',divergence:'RSI-дивергенция',rsi_divergence:'RSI-дивергенция',squeeze:'Сжатие',momentum:'Импульс'};
-    const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-    const filtered = feedSignals.filter(s => String(s.symbol || '').toLowerCase().includes(search) && (activeFeedTf === 'All' || String(s.timeframe).toLowerCase() === activeFeedTf.toLowerCase()));
-    const html = filtered.map(s => {
-      const date = Number.isFinite(Number(s.event_ms)) && Number(s.event_ms) > 0 ? new Date(Number(s.event_ms)).toLocaleString() : '';
-      return `<div class="glass-card p-3 mb-2"><div class="flex justify-between items-start"><span class="text-xs font-bold text-white">${escapeHtml(String(s.symbol).replace(':USDT',''))} <span class="text-purple-300">${escapeHtml(String(s.timeframe).toUpperCase())}</span></span><span class="text-[10px] text-gray-400">${escapeHtml(date)}</span></div><p class="text-xs text-gray-300 mt-1.5">${escapeHtml(labels[s.signal_type] || s.signal_type)}: <b class="text-white">${escapeHtml(s.price)}</b></p><p class="text-[10px] text-purple-300 mt-1">Биржа: ${escapeHtml(String(s.exchange || '').toUpperCase())}</p></div>`;
-    }).join('');
-    const lang = document.getElementById('lang-toggle').checked ? 'ru' : 'en';
-    document.getElementById('feed-items-container').innerHTML = html || `<p class="text-xs text-center text-gray-500 mt-4">${translations[lang].feed_empty}</p>`;
+  function renderHomeEvents(signals = homeSignals) {
+    const root = document.getElementById('home-recent-events');
+    if (!root) return;
+    const grouped = new Map();
+    for (const item of signals) {
+      const key = `${item.symbol}|${item.event_ms}`;
+      if (!grouped.has(key)) grouped.set(key, {symbol:item.symbol, event_ms:item.event_ms, exchanges:new Set(), frames:new Set()});
+      const group = grouped.get(key); group.exchanges.add(String(item.exchange || '').toUpperCase()); group.frames.add(String(item.timeframe || '').toUpperCase());
+    }
+    const events = Array.from(grouped.values()).slice(0, 3);
+    root.replaceChildren();
+    if (!events.length) { const p=document.createElement('p');p.className='home-empty';p.textContent='Пока нет событий по выбранным настройкам';root.appendChild(p);return; }
+    for (const event of events) {
+      const row=document.createElement('div');row.className='home-event';
+      const left=document.createElement('div'), title=document.createElement('b'), subtitle=document.createElement('small');
+      title.textContent=String(event.symbol || '').replace(':USDT','');subtitle.textContent=Array.from(event.exchanges).join(' · ')+'  /  '+Array.from(event.frames).join(', ');left.append(title,subtitle);
+      const when=document.createElement('span');when.className='home-event-time';when.textContent=eventTime(event.event_ms);row.append(left,when);root.appendChild(row);
+    }
   }
-
+  let scannerStatus=null;
+  async function fetchScannerStatus(){
+    const base=window.location.hostname.includes('github.io')?'https://157.228.127.251.nip.io':'';
+    try{const response=await fetch(base+'/api/scanner-status',{headers:{'X-Telegram-Init-Data':tg?.initData||''}});if(!response.ok)throw new Error('Status unavailable');scannerStatus=await response.json();}
+    catch(_){scannerStatus=null;}
+    updateHomeProfile();
+  }
+  function updateHomeProfile() {
+    const names={bingx:'BingX',binance:'Binance',bybit:'Bybit',bitget:'Bitget'};
+    const selected=savedExchangeSettings||exchangeSettings;
+    const enabled=supportedExchanges.filter(ex=>selected[ex].enabled).map(ex=>names[ex]);
+    const toggle=document.getElementById('pause-toggle');
+    const node=document.getElementById('home-exchanges');if(node)node.textContent=(currentLanguage()==='ru'?'Биржи: ':'Exchanges: ')+(enabled.join(', ')||(currentLanguage()==='ru'?'не выбраны':'none'))+(toggle?.checked?(currentLanguage()==='ru'?' · уведомления на паузе':' · notifications paused'):'');
+    const label=document.getElementById('home-status-label'),dot=document.getElementById('home-status-dot'),updated=document.getElementById('home-updated');
+    const ru=currentLanguage()==='ru';
+    if(label)label.textContent=scannerStatus?.state==='running'?(ru?'Сканер работает':'Scanner running'):scannerStatus?.state==='delayed'?(ru?'Сканирование задерживается':'Scanning delayed'):scannerStatus?.state==='offline'?(ru?'Сканер недоступен':'Scanner offline'):(ru?'Статус сканера не проверен':'Scanner status unknown');
+    if(dot)dot.style.background=scannerStatus?.state==='running'?'#8bd6a4':scannerStatus?'#fd8f32':'#b8a9ca';
+    if(updated)updated.textContent=scannerStatus?.last_completed_ms?eventTime(scannerStatus.last_completed_ms):'—';
+    ['levels','volume','derivatives','indicators'].forEach(updateModuleTfPills);
+  }
 
   window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('event-timezone').value=feedTimezone;
+    const filters = document.getElementById('tab-screeners');
+    for (const eventName of ['change','input']) filters.addEventListener(eventName, event => {
+      const card=event.target.closest('details[id^="module-card-"]');
+      if(card && settingsReady) setModuleDirty(card.id.replace('module-card-',''));
+    });
     const apiUrl = window.location.hostname.includes('github.io') ? 'https://157.228.127.251.nip.io/api/me' : '/api/me';
 
     fetch(apiUrl, {
@@ -978,10 +1209,12 @@
       if (user.ref_link) document.getElementById('ref-link-input').value = user.ref_link;
       if (user.bonus_pro_days !== undefined) document.getElementById('bonus-days-val').textContent = user.bonus_pro_days;
       if (user.days_left !== undefined) {
-        document.getElementById('top-plan-badge').textContent = `Триал: осталось ${user.days_left} дн.`;
+        const badge = document.getElementById('top-plan-badge');
+        badge.textContent = user.plan === 'trial' ? `Триал: ${user.days_left} дн.` : (user.plan || '').toUpperCase();
       }
       
       currentPlan = user.plan || 'starter';
+      const profilePlan=document.getElementById('profile-plan');if(profilePlan)profilePlan.textContent=({trial:'Триал',starter:'Starter',trader:'Trader',pro:'Pro',free_marketing:'Бесплатный'}[currentPlan]||currentPlan);
       if (user.settings && user.settings.length > 0) {
         const s = user.settings[user.settings.length - 1];
         if (s.notifications_paused !== undefined && document.getElementById('pause-toggle')) {
@@ -1046,10 +1279,21 @@
         }
         if (s.level_side) setSide(s.level_side);
       } else { selectExchange(activeExchange); }
+      settingsReady=true;
+      savedExchangeSettings=JSON.parse(JSON.stringify(exchangeSettings));
+      savedActiveExchange=activeExchange;
+      for(const mod of Object.keys(moduleControls))savedModuleDrafts[mod]=moduleDraft(mod);
+      syncCommonTfs();
+      updateHomeProfile();
+      fetchSignalsAuto();
+      fetchScannerStatus();
+      setInterval(fetchScannerStatus,30000);
     }).catch(err => { console.error("Ошибка загрузки:", err); selectExchange(activeExchange); alert(!tg?.initData ? 'Откройте приложение кнопкой «📱 Приложение» рядом с полем ввода в чате с ботом. Старая кнопка на клавиатуре не поддерживает вход.' : 'Не удалось загрузить настройки. Закройте и откройте приложение ещё раз.'); });
   });
 </script>
 </body>
 </html>
+
+
 
 
