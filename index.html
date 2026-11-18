@@ -331,6 +331,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     </div>
   <p id="module-error-indicators" class="field-error" role="status"></p><button type="button" id="save-indicators-btn" class="secondary-save" onclick="saveModule('indicators')" data-ui="save">Сохранить</button></div></details>
 
+  <details class="filter-module"><summary><span>Ликвидации · 15m</span></summary><div class="filter-body">
+    <p class="screen-note">Всплеск от 2× среднего за 24 часа. Первые сигналы появятся после 24 часов непрерывного наблюдения.</p>
+    <p class="screen-note">Bybit: сумма оценена по цене банкротства. Binance: неполный поток и оценочная сумма. Bitget: неполный поток. BingX: данные недоступны.</p>
+    <label class="flex items-center justify-between p-2 text-xs"><span>Всплеск ликвидаций</span><input id="liquidation-enabled" type="checkbox" onchange="liquidationDirty=true"></label>
+    <label class="screen-note" for="liquidation-min">Минимальная сумма за 15 минут, USDT</label><input id="liquidation-min" type="number" min="0" max="1000000000000" step="100" value="10000" oninput="liquidationDirty=true" class="coin-tools">
+    <p id="liquidation-error" class="field-error" role="status"></p><button type="button" id="save-liquidation-btn" class="secondary-save" onclick="saveLiquidations()">Сохранить</button>
+  </div></details>
   <button id="save-btn" hidden disabled></button>
 </div>
 
@@ -769,6 +776,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   const dirtyModules=new Set();
   const savedModuleDrafts={};
   let commonDirty=false;
+  let liquidationDirty=false;
+  let savedLiquidation={enabled:false,min_usdt:10000};
+  function setLiquidationDraft(value){savedLiquidation={enabled:value?.enabled===true,min_usdt:Number.isFinite(Number(value?.min_usdt))?Number(value.min_usdt):10000};document.getElementById('liquidation-enabled').checked=savedLiquidation.enabled;document.getElementById('liquidation-min').value=savedLiquidation.min_usdt;liquidationDirty=false;}
+  async function saveLiquidations(){
+    const field=document.getElementById('liquidation-min'),error=document.getElementById('liquidation-error'),button=document.getElementById('save-liquidation-btn');
+    const amount=Number(field.value);error.textContent='';
+    if(field.value.trim()===''||!Number.isFinite(amount)||amount<0||amount>1e12){error.textContent='Введите сумму от 0 до 1 000 000 000 000 USDT.';return false;}
+    const draft={enabled:document.getElementById('liquidation-enabled').checked,min_usdt:amount};button.disabled=true;
+    try{await postSettings('/api/settings/liquidations',draft);savedLiquidation=draft;liquidationDirty=(document.getElementById('liquidation-enabled').checked!==draft.enabled||Number(field.value)!==draft.min_usdt);markSaved(button);return true;}
+    catch(_){error.textContent='Не удалось сохранить. Попробуйте ещё раз.';button.disabled=false;return false;}
+  }
   function moduleDraft(mod){
     const result={timeframes:Array.from(moduleTfs[mod]),signals:Object.entries(moduleControls[mod]).filter(([id])=>document.getElementById(id).checked).map(([,signal])=>signal)};
     if(mod==='levels'){result.min_level_weight=activeWeight;result.level_side=activeSide;}
@@ -846,7 +864,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   async function resolveUnsavedChanges(target){
     const markets=document.getElementById('tab-quotes'),filters=document.getElementById('tab-screeners');
     const leavingMarkets=markets && !markets.classList.contains('hidden') && target!=='quotes' && marketDirty;
-    const leavingFilters=filters && !filters.classList.contains('hidden') && target!=='screeners' && (dirtyModules.size>0||commonDirty);
+    const leavingFilters=filters && !filters.classList.contains('hidden') && target!=='screeners' && (dirtyModules.size>0||commonDirty||liquidationDirty);
     if(!leavingMarkets&&!leavingFilters)return true;
     const dialog=document.getElementById('unsaved-dialog');
     let choice;
@@ -860,15 +878,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     if(choice==='save'){
       if(commonDirty&&dirtyModules.size){return false;}
       if(leavingMarkets&&!(await saveMarkets()))return false;
-      if(leavingFilters){for(const mod of [...dirtyModules])if(!(await saveModule(mod)))return false;if(commonDirty&&!(await applyCommonTfs()))return false;}
+      if(leavingFilters){for(const mod of [...dirtyModules])if(!(await saveModule(mod)))return false;if(commonDirty&&!(await applyCommonTfs()))return false;if(liquidationDirty&&!(await saveLiquidations()))return false;}
       return true;
     }
     if(choice!=='discard')return false;
     if(leavingMarkets&&savedExchangeSettings){exchangeSettings=JSON.parse(JSON.stringify(savedExchangeSettings));marketDirty=false;selectExchange(savedActiveExchange);}
-    if(leavingFilters){const previous=settingsReady;settingsReady=false;for(const mod of Object.keys(moduleControls))restoreModuleDraft(mod);settingsReady=previous;dirtyModules.clear();syncCommonTfs();updateHomeProfile();}
+    if(leavingFilters){const previous=settingsReady;settingsReady=false;for(const mod of Object.keys(moduleControls))restoreModuleDraft(mod);settingsReady=previous;dirtyModules.clear();setLiquidationDraft(savedLiquidation);syncCommonTfs();updateHomeProfile();}
     return true;
   }
-  window.addEventListener('beforeunload',event=>{if(marketDirty||dirtyModules.size||commonDirty){event.preventDefault();event.returnValue='';}});
+  window.addEventListener('beforeunload',event=>{if(marketDirty||dirtyModules.size||commonDirty||liquidationDirty){event.preventDefault();event.returnValue='';}});
 
 
   async function copyRefLink() {
@@ -1029,7 +1047,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   let feedLoading=false;
   let feedTimezone='local';
   try{if(localStorage.getItem('scanny-event-timezone')==='utc')feedTimezone='utc';}catch(_){}
-  const eventLabels={ema_cross:['Пересечение EMA 20/50','EMA 20/50 cross'],macd_cross:['Пересечение MACD','MACD cross'],macd_divergence:['MACD-дивергенция','MACD divergence'],retest:['Ретест','Retest'],breakout:['Пробой','Breakout'],approach:['Подход','Approach'],volume_anomaly:['Объём','Volume'],liquidity_grab:['Свип','Liquidity sweep'],high_funding:['Фандинг','Funding'],oi_spike:['Открытый интерес','Open interest'],divergence:['RSI-дивергенция','RSI divergence'],rsi_divergence:['RSI-дивергенция','RSI divergence'],squeeze:['Сжатие','Squeeze'],momentum:['Импульс','Momentum']};
+  const eventLabels={liquidation_spike:['Всплеск ликвидаций','Liquidation spike'],ema_cross:['Пересечение EMA 20/50','EMA 20/50 cross'],macd_cross:['Пересечение MACD','MACD cross'],macd_divergence:['MACD-дивергенция','MACD divergence'],retest:['Ретест','Retest'],breakout:['Пробой','Breakout'],approach:['Подход','Approach'],volume_anomaly:['Объём','Volume'],liquidity_grab:['Свип','Liquidity sweep'],high_funding:['Фандинг','Funding'],oi_spike:['Открытый интерес','Open interest'],divergence:['RSI-дивергенция','RSI divergence'],rsi_divergence:['RSI-дивергенция','RSI divergence'],squeeze:['Сжатие','Squeeze'],momentum:['Импульс','Momentum']};
   function eventLabel(type){return eventLabels[type]?.[currentLanguage()==='ru'?0:1]||type;}
   function setFeedTimezone(value){feedTimezone=value==='utc'?'utc':'local';try{localStorage.setItem('scanny-event-timezone',feedTimezone)}catch(_){}renderFeed();renderHomeEvents();updateHomeProfile();}
   function eventTime(ms){
@@ -1103,6 +1121,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         const detail=document.createElement('div');detail.className='event-detail';const title=document.createElement('h4');title.className='event-exchange';title.textContent=ex;detail.appendChild(title);
         const byType=new Map();for(const item of items){const name=eventLabel(item.signal_type);if(!byType.has(name))byType.set(name,new Set());byType.get(name).add(String(item.timeframe||'').toUpperCase());}
         for(const [name,frames] of byType){const row=document.createElement('p');row.textContent=name+' · '+Array.from(frames).join(', ');detail.appendChild(row);}
+        for(const item of items.filter(item=>item.signal_type==='liquidation_spike')){const note=document.createElement('p');note.textContent=({BYBIT:'Сумма оценена по цене банкротства',BINANCE:'Неполный поток, сумма оценочная',BITGET:'Неполный поток'}[ex]||'')+(item.observed_usdt!=null?' · $'+Number(item.observed_usdt).toLocaleString(undefined,{maximumFractionDigits:0}):'');detail.appendChild(note);}
         if(['BINGX','BINANCE','BYBIT','BITGET'].includes(ex)){const chart=document.createElement('a');const symbol=String(group.symbol||'').replace(':USDT','').replace('/','');chart.href='https://www.tradingview.com/chart/?symbol='+encodeURIComponent(ex+':'+symbol+'.P');chart.target='_blank';chart.rel='noopener noreferrer';chart.textContent=currentLanguage()==='ru'?'Открыть график ↗':'Open chart ↗';detail.appendChild(chart);}
         block.appendChild(detail);
       }
@@ -1211,6 +1230,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
         
         if (tfData) {
+          setLiquidationDraft(tfData._liquidation);
           if (typeof tfData === 'object' && !Array.isArray(tfData)) {
             ['levels', 'volume', 'derivatives', 'indicators'].forEach(mod => {
               if (tfData[mod]) {
